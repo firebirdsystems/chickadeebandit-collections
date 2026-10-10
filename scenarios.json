@@ -1,0 +1,1635 @@
+{
+  "scenarios": [
+    {
+      "name": "everyone sees every collection; a child may start one and fill it, and the first-render reads return it",
+      "members": {
+        "parent": "adult",
+        "kid": "child",
+        "sibling": "child"
+      },
+      "steps": [
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "INSERT INTO app_collections__collections (id, name, description, auto_cutout, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)",
+          "params": [
+            "c1",
+            "Teddy bears",
+            "",
+            1,
+            "{{kid}}",
+            "2026-01-01T00:00:00Z",
+            "2026-01-01T00:00:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "INSERT INTO app_collections__tags (id, collection_id, name, created_by, created_at) VALUES (?, ?, ?, ?, ?)",
+          "params": [
+            "t1",
+            "c1",
+            "Steiff",
+            "{{kid}}",
+            "2026-01-01T00:00:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "INSERT INTO app_collections__locations (id, name, created_by, created_at) VALUES (?, ?, ?, ?)",
+          "params": [
+            "l1",
+            "Bedroom shelf",
+            "{{kid}}",
+            "2026-01-01T00:00:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          "params": [
+            "i1",
+            "c1",
+            "Barnaby",
+            "From Grandma",
+            "[\"t1\"]",
+            "[\"l1\"]",
+            "{{kid}}",
+            "2026-01-02T00:00:00Z",
+            "2026-01-02T00:00:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "INSERT INTO app_collections__photos (id, collection_id, item_id, file_id, thumb_file_id, cutout_file_id, cutout_status, cutout_requested_at, use_cutout, sort_order, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          "params": [
+            "p1",
+            "c1",
+            "i1",
+            "file-1",
+            "thumb-1",
+            null,
+            "none",
+            null,
+            1,
+            0,
+            "{{kid}}",
+            "2026-01-02T00:00:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "SELECT id, name, description, auto_cutout, created_by, created_at, updated_at FROM app_collections__collections ORDER BY created_at DESC, id DESC",
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "id": "c1",
+                "name": "Teddy bears",
+                "auto_cutout": 1
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "SELECT id, collection_id, name, created_by, created_at FROM app_collections__tags ORDER BY created_at, id",
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "id": "t1",
+                "name": "Steiff"
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "SELECT id, name, created_by, created_at FROM app_collections__locations ORDER BY created_at, id",
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "id": "l1",
+                "name": "Bedroom shelf"
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "SELECT id, collection_id, name, note, acquired_date, tag_ids, location_ids, created_by, created_at, updated_at FROM app_collections__items ORDER BY created_at DESC, id DESC LIMIT 120",
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "id": "i1",
+                "name": "Barnaby",
+                "tag_ids": "[\"t1\"]"
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "SELECT id, collection_id, item_id, file_id, thumb_file_id, cutout_file_id, cutout_status, cutout_requested_at, use_cutout, sort_order, created_by, created_at FROM app_collections__photos ORDER BY created_at DESC, id DESC LIMIT 120",
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "id": "p1",
+                "file_id": "file-1",
+                "cutout_status": "none",
+                "use_cutout": 1
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "parent",
+          "sql": "SELECT id, collection_id, name, note, acquired_date, tag_ids, location_ids, created_by, created_at, updated_at FROM app_collections__items WHERE (created_at < ? OR (created_at = ? AND id < ?)) ORDER BY created_at DESC, id DESC LIMIT 1500",
+          "params": [
+            "2026-01-03T00:00:00Z",
+            "2026-01-03T00:00:00Z",
+            "zzz"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 1
+          }
+        },
+        {
+          "action": "db",
+          "as": "parent",
+          "sql": "SELECT id, collection_id, name, note, acquired_date, tag_ids, location_ids, created_by, created_at, updated_at FROM app_collections__items WHERE (created_at < ? OR (created_at = ? AND id < ?)) ORDER BY created_at DESC, id DESC LIMIT 1500",
+          "params": [
+            "2026-01-02T00:00:00Z",
+            "2026-01-02T00:00:00Z",
+            "i1"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 0
+          }
+        },
+        {
+          "action": "db",
+          "as": "parent",
+          "sql": "SELECT id, collection_id, item_id, file_id, thumb_file_id, cutout_file_id, cutout_status, cutout_requested_at, use_cutout, sort_order, created_by, created_at FROM app_collections__photos WHERE (created_at < ? OR (created_at = ? AND id < ?)) ORDER BY created_at DESC, id DESC LIMIT 1500",
+          "params": [
+            "2026-01-03T00:00:00Z",
+            "2026-01-03T00:00:00Z",
+            "zzz"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 1
+          }
+        },
+        {
+          "action": "db",
+          "as": "parent",
+          "sql": "SELECT id, collection_id, item_id, file_id, thumb_file_id, cutout_file_id, cutout_status, cutout_requested_at, use_cutout, sort_order, created_by, created_at FROM app_collections__photos WHERE (created_at < ? OR (created_at = ? AND id < ?)) ORDER BY created_at DESC, id DESC LIMIT 1500",
+          "params": [
+            "2026-01-02T00:00:00Z",
+            "2026-01-02T00:00:00Z",
+            "p1"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "a row is changed by whoever added it or by an adult, never by another child",
+      "members": {
+        "parent": "adult",
+        "kid": "child",
+        "sibling": "child"
+      },
+      "steps": [
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "INSERT INTO app_collections__collections (id, name, description, auto_cutout, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)",
+          "params": [
+            "c1",
+            "Teddy bears",
+            "",
+            1,
+            "{{kid}}",
+            "2026-01-01T00:00:00Z",
+            "2026-01-01T00:00:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          "params": [
+            "i1",
+            "c1",
+            "Barnaby",
+            "",
+            "[]",
+            "[]",
+            "{{kid}}",
+            "2026-01-02T00:00:00Z",
+            "2026-01-02T00:00:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "INSERT INTO app_collections__tags (id, collection_id, name, created_by, created_at) VALUES (?, ?, ?, ?, ?)",
+          "params": [
+            "t1",
+            "c1",
+            "Steiff",
+            "{{kid}}",
+            "2026-01-02T00:00:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "INSERT INTO app_collections__locations (id, name, created_by, created_at) VALUES (?, ?, ?, ?)",
+          "params": [
+            "l1",
+            "Bin 1",
+            "{{kid}}",
+            "2026-01-02T00:00:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "INSERT INTO app_collections__photos (id, collection_id, item_id, file_id, thumb_file_id, cutout_file_id, cutout_status, cutout_requested_at, use_cutout, sort_order, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          "params": [
+            "p1",
+            "c1",
+            "i1",
+            "file-1",
+            null,
+            null,
+            "none",
+            null,
+            1,
+            0,
+            "{{kid}}",
+            "2026-01-02T00:00:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "UPDATE app_collections__items SET name = ?, updated_at = ? WHERE id = ?",
+          "params": [
+            "Mine now",
+            "2026-01-03T00:00:00Z",
+            "i1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "UPDATE app_collections__items SET note = ?, updated_at = ? WHERE id = ?",
+          "params": [
+            "Mine",
+            "2026-01-03T00:00:00Z",
+            "i1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "UPDATE app_collections__items SET acquired_date = ?, updated_at = ? WHERE id = ?",
+          "params": [
+            "2001-01-01",
+            "2026-01-03T00:00:00Z",
+            "i1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "UPDATE app_collections__items SET tag_ids = ?, updated_at = ? WHERE id = ?",
+          "params": [
+            "[\"t1\"]",
+            "2026-01-03T00:00:00Z",
+            "i1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "UPDATE app_collections__items SET location_ids = ?, updated_at = ? WHERE id = ?",
+          "params": [
+            "[\"l1\"]",
+            "2026-01-03T00:00:00Z",
+            "i1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "UPDATE app_collections__collections SET name = ?, description = ?, auto_cutout = ?, updated_at = ? WHERE id = ?",
+          "params": [
+            "Mine",
+            "",
+            0,
+            "2026-01-03T00:00:00Z",
+            "c1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "UPDATE app_collections__photos SET cutout_status = 'pending', cutout_requested_at = ? WHERE id = ? AND cutout_file_id IS NULL AND (cutout_status != 'pending' OR cutout_requested_at IS NULL OR cutout_requested_at < ?)",
+          "params": [
+            "2026-01-02T10:00:00Z",
+            "p1",
+            "2026-01-02T09:55:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "UPDATE app_collections__photos SET use_cutout = ? WHERE id = ?",
+          "params": [
+            0,
+            "p1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "DELETE FROM app_collections__photos WHERE id = ?",
+          "params": [
+            "p1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "DELETE FROM app_collections__tags WHERE id = ?",
+          "params": [
+            "t1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "DELETE FROM app_collections__locations WHERE id = ?",
+          "params": [
+            "l1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "DELETE FROM app_collections__items WHERE id = ?",
+          "params": [
+            "i1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "DELETE FROM app_collections__collections WHERE id = ?",
+          "params": [
+            "c1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "SELECT name, note, tag_ids, location_ids FROM app_collections__items WHERE id = ?",
+          "params": [
+            "i1"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "name": "Barnaby",
+                "note": "",
+                "tag_ids": "[]",
+                "location_ids": "[]"
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "SELECT name, auto_cutout FROM app_collections__collections WHERE id = ?",
+          "params": [
+            "c1"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "name": "Teddy bears",
+                "auto_cutout": 1
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "SELECT cutout_status, use_cutout FROM app_collections__photos WHERE id = ?",
+          "params": [
+            "p1"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "cutout_status": "none",
+                "use_cutout": 1
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "SELECT id FROM app_collections__tags",
+          "expect": {
+            "status": 200,
+            "rowCount": 1
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "SELECT id FROM app_collections__locations",
+          "expect": {
+            "status": 200,
+            "rowCount": 1
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          "params": [
+            "i2",
+            "c1",
+            "Sibling bear",
+            "",
+            "[]",
+            "[]",
+            "{{sibling}}",
+            "2026-01-03T00:00:00Z",
+            "2026-01-03T00:00:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          "params": [
+            "i3",
+            "c1",
+            "Forged",
+            "",
+            "[]",
+            "[]",
+            "{{kid}}",
+            "2026-01-03T00:00:00Z",
+            "2026-01-03T00:00:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "parent",
+          "sql": "SELECT id FROM app_collections__items WHERE id = ? AND created_by = ?",
+          "params": [
+            "i3",
+            "{{sibling}}"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 1
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "UPDATE app_collections__items SET note = ?, updated_at = ? WHERE id = ?",
+          "params": [
+            "From Grandma",
+            "2026-01-04T00:00:00Z",
+            "i1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "UPDATE app_collections__items SET acquired_date = ?, updated_at = ? WHERE id = ?",
+          "params": [
+            "2019-12-25",
+            "2026-01-04T00:00:00Z",
+            "i1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "UPDATE app_collections__items SET tag_ids = ?, updated_at = ? WHERE id = ?",
+          "params": [
+            "[\"t1\"]",
+            "2026-01-04T00:00:00Z",
+            "i1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "UPDATE app_collections__items SET location_ids = ?, updated_at = ? WHERE id = ?",
+          "params": [
+            "[\"l1\"]",
+            "2026-01-04T00:00:00Z",
+            "i1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "UPDATE app_collections__collections SET name = ?, description = ?, auto_cutout = ?, updated_at = ? WHERE id = ?",
+          "params": [
+            "Bears",
+            "All of them",
+            0,
+            "2026-01-04T00:00:00Z",
+            "c1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "parent",
+          "sql": "UPDATE app_collections__items SET name = ?, updated_at = ? WHERE id = ?",
+          "params": [
+            "Barnaby Bear",
+            "2026-01-04T00:00:00Z",
+            "i1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "parent",
+          "sql": "UPDATE app_collections__photos SET use_cutout = ? WHERE id = ?",
+          "params": [
+            0,
+            "p1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "SELECT name, note, tag_ids, location_ids FROM app_collections__items WHERE id = ?",
+          "params": [
+            "i1"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "name": "Barnaby Bear",
+                "note": "From Grandma",
+                "tag_ids": "[\"t1\"]",
+                "location_ids": "[\"l1\"]"
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "SELECT name, auto_cutout FROM app_collections__collections WHERE id = ?",
+          "params": [
+            "c1"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "name": "Bears",
+                "auto_cutout": 0
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "SELECT cutout_status, use_cutout FROM app_collections__photos WHERE id = ?",
+          "params": [
+            "p1"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "use_cutout": 0
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "SELECT acquired_date FROM app_collections__items WHERE id = ?",
+          "params": [
+            "i1"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "acquired_date": "2019-12-25"
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "UPDATE app_collections__items SET acquired_date = ?, updated_at = ? WHERE id = ?",
+          "params": [
+            null,
+            "2026-01-05T00:00:00Z",
+            "i1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "SELECT acquired_date FROM app_collections__items WHERE id = ?",
+          "params": [
+            "i1"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "acquired_date": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "a row cannot be hidden from the household",
+      "members": {
+        "kid": "child",
+        "sibling": "child"
+      },
+      "steps": [
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "INSERT INTO app_collections__collections (id, name, description, auto_cutout, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+          "params": [
+            "c9",
+            "Secret",
+            "",
+            1,
+            "private",
+            "{{kid}}",
+            "2026-01-01T00:00:00Z",
+            "2026-01-01T00:00:00Z"
+          ],
+          "expect": {
+            "status": 400
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "SELECT id FROM app_collections__collections",
+          "expect": {
+            "status": 200,
+            "rowCount": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "a cutout request is held by one requester at a time: a fresh hold cannot be taken, a stale one can, and the loser's writes match nothing",
+      "members": {
+        "kid": "child",
+        "parent": "adult"
+      },
+      "steps": [
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "INSERT INTO app_collections__collections (id, name, description, auto_cutout, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)",
+          "params": [
+            "c1",
+            "Teddy bears",
+            "",
+            1,
+            "{{kid}}",
+            "2026-01-01T00:00:00Z",
+            "2026-01-01T00:00:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          "params": [
+            "i1",
+            "c1",
+            "Barnaby",
+            "",
+            "[]",
+            "[]",
+            "{{kid}}",
+            "2026-01-02T00:00:00Z",
+            "2026-01-02T00:00:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "INSERT INTO app_collections__photos (id, collection_id, item_id, file_id, thumb_file_id, cutout_file_id, cutout_status, cutout_requested_at, use_cutout, sort_order, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          "params": [
+            "p1",
+            "c1",
+            "i1",
+            "file-1",
+            null,
+            null,
+            "none",
+            null,
+            1,
+            0,
+            "{{kid}}",
+            "2026-01-02T00:00:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "UPDATE app_collections__photos SET cutout_status = 'pending', cutout_requested_at = ? WHERE id = ? AND cutout_file_id IS NULL AND (cutout_status != 'pending' OR cutout_requested_at IS NULL OR cutout_requested_at < ?)",
+          "params": [
+            "2026-01-02T10:00:00Z",
+            "p1",
+            "2026-01-02T09:55:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "SELECT cutout_file_id, cutout_status, cutout_requested_at FROM app_collections__photos WHERE id = ?",
+          "params": [
+            "p1"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "cutout_status": "pending",
+                "cutout_requested_at": "2026-01-02T10:00:00Z"
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "parent",
+          "sql": "UPDATE app_collections__photos SET cutout_status = 'pending', cutout_requested_at = ? WHERE id = ? AND cutout_file_id IS NULL AND (cutout_status != 'pending' OR cutout_requested_at IS NULL OR cutout_requested_at < ?)",
+          "params": [
+            "2026-01-02T10:01:00Z",
+            "p1",
+            "2026-01-02T09:56:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "SELECT cutout_file_id, cutout_status, cutout_requested_at FROM app_collections__photos WHERE id = ?",
+          "params": [
+            "p1"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "cutout_requested_at": "2026-01-02T10:00:00Z"
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "UPDATE app_collections__photos SET cutout_requested_at = ? WHERE id = ? AND cutout_file_id IS NULL AND cutout_status = 'pending' AND cutout_requested_at = ?",
+          "params": [
+            "2026-01-02T10:02:00Z",
+            "p1",
+            "2026-01-02T10:00:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "SELECT cutout_file_id, cutout_status, cutout_requested_at FROM app_collections__photos WHERE id = ?",
+          "params": [
+            "p1"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "cutout_status": "pending",
+                "cutout_requested_at": "2026-01-02T10:02:00Z"
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "parent",
+          "sql": "UPDATE app_collections__photos SET cutout_status = 'pending', cutout_requested_at = ? WHERE id = ? AND cutout_file_id IS NULL AND (cutout_status != 'pending' OR cutout_requested_at IS NULL OR cutout_requested_at < ?)",
+          "params": [
+            "2026-01-02T10:08:00Z",
+            "p1",
+            "2026-01-02T10:03:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "SELECT cutout_file_id, cutout_status, cutout_requested_at FROM app_collections__photos WHERE id = ?",
+          "params": [
+            "p1"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "cutout_requested_at": "2026-01-02T10:08:00Z"
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "UPDATE app_collections__photos SET cutout_requested_at = ? WHERE id = ? AND cutout_file_id IS NULL AND cutout_status = 'pending' AND cutout_requested_at = ?",
+          "params": [
+            "2026-01-02T10:09:00Z",
+            "p1",
+            "2026-01-02T10:02:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "UPDATE app_collections__photos SET cutout_file_id = ?, cutout_status = 'done' WHERE id = ? AND cutout_file_id IS NULL AND cutout_requested_at = ?",
+          "params": [
+            "cutout-late",
+            "p1",
+            "2026-01-02T10:02:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "UPDATE app_collections__photos SET cutout_status = ? WHERE id = ? AND cutout_file_id IS NULL AND cutout_requested_at = ?",
+          "params": [
+            "failed",
+            "p1",
+            "2026-01-02T10:02:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "SELECT cutout_file_id, cutout_status, cutout_requested_at FROM app_collections__photos WHERE id = ?",
+          "params": [
+            "p1"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "cutout_file_id": null,
+                "cutout_status": "pending",
+                "cutout_requested_at": "2026-01-02T10:08:00Z"
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "parent",
+          "sql": "UPDATE app_collections__photos SET cutout_status = ? WHERE id = ? AND cutout_file_id IS NULL AND cutout_requested_at = ?",
+          "params": [
+            "failed",
+            "p1",
+            "2026-01-02T10:08:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "SELECT cutout_file_id, cutout_status, cutout_requested_at FROM app_collections__photos WHERE id = ?",
+          "params": [
+            "p1"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "cutout_status": "failed"
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "UPDATE app_collections__photos SET cutout_status = 'pending', cutout_requested_at = ? WHERE id = ? AND cutout_file_id IS NULL AND (cutout_status != 'pending' OR cutout_requested_at IS NULL OR cutout_requested_at < ?)",
+          "params": [
+            "2026-01-02T10:09:00Z",
+            "p1",
+            "2026-01-02T10:04:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "UPDATE app_collections__photos SET cutout_requested_at = ? WHERE id = ? AND cutout_file_id IS NULL AND cutout_status = 'pending' AND cutout_requested_at = ?",
+          "params": [
+            "2026-01-02T10:10:00Z",
+            "p1",
+            "2026-01-02T10:09:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "UPDATE app_collections__photos SET cutout_file_id = ?, cutout_status = 'done' WHERE id = ? AND cutout_file_id IS NULL AND cutout_requested_at = ?",
+          "params": [
+            "cutout-1",
+            "p1",
+            "2026-01-02T10:10:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "parent",
+          "sql": "SELECT cutout_file_id, cutout_status, cutout_requested_at FROM app_collections__photos WHERE id = ?",
+          "params": [
+            "p1"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "cutout_file_id": "cutout-1",
+                "cutout_status": "done",
+                "cutout_requested_at": "2026-01-02T10:10:00Z"
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "UPDATE app_collections__photos SET cutout_status = 'pending', cutout_requested_at = ? WHERE id = ? AND cutout_file_id IS NULL AND (cutout_status != 'pending' OR cutout_requested_at IS NULL OR cutout_requested_at < ?)",
+          "params": [
+            "2026-01-02T11:00:00Z",
+            "p1",
+            "2026-01-02T10:55:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "UPDATE app_collections__photos SET cutout_file_id = ?, cutout_status = 'done' WHERE id = ? AND cutout_file_id IS NULL AND cutout_requested_at = ?",
+          "params": [
+            "cutout-2",
+            "p1",
+            "2026-01-02T10:10:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "parent",
+          "sql": "SELECT cutout_file_id, cutout_status, cutout_requested_at FROM app_collections__photos WHERE id = ?",
+          "params": [
+            "p1"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "cutout_file_id": "cutout-1",
+                "cutout_requested_at": "2026-01-02T10:10:00Z"
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "UPDATE app_collections__photos SET use_cutout = ? WHERE id = ?",
+          "params": [
+            0,
+            "p1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "parent",
+          "sql": "SELECT use_cutout FROM app_collections__photos WHERE id = ?",
+          "params": [
+            "p1"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "use_cutout": 0
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "UPDATE app_collections__photos SET use_cutout = ? WHERE id = ?",
+          "params": [
+            1,
+            "p1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "parent",
+          "sql": "SELECT use_cutout FROM app_collections__photos WHERE id = ?",
+          "params": [
+            "p1"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "use_cutout": 1
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "DELETE FROM app_collections__photos WHERE id = ?",
+          "params": [
+            "p1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "UPDATE app_collections__photos SET cutout_file_id = ?, cutout_status = 'done' WHERE id = ? AND cutout_file_id IS NULL AND cutout_requested_at = ?",
+          "params": [
+            "cutout-3",
+            "p1",
+            "2026-01-02T10:10:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "SELECT cutout_file_id, cutout_status, cutout_requested_at FROM app_collections__photos WHERE id = ?",
+          "params": [
+            "p1"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "deleting an item takes its photos; whoever started a collection may delete it, and that takes every item, tag and photo in it, including ones other members added, and leaves the places",
+      "members": {
+        "parent": "adult",
+        "kid": "child"
+      },
+      "steps": [
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "INSERT INTO app_collections__collections (id, name, description, auto_cutout, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)",
+          "params": [
+            "c1",
+            "Teddy bears",
+            "",
+            1,
+            "{{kid}}",
+            "2026-01-01T00:00:00Z",
+            "2026-01-01T00:00:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "INSERT INTO app_collections__collections (id, name, description, auto_cutout, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)",
+          "params": [
+            "c2",
+            "Marbles",
+            "",
+            1,
+            "{{kid}}",
+            "2026-01-01T00:00:00Z",
+            "2026-01-01T00:00:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "INSERT INTO app_collections__tags (id, collection_id, name, created_by, created_at) VALUES (?, ?, ?, ?, ?)",
+          "params": [
+            "t1",
+            "c1",
+            "Steiff",
+            "{{kid}}",
+            "2026-01-01T00:00:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "INSERT INTO app_collections__locations (id, name, created_by, created_at) VALUES (?, ?, ?, ?)",
+          "params": [
+            "l1",
+            "Bin 1",
+            "{{kid}}",
+            "2026-01-01T00:00:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          "params": [
+            "i1",
+            "c1",
+            "Barnaby",
+            "",
+            "[]",
+            "[]",
+            "{{kid}}",
+            "2026-01-02T00:00:00Z",
+            "2026-01-02T00:00:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          "params": [
+            "i2",
+            "c1",
+            "Little Honey",
+            "",
+            "[]",
+            "[]",
+            "{{kid}}",
+            "2026-01-02T00:00:00Z",
+            "2026-01-02T00:00:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          "params": [
+            "i3",
+            "c2",
+            "Cat eye",
+            "",
+            "[]",
+            "[]",
+            "{{kid}}",
+            "2026-01-02T00:00:00Z",
+            "2026-01-02T00:00:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "INSERT INTO app_collections__photos (id, collection_id, item_id, file_id, thumb_file_id, cutout_file_id, cutout_status, cutout_requested_at, use_cutout, sort_order, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          "params": [
+            "p1",
+            "c1",
+            "i1",
+            "file-1",
+            null,
+            null,
+            "none",
+            null,
+            1,
+            0,
+            "{{kid}}",
+            "2026-01-02T00:00:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "parent",
+          "sql": "INSERT INTO app_collections__photos (id, collection_id, item_id, file_id, thumb_file_id, cutout_file_id, cutout_status, cutout_requested_at, use_cutout, sort_order, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          "params": [
+            "p2",
+            "c1",
+            "i2",
+            "file-2",
+            null,
+            null,
+            "none",
+            null,
+            1,
+            0,
+            "{{parent}}",
+            "2026-01-02T00:00:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "INSERT INTO app_collections__photos (id, collection_id, item_id, file_id, thumb_file_id, cutout_file_id, cutout_status, cutout_requested_at, use_cutout, sort_order, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          "params": [
+            "p3",
+            "c2",
+            "i3",
+            "file-3",
+            null,
+            null,
+            "none",
+            null,
+            1,
+            0,
+            "{{kid}}",
+            "2026-01-02T00:00:00Z"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "DELETE FROM app_collections__photos WHERE id = ?",
+          "params": [
+            "p3"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "DELETE FROM app_collections__items WHERE id = ?",
+          "params": [
+            "i1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "parent",
+          "sql": "SELECT id FROM app_collections__photos",
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "id": "p2"
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "DELETE FROM app_collections__collections WHERE id = ?",
+          "params": [
+            "c1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "parent",
+          "sql": "SELECT id FROM app_collections__photos",
+          "expect": {
+            "status": 200,
+            "rowCount": 0
+          }
+        },
+        {
+          "action": "db",
+          "as": "parent",
+          "sql": "SELECT id FROM app_collections__items",
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "id": "i3"
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "parent",
+          "sql": "SELECT id FROM app_collections__tags",
+          "expect": {
+            "status": 200,
+            "rowCount": 0
+          }
+        },
+        {
+          "action": "db",
+          "as": "parent",
+          "sql": "SELECT id FROM app_collections__locations",
+          "expect": {
+            "status": 200,
+            "rowCount": 1
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "DELETE FROM app_collections__tags WHERE id = ?",
+          "params": [
+            "t1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "DELETE FROM app_collections__locations WHERE id = ?",
+          "params": [
+            "l1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "parent",
+          "sql": "SELECT id FROM app_collections__locations",
+          "expect": {
+            "status": 200,
+            "rowCount": 0
+          }
+        }
+      ]
+    }
+  ]
+}

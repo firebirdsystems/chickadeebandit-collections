@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Collections</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: var(--hub-bg, #f9fafb);
+      --surface: var(--hub-surface, #ffffff);
+      --border: var(--hub-border, #e5e7eb);
+      --border-mid: var(--hub-border, #d1d5db);
+      --text: var(--hub-text, #000000);
+      --muted: var(--hub-text-muted, #6b7280);
+      --accent: var(--hub-primary, #111827);
+      --accent-hover: var(--hub-primary-hover, #374151);
+      --accent-fg: var(--hub-primary-fg, #ffffff);
+      --radius: var(--hub-radius, 8px);
+      --red: var(--hub-tint-danger-fg, #b91c1c);
+      --red-soft: var(--hub-tint-danger, #fee2e2);
+      --shadow: 0 1px 3px rgba(15, 23, 42, .07);
+      /* What a photo sits on. A cutout is transparent, so this is its backdrop. */
+      --plinth: color-mix(in srgb, var(--surface) 90%, var(--text));
+    }
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--hub-font, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+      font-size: var(--hub-font-size, 15px);
+      line-height: 1.5;
+    }
+    .app { max-width: 880px; margin: 0 auto; padding: 16px; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+    .topbar-main { min-width: 0; }
+    h1 { font-size: 1.35rem; line-height: 1.2; overflow-wrap: anywhere; }
+    h2 { font-size: .76rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 800; margin: 18px 0 8px; }
+    .muted { color: var(--muted); }
+    .tiny { font-size: .78rem; }
+    .back { background: none; border: 0; color: var(--muted); font: inherit; font-size: .84rem; font-weight: 700; cursor: pointer; padding: 0; margin-bottom: 6px; display: inline-flex; align-items: center; gap: 4px; }
+    .back:hover { color: var(--text); }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      border: 1px solid transparent; border-radius: 8px; padding: 8px 12px;
+      font: inherit; font-size: .86rem; font-weight: 700; cursor: pointer;
+      min-height: 38px; background: var(--accent); color: var(--accent-fg); white-space: nowrap;
+    }
+    .btn:hover { background: var(--accent-hover); }
+    .btn:disabled { opacity: .48; cursor: default; }
+    .btn-ghost { background: transparent; color: var(--text); border-color: var(--border-mid); }
+    .btn-ghost:hover { background: var(--plinth); }
+    .btn-sm { min-height: 30px; padding: 4px 9px; font-size: .78rem; }
+    .btn-quiet-danger { min-height: 28px; padding: 3px 8px; background: transparent; color: var(--muted); border: 0; font-size: .76rem; font-weight: 700; }
+    .btn-quiet-danger:hover { background: var(--red-soft); color: var(--red); }
+    .row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .field { display: grid; gap: 4px; margin-bottom: 10px; }
+    label, .label { font-size: .76rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 800; }
+    input[type="text"], input[type="search"], input[type="date"], textarea {
+      width: 100%; border: 1.5px solid var(--border-mid); border-radius: 8px;
+      padding: 9px 11px; font: inherit; background: var(--surface); color: var(--text);
+    }
+    textarea { min-height: 60px; resize: vertical; }
+    input:focus, textarea:focus { outline: none; border-color: var(--accent); }
+    .check { display: flex; align-items: flex-start; gap: 8px; font-size: .88rem; text-transform: none; letter-spacing: 0; color: var(--text); font-weight: 400; }
+    .check input { margin-top: 4px; }
+    .search-row { margin-bottom: 12px; }
+    .search-input { width: 100%; border: 1.5px solid var(--border-mid); border-radius: 8px; padding: 9px 11px; font: inherit; background: var(--surface); color: var(--text); }
+    .search-input:focus { outline: none; border-color: var(--accent); }
+    .empty, .loading { color: var(--muted); text-align: center; padding: 28px 16px; }
+    .empty p { margin: 12px 0 0; }
+    .error, .notice { padding: 9px 12px; border-radius: 8px; margin-bottom: 10px; font-size: .86rem; display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; }
+    .error { background: var(--red-soft); color: var(--red); }
+    .notice { background: var(--plinth); }
+    .dismiss { background: none; border: 0; color: inherit; cursor: pointer; font: inherit; font-weight: 800; padding: 0 2px; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+    .tile { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; cursor: pointer; text-align: left; font: inherit; color: inherit; padding: 0; display: flex; flex-direction: column; }
+    .tile:hover { border-color: var(--border-mid); }
+    .tile:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .plinth { aspect-ratio: 1; background: var(--plinth); display: flex; align-items: center; justify-content: center; color: var(--muted); position: relative; overflow: hidden; }
+    .plinth img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    /* A cutout is drawn whole, standing on the plinth, with the shadow the
+       removed background used to give it. */
+    .plinth img.cutout { object-fit: contain; padding: 9%; filter: drop-shadow(0 5px 6px rgba(15, 23, 42, .22)); }
+    .plinth .placeholder { font-size: 2.2rem; opacity: .55; }
+    .tile-body { padding: 9px 11px 11px; min-width: 0; }
+    .tile-title { font-weight: 700; overflow-wrap: anywhere; line-height: 1.3; }
+    .tile-meta { color: var(--muted); font-size: .78rem; margin-top: 2px; }
+    .badge { position: absolute; left: 6px; bottom: 6px; background: var(--surface); color: var(--muted); border-radius: 999px; padding: 1px 8px; font-size: .7rem; font-weight: 700; box-shadow: var(--shadow); }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chip { border: 1.5px solid var(--border-mid); background: var(--surface); color: var(--text); border-radius: 999px; padding: 3px 11px; font: inherit; font-size: .8rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
+    .chip:hover { border-color: var(--accent); }
+    .chip.on { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
+    .chip.static { cursor: default; }
+    .chip.static:hover { border-color: var(--border-mid); }
+    .chip .count { opacity: .65; font-weight: 400; }
+    .chip-x { background: none; border: 0; color: inherit; cursor: pointer; font: inherit; font-weight: 800; padding: 0; opacity: .6; }
+    .chip-x:hover { opacity: 1; }
+    .filters { display: grid; gap: 8px; margin-bottom: 12px; }
+    .filter-line { display: flex; gap: 8px; align-items: baseline; }
+    .filter-line .label { flex: 0 0 auto; min-width: 46px; }
+    .add-inline { display: flex; gap: 6px; margin-top: 8px; }
+    .add-inline input { min-width: 0; }
+
+    .overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, .45); display: flex; align-items: flex-start; justify-content: center; padding: 16px; overflow-y: auto; z-index: 10; }
+    .sheet { background: var(--surface); border-radius: 12px; width: 100%; max-width: 560px; padding: 16px; box-shadow: 0 12px 40px rgba(15, 23, 42, .25); margin: auto 0; }
+    .sheet-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 12px; }
+    .sheet-foot { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+    .photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+    .photo { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .photo-foot { padding: 6px 8px 8px; display: grid; gap: 6px; }
+    .photo-foot .row { gap: 4px; }
+    .spin { display: inline-block; width: .8em; height: .8em; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin .8s linear infinite; vertical-align: -1px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .spin { animation: none; } }
+    input[type="file"] { display: none; }
+  </style>
+  <base href="/run/collections/">
+</head>
+<body>
+<div class="app">
+  <div id="root" class="loading">Loading…</div>
+</div>
+<div id="modal"></div>
+
+<script type="module">
+import { createDbHelper, createFilesHelper, esc, searchMatch, hubConfirm, glyph, chickadee } from "/hub-sdk.js";
+import {
+  canEdit as _canEdit, parseIds, toggleId, liveIds, findByName, tagsOf, searchableFields, filterItems, countByLabel,
+  photosOf, coverPhoto, collectionCover, cutoutState, canRequestCutout, showsCutout, displayFileId, cutoutFailure,
+  cutoutLabel, fitWithin, thumbName, plural, holdIsFresh, cleanDate, formatDate, withoutDeleted, pendingElsewhere, needsCheck, holdKey, PENDING_TIMEOUT_MS,
+} from "./logic.js";
+import { firstRenderBatch, namedResults, nextPageBatch, FIRST_PAGE_SIZE, NEXT_PAGE_SIZE } from "./reads.js";
+
+// --- Hub runtime globals (empty in demo mode) --------------------------------
+const CONTEXT = window.__CONTEXT_URL ?? "";
+const DB_URL = window.__DB_URL ?? "";
+const FILES_URL = window.__FILES_URL ?? "";
+const HUB_MEMBER = window.__CURRENT_MEMBER ?? null;
+
+const db = createDbHelper(DB_URL);
+const files = FILES_URL ? createFilesHelper(FILES_URL) : null;
+
+const THUMB_MAX = 480;
+// The hub allows a member a fixed number of file requests a minute. A burst of
+// photos can pass it; the request is worth making again after a pause.
+// The limit is counted over a minute, so the pauses together outlast one.
+const RATE_LIMIT_PAUSE_MS = 20_000;
+const RATE_LIMIT_RETRIES = 4;
+
+// --- App state ---------------------------------------------------------------
+let memberMap = new Map();
+let me = null;
+let collections = [];
+let tags = [];
+let locations = [];
+let items = [];
+let photos = [];
+
+let view = { name: "home" };          // home | collection | location
+let sheet = null;                      // null | { kind: "collection", id? } | { kind: "item", id }
+let filterTags = [];
+let filterLocations = [];
+let searchQ = "";
+let error = "";
+let notice = "";
+let adding = null;                     // { done, total } while photos are uploading
+
+// Photos whose cutout THIS tab asked for, with the `cutout_requested_at` it
+// wrote when it took the row. A `pending` row in here is ours to finish; one
+// that is not belongs to another tab, or to a tab that has closed. The stamp is
+// how a later write proves the row is still ours.
+const mine = new Map();
+// Ids deleted in this visit. Older rows are still being read behind the first
+// paint, and a page asked for before a delete must not bring the row back.
+const gone = { collections: new Set(), items: new Set(), photos: new Set() };
+// True while a form's write is on its way, so a second Enter adds nothing.
+let submitting = false;
+// Every write to an item (its name, notes, date, tags and places) runs after
+// the one before it. Two edits to the same box are then stored in the order
+// they were made, and a change to the tags starts from what the last one saved.
+let itemWrites = Promise.resolve();
+let cutoutsStopped = false;
+let cutoutChain = Promise.resolve();
+
+const nowIso = () => new Date().toISOString();
+const canEdit = (row) => _canEdit(row, me);
+const byId = (rows, id) => rows.find((row) => row.id === id) ?? null;
+const memberName = (id) => memberMap.get(id)?.name ?? "Someone";
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+function labelNames() {
+  return new Map([...tags, ...locations].map((row) => [row.id, row.name]));
+}
+
+function fail(e) {
+  error = e?.message ?? String(e);
+  render();
+}
+
+// --- Loading -----------------------------------------------------------------
+async function loadMembers() {
+  let members;
+  if (!CONTEXT) {
+    members = [
+      { id: "demo-1", name: "Alex", role: "adult" },
+      { id: "demo-2", name: "Casey", role: "child" },
+    ];
+  } else {
+    const res = await fetch(`${CONTEXT}?keys=family.members`);
+    members = ((await res.json())["family.members"]) ?? [];
+  }
+  memberMap = new Map(members.map((m) => [m.id, m]));
+  me = HUB_MEMBER ?? members[0] ?? { id: "guest", name: "Guest", role: "adult" };
+}
+
+function loadDemo() {
+  const at = nowIso();
+  collections = [
+    { id: "c1", name: "Teddy bears", description: "Every bear in the house.", auto_cutout: 1, created_by: "demo-2", created_at: at, updated_at: at },
+    { id: "c2", name: "Power tools", description: "", auto_cutout: 1, created_by: "demo-1", created_at: at, updated_at: at },
+  ];
+  tags = [
+    { id: "t1", collection_id: "c1", name: "Steiff", created_by: "demo-2", created_at: at },
+    { id: "t2", collection_id: "c1", name: "Gift", created_by: "demo-2", created_at: at },
+    { id: "t3", collection_id: "c2", name: "Cordless", created_by: "demo-1", created_at: at },
+  ];
+  locations = [
+    { id: "l1", name: "Garage", created_by: "demo-1", created_at: at },
+    { id: "l2", name: "Bin 1", created_by: "demo-1", created_at: at },
+    { id: "l3", name: "Bedroom shelf", created_by: "demo-2", created_at: at },
+  ];
+  items = [
+    { id: "i1", collection_id: "c1", name: "Barnaby", note: "From Grandma.", acquired_date: "2019-12-25", tag_ids: '["t1","t2"]', location_ids: '["l3"]', created_by: "demo-2", created_at: at, updated_at: at },
+    { id: "i2", collection_id: "c1", name: "Little Honey", note: "", tag_ids: "[]", location_ids: '["l2"]', created_by: "demo-2", created_at: at, updated_at: at },
+    { id: "i3", collection_id: "c2", name: "Drill driver", note: "Two batteries.", tag_ids: '["t3"]', location_ids: '["l1","l2"]', created_by: "demo-1", created_at: at, updated_at: at },
+  ];
+  photos = [];
+}
+
+/** Items and photos arrive a page at a time; read the rest behind the first
+ *  paint, one request for each round of pages. */
+async function loadRest(lastPages) {
+  for (let wanted = nextPageBatch(lastPages, FIRST_PAGE_SIZE); wanted.length; wanted = nextPageBatch(lastPages, NEXT_PAGE_SIZE)) {
+    const results = await db.batch(wanted.map(({ sql, params }) => ({ sql, params })));
+    lastPages = {};
+    wanted.forEach(({ name }, i) => {
+      const rows = results[i]?.rows ?? [];
+      // The page as it was read decides where the next one starts; what is
+      // kept of it leaves out anything deleted while it was on its way.
+      lastPages[name] = rows;
+      if (name === "items") items = [...items, ...withoutDeleted(rows, gone)];
+      else photos = [...photos, ...withoutDeleted(rows, gone)];
+    });
+    render();
+  }
+}
+
+async function loadData() {
+  if (!DB_URL) return loadDemo();
+  const named = namedResults(await db.batch(firstRenderBatch()));
+  ({ collections, tags, locations, items, photos } = named);
+  loadRest({ items: named.items, photos: named.photos }).catch(fail);
+}
+
+async function refresh() {
+  error = "";
+  try {
+    await Promise.all([loadMembers(), loadData()]);
+  } catch (e) {
+    error = e.message;
+  }
+  render();
+}
+
+// --- Collections -------------------------------------------------------------
+async function saveCollection(form) {
+  const name = form.name.value.trim();
+  if (!name) { form.name.focus(); return; }
+  const description = form.description.value.trim();
+  const autoCutout = form.auto_cutout.checked ? 1 : 0;
+  const at = nowIso();
+  const existing = sheet.id ? byId(collections, sheet.id) : null;
+  // The collection being edited was deleted meanwhile; there is nothing to save.
+  if (sheet.id && !existing) { sheet = null; return render(); }
+  if (submitting) return;
+  submitting = true;
+  // The sheet this save was sent from. By the time the hub answers, the person
+  // may have closed it and opened another, which this must leave alone.
+  const from = sheet;
+  try {
+    if (existing) {
+      await db("UPDATE app_collections__collections SET name = ?, description = ?, auto_cutout = ?, updated_at = ? WHERE id = ?",
+        [name, description, autoCutout, at, existing.id]);
+      Object.assign(existing, { name, description, auto_cutout: autoCutout, updated_at: at });
+    } else {
+      const row = { id: crypto.randomUUID(), name, description, auto_cutout: autoCutout, created_by: me.id, created_at: at, updated_at: at };
+      await db("INSERT INTO app_collections__collections (id, name, description, auto_cutout, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        [row.id, row.name, row.description, row.auto_cutout, row.created_by, row.created_at, row.updated_at]);
+      collections = [row, ...collections];
+      if (sheet === from) openView({ name: "collection", id: row.id });
+    }
+    if (sheet === from) sheet = null;
+    render();
+  } catch (e) { fail(e); } finally { submitting = false; }
+}
+
+async function deleteCollection(id) {
+  const collection = byId(collections, id);
+  if (!collection) return;
+  const count = items.filter((item) => item.collection_id === id).length;
+  const ok = await hubConfirm(`Delete "${collection.name}"?`, {
+    description: count ? `${plural(count, "item")} and their photos will be deleted with it.` : "",
+    confirmLabel: "Delete", destructive: true,
+  });
+  if (!ok) return;
+  try {
+    // The hub deletes the items, tags and photos with it, and reclaims the files.
+    await db("DELETE FROM app_collections__collections WHERE id = ?", [id]);
+    gone.collections.add(id);
+    collections = collections.filter((row) => row.id !== id);
+    items = items.filter((row) => row.collection_id !== id);
+    tags = tags.filter((row) => row.collection_id !== id);
+    photos = photos.filter((row) => row.collection_id !== id);
+    sheet = null;
+    openView({ name: "home" });
+    render();
+  } catch (e) { fail(e); }
+}
+
+// --- Tags and locations ------------------------------------------------------
+/** A new tag or place, and the statement that stores it. Nothing is sent here. */
+function newLabel(kind, name, collectionId) {
+  const row = { id: crypto.randomUUID(), name: name.trim().replace(/\s+/g, " "), created_by: me.id, created_at: nowIso() };
+  if (kind === "tag") {
+    row.collection_id = collectionId;
+    return { row, insert: {
+      sql: "INSERT INTO app_collections__tags (id, collection_id, name, created_by, created_at) VALUES (?, ?, ?, ?, ?)",
+      params: [row.id, row.collection_id, row.name, row.created_by, row.created_at] } };
+  }
+  return { row, insert: {
+    sql: "INSERT INTO app_collections__locations (id, name, created_by, created_at) VALUES (?, ?, ?, ?)",
+    params: [row.id, row.name, row.created_by, row.created_at] } };
+}
+
+async function deleteLabel(kind, id) {
+  const rows = kind === "tag" ? tags : locations;
+  const row = byId(rows, id);
+  if (!row) return;
+  const column = kind === "tag" ? "tag_ids" : "location_ids";
+  const used = items.filter((item) => parseIds(item[column]).includes(id)).length;
+  const ok = await hubConfirm(`Delete "${row.name}"?`, {
+    description: used ? `It will come off ${plural(used, "item")}. The items stay.` : "",
+    confirmLabel: "Delete", destructive: true,
+  });
+  if (!ok) return;
+  try {
+    await db(kind === "tag" ? "DELETE FROM app_collections__tags WHERE id = ?" : "DELETE FROM app_collections__locations WHERE id = ?", [id]);
+    if (kind === "tag") tags = tags.filter((other) => other.id !== id);
+    else locations = locations.filter((other) => other.id !== id);
+    filterTags = filterTags.filter((other) => other !== id);
+    filterLocations = filterLocations.filter((other) => other !== id);
+    if (view.name === "location" && view.id === id) openView({ name: "home" });
+    render();
+  } catch (e) { fail(e); }
+}
+
+// --- Items -------------------------------------------------------------------
+async function createItem(form) {
+  const name = form.name.value.trim();
+  if (!name) { form.name.focus(); return; }
+  if (!byId(collections, sheet.collectionId)) { sheet = null; return render(); }
+  if (submitting) return;
+  submitting = true;
+  const from = sheet;
+  const at = nowIso();
+  const row = { id: crypto.randomUUID(), collection_id: sheet.collectionId, name, note: "", acquired_date: null, tag_ids: "[]", location_ids: "[]", created_by: me.id, created_at: at, updated_at: at };
+  try {
+    await db("INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      [row.id, row.collection_id, row.name, row.note, row.tag_ids, row.location_ids, row.created_by, row.created_at, row.updated_at]);
+    items = [row, ...items];
+    if (sheet === from) sheet = { kind: "item", id: row.id };
+    render();
+  } catch (e) { fail(e); } finally { submitting = false; }
+}
+
+// One statement per column an item can have changed, spelled out so that
+// scenarios.json can replay each of them against the hub.
+const ITEM_UPDATES = {
+  name: "UPDATE app_collections__items SET name = ?, updated_at = ? WHERE id = ?",
+  note: "UPDATE app_collections__items SET note = ?, updated_at = ? WHERE id = ?",
+  acquired_date: "UPDATE app_collections__items SET acquired_date = ?, updated_at = ? WHERE id = ?",
+  tag_ids: "UPDATE app_collections__items SET tag_ids = ?, updated_at = ? WHERE id = ?",
+  location_ids: "UPDATE app_collections__items SET location_ids = ?, updated_at = ? WHERE id = ?",
+};
+
+async function updateItem(id, column, value) {
+  const item = byId(items, id);
+  if (!item) return;
+  const at = nowIso();
+  await db(ITEM_UPDATES[column], [value, at, id]);
+  Object.assign(item, { [column]: value, updated_at: at });
+}
+
+/** Run a write to an item after every one before it has been saved. */
+function queueItemWrite(work) {
+  itemWrites = itemWrites.then(work).then(render, fail);
+  return itemWrites;
+}
+
+/** A person changed an item's name, notes or date. */
+function saveItemField(itemId, column, value) {
+  return queueItemWrite(() => {
+    const item = byId(items, itemId);
+    // Compared here, not when the box changed: by now every earlier edit has
+    // been stored, so this is the value the edit would actually replace.
+    if (!item || (item[column] ?? null) === value) return;
+    return updateItem(itemId, column, value);
+  });
+}
+
+async function setItemLabel(itemId, kind, labelId, want) {
+  const item = byId(items, itemId);
+  if (!item) return;
+  const column = kind === "tag" ? "tag_ids" : "location_ids";
+  const rows = kind === "tag" ? tags : locations;
+  // Saved through liveIds, so the ids of deleted tags leave the column here.
+  const current = liveIds(parseIds(item[column]), rows);
+  const on = current.includes(labelId);
+  if (want === on) return;
+  await updateItem(itemId, column, JSON.stringify(toggleId(current, labelId)));
+}
+
+function toggleItemLabel(itemId, kind, labelId) {
+  return queueItemWrite(() => {
+    const item = byId(items, itemId);
+    if (!item) return;
+    const on = parseIds(item[kind === "tag" ? "tag_ids" : "location_ids"]).includes(labelId);
+    return setItemLabel(itemId, kind, labelId, !on);
+  });
+}
+
+/** `box` is the text box the name was typed in; it is emptied once the name is
+ *  saved, and keeps what was typed if the save fails. */
+function addItemLabel(itemId, kind, name, box) {
+  if (!name.trim()) return;
+  const saved = () => { if (box?.value === name) box.value = ""; };
+  return queueItemWrite(async () => {
+    const item = byId(items, itemId);
+    if (!item) return;
+    const existing = findByName(kind === "tag" ? tagsOf(tags, item.collection_id) : locations, name);
+    if (existing) {
+      await setItemLabel(itemId, kind, existing.id, true);
+      return saved();
+    }
+    // The new tag and the item that carries it are written together: one
+    // request, and no tag left behind with nothing wearing it. `requireChanges`
+    // is what makes that true when the item has been deleted elsewhere: an
+    // UPDATE that matches no row is otherwise a success, and the tag would stay.
+    const { row, insert } = newLabel(kind, name, item.collection_id);
+    const column = kind === "tag" ? "tag_ids" : "location_ids";
+    const next = JSON.stringify([...liveIds(parseIds(item[column]), kind === "tag" ? tags : locations), row.id]);
+    const at = nowIso();
+    try {
+      await db.batch([insert, { sql: ITEM_UPDATES[column], params: [next, at, itemId], requireChanges: true }]);
+    } catch (e) {
+      throw /stale/i.test(e.message) ? new Error("That item is no longer there.") : e;
+    }
+    if (kind === "tag") tags = [...tags, row];
+    else locations = [...locations, row];
+    Object.assign(item, { [column]: next, updated_at: at });
+    saved();
+  });
+}
+
+async function deleteItem(id) {
+  const item = byId(items, id);
+  if (!item) return;
+  const ok = await hubConfirm(`Delete "${item.name}"?`, { description: "Its photos are deleted with it.", confirmLabel: "Delete", destructive: true });
+  if (!ok) return;
+  try {
+    await db("DELETE FROM app_collections__items WHERE id = ?", [id]);
+    gone.items.add(id);
+    items = items.filter((row) => row.id !== id);
+    photos = photos.filter((row) => row.item_id !== id);
+    sheet = null;
+    render();
+  } catch (e) { fail(e); }
+}
+
+// --- Photos ------------------------------------------------------------------
+/** A small JPEG of the photo for the grid, or null when one is not worth
+ *  making or the browser cannot decode the picture (HEIC outside Safari). */
+function makeThumbnail(file) {
+  return new Promise((resolve) => {
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      const size = fitWithin(img.naturalWidth, img.naturalHeight, THUMB_MAX);
+      if (!size.scaled) return resolve(null);
+      const canvas = document.createElement("canvas");
+      canvas.width = size.width;
+      canvas.height = size.height;
+      canvas.getContext("2d").drawImage(img, 0, 0, size.width, size.height);
+      canvas.toBlob((blob) => resolve(blob), "image/jpeg", 0.82);
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); resolve(null); };
+    img.src = url;
+  });
+}
+
+async function uploadPatiently(file) {
+  for (let attempt = 0; ; attempt++) {
+    try {
+      return await files.upload(file);
+    } catch (e) {
+      if (attempt >= RATE_LIMIT_RETRIES || !/too many requests/i.test(e.message)) throw e;
+      await wait(RATE_LIMIT_PAUSE_MS);
+    }
+  }
+}
+
+async function addOnePhoto(item, file) {
+  const collection = byId(collections, item.collection_id);
+  const { id: fileId } = await uploadPatiently(file);
+  let thumbFileId = null;
+  const thumb = await makeThumbnail(file);
+  if (thumb) {
+    // A photo without a thumbnail is still a photo; the grid draws the original.
+    thumbFileId = await uploadPatiently(new File([thumb], thumbName(file.name), { type: "image/jpeg" }))
+      .then((made) => made.id, () => null);
+  }
+  const discard = async () => {
+    // No row names these files, so nothing else will ever reclaim them.
+    await files.delete(fileId).catch(() => {});
+    if (thumbFileId) await files.delete(thumbFileId).catch(() => {});
+  };
+  // The item or its collection was deleted while the photo was on its way up.
+  if (!byId(items, item.id)) { await discard(); return false; }
+  const wantsCutout = !!Number(collection?.auto_cutout) && !cutoutsStopped;
+  const at = nowIso();
+  const row = {
+    id: crypto.randomUUID(), collection_id: item.collection_id, item_id: item.id, file_id: fileId, thumb_file_id: thumbFileId,
+    cutout_file_id: null, cutout_status: wantsCutout ? "pending" : "none", cutout_requested_at: wantsCutout ? at : null,
+    use_cutout: 1, sort_order: photosOf(photos, item.id).length, created_by: me.id, created_at: at,
+  };
+  try {
+    await db("INSERT INTO app_collections__photos (id, collection_id, item_id, file_id, thumb_file_id, cutout_file_id, cutout_status, cutout_requested_at, use_cutout, sort_order, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      [row.id, row.collection_id, row.item_id, row.file_id, row.thumb_file_id, row.cutout_file_id, row.cutout_status, row.cutout_requested_at, row.use_cutout, row.sort_order, row.created_by, row.created_at]);
+  } catch (e) {
+    // A refused write and a write whose answer was lost both land here, and
+    // only the first leaves the files unnamed. Look before deleting: removing
+    // the files of a row that was in fact stored would leave a broken photo.
+    const stored = await photoRowStored(row.id);
+    if (stored === false) await discard();
+    if (stored !== true) throw e;
+  }
+  photos = [row, ...photos];
+  if (wantsCutout) { mine.set(row.id, at); queueCutout(row.id); }
+  return true;
+}
+
+async function addPhotos(itemId, fileList) {
+  const picked = [...fileList].filter((file) => file.type.startsWith("image/"));
+  if (!byId(items, itemId) || !files || !picked.length || adding) return;
+  adding = { done: 0, total: picked.length };
+  render();
+  const refused = [];
+  for (const file of picked) {
+    const item = byId(items, itemId);
+    if (!item) break;
+    try {
+      // One photo the hub will not take (a type it does not store, a file too
+      // large) does not stop the ones after it.
+      if (!(await addOnePhoto(item, file))) break;
+    } catch (e) {
+      refused.push(e.message);
+    }
+    adding.done++;
+    render();
+  }
+  if (refused.length) {
+    error = refused.length === 1 && picked.length === 1
+      ? refused[0]
+      : `${plural(refused.length, "photo")} could not be added: ${refused[refused.length - 1]}`;
+  }
+  adding = null;
+  render();
+}
+
+async function deletePhoto(id) {
+  const ok = await hubConfirm("Delete this photo?", { confirmLabel: "Delete", destructive: true });
+  if (!ok) return;
+  try {
+    // The hub reclaims the photo, its thumbnail and its cutout with the row.
+    await db("DELETE FROM app_collections__photos WHERE id = ?", [id]);
+    gone.photos.add(id);
+    photos = photos.filter((row) => row.id !== id);
+    mine.delete(id);
+    render();
+  } catch (e) { fail(e); }
+}
+
+async function setUseCutout(id, value) {
+  const photo = byId(photos, id);
+  if (!photo) return;
+  try {
+    await db("UPDATE app_collections__photos SET use_cutout = ? WHERE id = ?", [value, id]);
+    photo.use_cutout = value;
+    render();
+  } catch (e) { fail(e); }
+}
+
+// --- Cutouts -----------------------------------------------------------------
+// One at a time: each is a file request against the per-minute limit, and a
+// queue is what lets a refusal that applies to all of them stop the rest.
+function queueCutout(photoId) {
+  cutoutChain = cutoutChain.then(() => makeCutout(photoId)).catch(() => {});
+}
+
+/** Settle a request this tab holds. Writes only while the row is still ours. */
+async function setCutoutStatus(photo, status, stamp) {
+  photo.cutout_status = status;
+  await db("UPDATE app_collections__photos SET cutout_status = ? WHERE id = ? AND cutout_file_id IS NULL AND cutout_requested_at = ?",
+    [status, photo.id, stamp]).catch(() => {});
+}
+
+async function reloadCutout(photo) {
+  const { rows } = await db("SELECT cutout_file_id, cutout_status, cutout_requested_at FROM app_collections__photos WHERE id = ?", [photo.id]);
+  if (rows[0]) Object.assign(photo, rows[0]);
+}
+
+/** Whether a photo's row is in the database: true, false, or null when that
+ *  could not be found out. */
+async function photoRowStored(id) {
+  try {
+    const { rows } = await db("SELECT cutout_file_id, cutout_status, cutout_requested_at FROM app_collections__photos WHERE id = ?", [id]);
+    return rows.length > 0;
+  } catch {
+    return null;
+  }
+}
+
+/** A person asked for a cutout of one photo. */
+async function requestCutout(photoId) {
+  const photo = byId(photos, photoId);
+  if (!photo || !files || mine.has(photoId) || !canRequestCutout(photo)) return;
+  const at = nowIso();
+  const staleBefore = new Date(Date.now() - PENDING_TIMEOUT_MS).toISOString();
+  try {
+    // Take the row only if nobody else holds it. Two tabs pressing the button
+    // must not both reach the hub: each request it accepts is spent.
+    const { changed } = await db(
+      "UPDATE app_collections__photos SET cutout_status = 'pending', cutout_requested_at = ? WHERE id = ? AND cutout_file_id IS NULL AND (cutout_status != 'pending' OR cutout_requested_at IS NULL OR cutout_requested_at < ?)",
+      [at, photoId, staleBefore]);
+    if (changed === 0) {
+      await reloadCutout(photo);
+      return render();
+    }
+  } catch (e) { return fail(e); }
+  Object.assign(photo, { cutout_status: "pending", cutout_requested_at: at });
+  mine.set(photoId, at);
+  cutoutsStopped = false;
+  render();
+  queueCutout(photoId);
+}
+
+async function makeCutout(photoId) {
+  const photo = byId(photos, photoId);
+  let stamp = mine.get(photoId);
+  if (!stamp) return;
+  if (!photo) { mine.delete(photoId); return; }
+  try {
+    if (cutoutsStopped) {
+      await setCutoutStatus(photo, "none", stamp);
+      return;
+    }
+    // Renew the hold before spending anything. A photo can wait in the queue
+    // long enough for its `pending` to look abandoned, and someone else may
+    // have taken it since; the row may also be gone. Either way it matches
+    // nothing here and the hub is never asked.
+    // A hold taken moments ago cannot have been taken by anyone else yet, so
+    // the usual case, a photo reached as soon as it is added, skips this.
+    if (!holdIsFresh(stamp)) {
+      const renewed = nowIso();
+      const { changed: held } = await db(
+        "UPDATE app_collections__photos SET cutout_requested_at = ? WHERE id = ? AND cutout_file_id IS NULL AND cutout_status = 'pending' AND cutout_requested_at = ?",
+        [renewed, photoId, stamp]);
+      if (held === 0) {
+        await reloadCutout(photo).catch(() => {});
+        return;
+      }
+      stamp = renewed;
+      mine.set(photoId, stamp);
+      photo.cutout_requested_at = stamp;
+    }
+
+    let made = null;
+    let failure = null;
+    for (let attempt = 0; !made && !failure; attempt++) {
+      try {
+        made = await files.cutout(photo.file_id);
+        // An answer with no file in it is not a reason to ask, and spend, again.
+        if (!made?.id) { made = null; failure = cutoutFailure(undefined); }
+      } catch (e) {
+        const rateLimited = e.status === 429 && typeof e.detail?.limit !== "number";
+        if (rateLimited && attempt < RATE_LIMIT_RETRIES) await wait(RATE_LIMIT_PAUSE_MS);
+        else failure = cutoutFailure(e.status, e.detail);
+      }
+    }
+    if (failure) {
+      if (failure.stop) cutoutsStopped = true;
+      if (failure.message) notice = failure.message;
+      await setCutoutStatus(photo, failure.status, stamp);
+      return;
+    }
+    // A write that matches no row is not an error: the hub answers it with
+    // zero rows changed. That is the photo having been deleted, or taken by
+    // someone else, while the cutout was being made, and it leaves a file no
+    // row names. Remove it here; nothing else can.
+    // A write whose answer is lost is a third case: it may have been stored.
+    // So the row is read back, and the file is deleted only once the row is
+    // known not to name it. Unknown is left alone: a stray file costs storage,
+    // a deleted one that a row names is a broken photo with no way to retry.
+    const written = await db(
+      "UPDATE app_collections__photos SET cutout_file_id = ?, cutout_status = 'done' WHERE id = ? AND cutout_file_id IS NULL AND cutout_requested_at = ?",
+      [made.id, photoId, stamp]).then((result) => result.changed !== 0, () => null);
+    if (written) {
+      Object.assign(photo, { cutout_file_id: made.id, cutout_status: "done" });
+    } else {
+      photo.cutout_file_id = null;
+      const known = await reloadCutout(photo).then(() => true, () => false);
+      if (known && photo.cutout_file_id !== made.id) await files.delete(made.id).catch(() => {});
+    }
+  } finally {
+    mine.delete(photoId);
+    render();
+  }
+}
+
+// --- Rendering ---------------------------------------------------------------
+function openView(next) {
+  view = next;
+  filterTags = [];
+  filterLocations = [];
+  searchQ = "";
+}
+
+function picture(photo, { small = false, alt = "" } = {}) {
+  if (!photo || !files) return `<span class="placeholder">${glyph("box")}</span>`;
+  const cutout = showsCutout(photo) ? ' class="cutout"' : "";
+  return `<img${cutout} loading="lazy" decoding="async" src="${esc(files.url(displayFileId(photo, { small })))}" alt="${esc(alt)}" />`;
+}
+
+function itemTile(item, names) {
+  const cover = coverPhoto(photos, item.id);
+  const count = photosOf(photos, item.id).length;
+  const places = liveIds(parseIds(item.location_ids), locations).map((id) => names.get(id));
+  const showCollection = view.name !== "collection";
+  const meta = [showCollection ? byId(collections, item.collection_id)?.name : null, ...places].filter(Boolean).join(" · ");
+  return `
+    <button class="tile" type="button" data-open-item="${esc(item.id)}">
+      <div class="plinth">${picture(cover, { small: true, alt: item.name })}${count > 1 ? `<span class="badge">${count} photos</span>` : ""}</div>
+      <div class="tile-body">
+        <div class="tile-title">${esc(item.name)}</div>
+        ${meta ? `<div class="tile-meta">${esc(meta)}</div>` : ""}
+      </div>
+    </button>`;
+}
+
+function itemGrid(list, emptyText) {
+  const names = labelNames();
+  const found = searchQ ? list.filter((item) => searchMatch(searchQ, searchableFields(item, names))) : list;
+  if (!found.length) {
+    return searchQ || filterTags.length || filterLocations.length
+      ? `<div class="card empty">${chickadee("searching")}<p>Nothing matches.</p></div>`
+      : `<div class="card empty">${chickadee("nest")}<p>${esc(emptyText)}</p></div>`;
+  }
+  return `<div class="grid">${found.map((item) => itemTile(item, names)).join("")}</div>`;
+}
+
+function banners() {
+  return `
+    ${error ? `<div class="error"><span>${esc(error)}</span><button class="dismiss" type="button" data-dismiss="error" aria-label="Dismiss">×</button></div>` : ""}
+    ${notice ? `<div class="notice"><span>${esc(notice)}</span><button class="dismiss" type="button" data-dismiss="notice" aria-label="Dismiss">×</button></div>` : ""}`;
+}
+
+function searchRow(placeholder) {
+  return `<div class="search-row"><input id="search" class="search-input" type="search" placeholder="${esc(placeholder)}" aria-label="Search" value="${esc(searchQ)}" /></div>`;
+}
+
+function homeList() {
+  if (searchQ) return itemGrid(items, "");
+  if (!collections.length) {
+    return `<div class="card empty">${chickadee("nest")}<p>No collections yet. Start one for anything you keep more than a few of.</p></div>`;
+  }
+  return `<div class="grid">${collections.map((collection) => {
+    const count = items.filter((item) => item.collection_id === collection.id).length;
+    return `
+      <button class="tile" type="button" data-open-collection="${esc(collection.id)}">
+        <div class="plinth">${picture(collectionCover(items, photos, collection.id), { small: true, alt: collection.name })}</div>
+        <div class="tile-body">
+          <div class="tile-title">${esc(collection.name)}</div>
+          <div class="tile-meta">${esc(plural(count, "item"))}</div>
+        </div>
+      </button>`;
+  }).join("")}</div>`;
+}
+
+function renderHome() {
+  const counts = countByLabel(items, "location_ids");
+  return `
+    <div class="topbar">
+      <div class="topbar-main"><h1>Collections</h1></div>
+      <button class="btn" type="button" data-new-collection>${glyph("plus")} New collection</button>
+    </div>
+    ${banners()}
+    ${items.length ? searchRow("Search every collection…") : ""}
+    <section id="list">${homeList()}</section>
+    ${locations.length ? `
+      <h2>Where things are</h2>
+      <div class="chips">${locations.map((location) =>
+        `<button class="chip" type="button" data-open-location="${esc(location.id)}">${esc(location.name)} <span class="count">${counts.get(location.id) ?? 0}</span></button>`).join("")}
+      </div>` : ""}`;
+}
+
+function collectionList() {
+  return itemGrid(filterItems(items, { collectionId: view.id, tagIds: filterTags, locationIds: filterLocations }),
+    "Nothing in this collection yet.");
+}
+
+function renderCollection() {
+  const collection = byId(collections, view.id);
+  if (!collection) { openView({ name: "home" }); return renderHome(); }
+  const inside = items.filter((item) => item.collection_id === collection.id);
+  const tagCounts = countByLabel(inside, "tag_ids");
+  const locationCounts = countByLabel(inside, "location_ids");
+  const usedTags = tagsOf(tags, collection.id).filter((tag) => tagCounts.has(tag.id));
+  const usedLocations = locations.filter((location) => locationCounts.has(location.id));
+  const chip = (kind, row, on, count) =>
+    `<button class="chip${on ? " on" : ""}" type="button" data-filter-${kind}="${esc(row.id)}" aria-pressed="${on}">${esc(row.name)} <span class="count">${count}</span></button>`;
+  return `
+    <button class="back" type="button" data-home>‹ Collections</button>
+    <div class="topbar">
+      <div class="topbar-main">
+        <h1>${esc(collection.name)}</h1>
+        <p class="muted tiny">${esc([collection.description, plural(inside.length, "item"), `started by ${memberName(collection.created_by)}`].filter(Boolean).join(" · "))}</p>
+      </div>
+      <div class="row">
+        ${canEdit(collection) ? `<button class="btn btn-ghost btn-sm" type="button" data-edit-collection="${esc(collection.id)}">${glyph("pencil")} Edit</button>` : ""}
+        <button class="btn" type="button" data-new-item="${esc(collection.id)}">${glyph("plus")} Add item</button>
+      </div>
+    </div>
+    ${banners()}
+    ${inside.length ? searchRow(`Search ${collection.name}…`) : ""}
+    ${usedTags.length || usedLocations.length ? `
+      <div class="filters">
+        ${usedTags.length ? `<div class="filter-line"><span class="label">Tags</span><div class="chips">${usedTags.map((tag) => chip("tag", tag, filterTags.includes(tag.id), tagCounts.get(tag.id))).join("")}</div></div>` : ""}
+        ${usedLocations.length ? `<div class="filter-line"><span class="label">Where</span><div class="chips">${usedLocations.map((location) => chip("location", location, filterLocations.includes(location.id), locationCounts.get(location.id))).join("")}</div></div>` : ""}
+      </div>` : ""}
+    <section id="list">${collectionList()}</section>`;
+}
+
+function locationList() {
+  return itemGrid(filterItems(items, { locationIds: [view.id] }), "Nothing is stored here yet.");
+}
+
+function renderLocation() {
+  const location = byId(locations, view.id);
+  if (!location) { openView({ name: "home" }); return renderHome(); }
+  return `
+    <button class="back" type="button" data-home>‹ Collections</button>
+    <div class="topbar">
+      <div class="topbar-main"><h1>${esc(location.name)}</h1><p class="muted tiny">Everything stored here, from every collection.</p></div>
+      ${canEdit(location) ? `<button class="btn btn-quiet-danger" type="button" data-delete-location="${esc(location.id)}">Delete place</button>` : ""}
+    </div>
+    ${banners()}
+    ${searchRow(`Search ${location.name}…`)}
+    <section id="list">${locationList()}</section>`;
+}
+
+function listHtml() {
+  if (view.name === "collection") return collectionList();
+  if (view.name === "location") return locationList();
+  return homeList();
+}
+
+function collectionSheet() {
+  const collection = sheet.id ? byId(collections, sheet.id) : null;
+  const own = collection ? tagsOf(tags, collection.id) : [];
+  return `
+    <form class="sheet" id="collection-form">
+      <div class="sheet-head"><h1>${collection ? "Edit collection" : "New collection"}</h1><button class="btn btn-ghost btn-sm" type="button" data-close>Close</button></div>
+      <div data-region="banners">${banners()}</div>
+      <div class="field"><label for="c-name">Name</label><input id="c-name" name="name" type="text" maxlength="80" placeholder="Teddy bears" value="${esc(collection?.name ?? "")}" required data-autofocus /></div>
+      <div class="field"><label for="c-desc">Description</label><textarea id="c-desc" name="description" maxlength="400" placeholder="Optional">${esc(collection?.description ?? "")}</textarea></div>
+      <label class="check"><input type="checkbox" name="auto_cutout" ${!collection || Number(collection.auto_cutout) ? "checked" : ""} />
+        <span>Remove the background from new photos, so each one shows the item alone. The photo as taken is always kept.</span></label>
+      <div data-region="collection-tags">${own.length ? `
+        <h2>Tags</h2>
+        <div class="chips">${own.map((tag) => `<span class="chip static">${esc(tag.name)}${canEdit(tag) ? ` <button class="chip-x" type="button" data-delete-tag="${esc(tag.id)}" aria-label="Delete tag ${esc(tag.name)}">×</button>` : ""}</span>`).join("")}</div>` : ""}</div>
+      <div class="sheet-foot">
+        ${collection ? `<button class="btn btn-quiet-danger" type="button" data-delete-collection="${esc(collection.id)}">Delete collection</button>` : "<span></span>"}
+        <button class="btn" type="submit">${collection ? "Save" : "Create"}</button>
+      </div>
+    </form>`;
+}
+
+function newItemSheet() {
+  return `
+    <form class="sheet" id="item-form">
+      <div class="sheet-head"><h1>Add item</h1><button class="btn btn-ghost btn-sm" type="button" data-close>Close</button></div>
+      <div data-region="banners">${banners()}</div>
+      <div class="field"><label for="i-name">Name</label><input id="i-name" name="name" type="text" maxlength="120" placeholder="What is it?" required data-autofocus /></div>
+      <p class="muted tiny">Photos, tags and where it is stored come next.</p>
+      <div class="sheet-foot"><span></span><button class="btn" type="submit">Add</button></div>
+    </form>`;
+}
+
+function photoCard(photo, item) {
+  // Still "pending" while this tab is making it, and while an old request has
+  // not been checked: "failed, try again" is only said once that is known.
+  const state = mine.has(photo.id) || (DB_URL && needsCheck(photo, mine, checkedStale)) ? "pending" : cutoutState(photo);
+  const label = cutoutLabel(state);
+  const editable = canEdit(photo);
+  const actions = [];
+  if (photo.cutout_file_id && editable) {
+    actions.push(showsCutout(photo)
+      ? `<button class="btn btn-ghost btn-sm" type="button" data-use-cutout="0" data-photo="${esc(photo.id)}">Show as taken</button>`
+      : `<button class="btn btn-ghost btn-sm" type="button" data-use-cutout="1" data-photo="${esc(photo.id)}">Show cutout</button>`);
+  }
+  if (files && editable && state !== "pending" && canRequestCutout(photo)) {
+    actions.push(`<button class="btn btn-ghost btn-sm" type="button" data-cutout="${esc(photo.id)}">${state === "none" ? "Remove background" : "Try again"}</button>`);
+  }
+  if (editable) actions.push(`<button class="btn btn-quiet-danger" type="button" data-delete-photo="${esc(photo.id)}">Delete</button>`);
+  return `
+    <div class="photo">
+      <div class="plinth">${picture(photo, { alt: item.name })}</div>
+      ${label || actions.length ? `<div class="photo-foot">
+        ${label ? `<div class="tiny muted">${state === "pending" ? '<span class="spin" aria-hidden="true"></span> ' : ""}${esc(label)}</div>` : ""}
+        ${actions.length ? `<div class="row">${actions.join("")}</div>` : ""}
+      </div>` : ""}
+    </div>`;
+}
+
+function labelPicker(item, kind, editable) {
+  const column = kind === "tag" ? "tag_ids" : "location_ids";
+  const rows = kind === "tag" ? tagsOf(tags, item.collection_id) : locations;
+  const chosen = parseIds(item[column]);
+  const shown = editable ? rows : rows.filter((row) => chosen.includes(row.id));
+  const chips = shown.map((row) => {
+    const on = chosen.includes(row.id);
+    return editable
+      ? `<button class="chip${on ? " on" : ""}" type="button" data-toggle-${kind}="${esc(row.id)}" aria-pressed="${on}">${esc(row.name)}</button>`
+      : `<span class="chip static on">${esc(row.name)}</span>`;
+  }).join("");
+  return `
+    <h2>${kind === "tag" ? "Tags" : "Where it is"}</h2>
+    <div data-region="${kind}-chips">${chips ? `<div class="chips">${chips}</div>` : editable ? "" : `<p class="muted tiny">None.</p>`}</div>
+    ${editable ? `
+      <form class="add-inline" data-add-label="${kind}">
+        <input type="text" name="name" maxlength="40" placeholder="${kind === "tag" ? "New tag" : "New place, such as Bin 1"}" aria-label="${kind === "tag" ? "New tag" : "New place"}" />
+        <button class="btn btn-ghost btn-sm" type="submit">Add</button>
+      </form>` : ""}`;
+}
+
+function itemSheet() {
+  const item = byId(items, sheet.id);
+  if (!item) { sheet = null; return ""; }
+  const editable = canEdit(item);
+  const own = photosOf(photos, item.id);
+  return `
+    <div class="sheet" role="dialog" aria-label="${esc(item.name)}">
+      <div class="sheet-head">
+        <div class="topbar-main">
+          ${editable ? "" : `<h1>${esc(item.name)}</h1>`}
+          <p class="muted tiny">${esc(byId(collections, item.collection_id)?.name ?? "")} · added by ${esc(memberName(item.created_by))}</p>
+        </div>
+        <button class="btn btn-ghost btn-sm" type="button" data-close>Close</button>
+      </div>
+      <div data-region="banners">${banners()}</div>
+      ${editable ? `
+        <div class="field"><label for="d-name">Name</label><input id="d-name" type="text" maxlength="120" value="${esc(item.name)}" data-item-field="name" /></div>
+        <div class="field"><label for="d-note">Notes</label><textarea id="d-note" maxlength="2000" placeholder="Where it came from, what makes it special" data-item-field="note">${esc(item.note ?? "")}</textarea></div>
+        <div class="field"><label for="d-acquired">Acquired</label><input id="d-acquired" type="date" style="max-width:220px" value="${esc(cleanDate(item.acquired_date) ?? "")}" data-item-field="acquired_date" /></div>`
+      : `${item.note ? `<p style="white-space:pre-wrap;margin-bottom:10px">${esc(item.note)}</p>` : ""}
+         ${formatDate(item.acquired_date) ? `<p class="muted tiny" style="margin-bottom:10px">Acquired ${esc(formatDate(item.acquired_date))}</p>` : ""}`}
+      <h2>Photos</h2>
+      <div data-region="photos">
+        ${own.length ? `<div class="photos">${own.map((photo) => photoCard(photo, item)).join("")}</div>` : `<p class="muted tiny">No photos yet.</p>`}
+        ${files ? `
+          <div class="row" style="margin-top:10px">
+            <button class="btn btn-ghost btn-sm" type="button" data-pick-photos ${adding ? "disabled" : ""}>${glyph("camera")} ${adding ? `Adding ${Math.min(adding.done + 1, adding.total)} of ${adding.total}…` : "Add photos"}</button>
+          </div>` : ""}
+      </div>
+      ${files ? `<input type="file" id="photo-input" multiple accept="image/*" />` : ""}
+      ${labelPicker(item, "tag", editable)}
+      ${labelPicker(item, "location", editable)}
+      ${editable ? `<div class="sheet-foot"><button class="btn btn-quiet-danger" type="button" data-delete-item="${esc(item.id)}">Delete item</button><span></span></div>` : ""}
+    </div>`;
+}
+
+let pendingTimer = 0;
+let polling = false;
+let pollFailed = false;
+// Stale requests the database has been asked about and that are truly
+// abandoned, by holdKey. Only these read as failed.
+const checkedStale = new Set();
+const PENDING_POLL_MS = 15_000;
+
+/**
+ * Ask how the cutouts other tabs and devices are making have turned out. This
+ * tab will never be told, and without asking, a cutout that succeeded elsewhere
+ * would sit at "Removing the background…" and then read as failed. One batch
+ * for all of them.
+ */
+async function pollPending() {
+  const waiting = pendingElsewhere(photos, mine, checkedStale);
+  if (!waiting.length || polling) return;
+  polling = true;
+  try {
+    const results = await db.batch(waiting.map((photo) => ({
+      sql: "SELECT cutout_file_id, cutout_status, cutout_requested_at FROM app_collections__photos WHERE id = ?", params: [photo.id],
+    })));
+    waiting.forEach((photo, i) => {
+      const row = results[i]?.rows?.[0];
+      // Not while this tab has since taken the photo itself.
+      if (row && !mine.has(photo.id)) Object.assign(photo, row);
+      // Asked, and still an old unanswered request (or the row is gone): now
+      // it is known to be abandoned, and is not asked about again. A new hold
+      // on it has a new stamp, and so a new key.
+      if (needsCheck(photo, mine, checkedStale)) checkedStale.add(holdKey(photo));
+    });
+    pollFailed = false;
+  } catch {
+    // Asked again on the next turn of the timer, not at once.
+    pollFailed = true;
+  } finally {
+    polling = false;
+  }
+}
+
+/**
+ * Draw the open sheet. A sheet that is already open is not rebuilt: only its
+ * `data-region` parts are redrawn, and those hold no text box. So a cutout
+ * finishing, an upload moving on or a note being saved never clears what
+ * someone is typing, never loses an edit a rebuilt box would forget, and never
+ * sends a long sheet back to the top.
+ */
+function renderSheet() {
+  const modal = document.getElementById("modal");
+  const key = sheet ? `${sheet.kind}:${sheet.id ?? sheet.collectionId ?? "new"}` : "";
+  const html = !sheet ? "" : sheet.kind === "collection" ? collectionSheet() : sheet.kind === "new-item" ? newItemSheet() : itemSheet();
+  if (!html) {
+    sheet = null;
+    modal.innerHTML = "";
+    modal.dataset.sheet = "";
+    return;
+  }
+  if (modal.dataset.sheet !== key) {
+    modal.innerHTML = `<div class="overlay" data-overlay>${html}</div>`;
+    modal.dataset.sheet = key;
+    modal.querySelector("[data-autofocus]")?.focus();
+    return;
+  }
+  const fresh = document.createElement("div");
+  fresh.innerHTML = html;
+  for (const region of modal.querySelectorAll("[data-region]")) {
+    const next = fresh.querySelector(`[data-region="${region.dataset.region}"]`);
+    if (next && region.innerHTML !== next.innerHTML) region.innerHTML = next.innerHTML;
+  }
+}
+
+function render() {
+  const root = document.getElementById("root");
+  const searching = document.activeElement?.id === "search" ? document.activeElement.selectionStart : null;
+  root.className = "";
+  root.innerHTML = view.name === "collection" ? renderCollection() : view.name === "location" ? renderLocation() : renderHome();
+  if (searching !== null) {
+    const box = document.getElementById("search");
+    if (box) { box.focus(); try { box.setSelectionRange(searching, searching); } catch {} }
+  }
+
+  renderSheet();
+
+  // While someone else is making a cutout, ask now and then how it went, and
+  // redraw. If no answer ever comes the row goes stale, reads as failed with a
+  // "Try again", and the asking stops.
+  // Set once and left to fire: a timer restarted by every redraw would be put
+  // off for as long as the person kept working.
+  if (DB_URL && !pendingTimer && !polling && pendingElsewhere(photos, mine, checkedStale).length) {
+    // A stale row not yet asked about is being shown on trust; ask at once.
+    const urgent = !pollFailed && photos.some((photo) => needsCheck(photo, mine, checkedStale));
+    pendingTimer = setTimeout(() => { pendingTimer = 0; pollPending().then(render); }, urgent ? 0 : PENDING_POLL_MS);
+  }
+}
+
+// --- Events ------------------------------------------------------------------
+function toggleFilter(list, id) { return toggleId(list, id); }
+
+/**
+ * Close the open sheet. However it is closed, the box being typed in is blurred
+ * first: that is what fires its save, and a sheet closed by key or by a click
+ * outside it would otherwise drop the edit.
+ */
+function closeSheet() {
+  const typing = document.activeElement;
+  if (typing?.dataset?.itemField) typing.blur();
+  sheet = null;
+  render();
+}
+
+// A click outside the sheet closes it, but only a click that also STARTED
+// there. Selecting text and letting go past the edge of the sheet is a click
+// on the overlay too, and is not a wish to close.
+let pressedOverlay = false;
+document.addEventListener("mousedown", (event) => { pressedOverlay = event.target.matches("[data-overlay]"); });
+
+document.addEventListener("click", (event) => {
+  if (event.target.matches("[data-overlay]")) { if (pressedOverlay) closeSheet(); return; }
+  const el = event.target.closest("button");
+  if (!el) return;
+  const d = el.dataset;
+  if ("dismiss" in d) { if (d.dismiss === "error") error = ""; else notice = ""; return render(); }
+  if ("close" in d) return closeSheet();
+  if ("home" in d) { openView({ name: "home" }); return render(); }
+  if ("newCollection" in d) { sheet = { kind: "collection" }; return render(); }
+  if (d.openCollection) { openView({ name: "collection", id: d.openCollection }); return render(); }
+  if (d.openLocation) { openView({ name: "location", id: d.openLocation }); return render(); }
+  if (d.editCollection) { sheet = { kind: "collection", id: d.editCollection }; return render(); }
+  if (d.deleteCollection) return void deleteCollection(d.deleteCollection);
+  if (d.deleteTag) return void deleteLabel("tag", d.deleteTag);
+  if (d.deleteLocation) return void deleteLabel("location", d.deleteLocation);
+  if (d.newItem) { sheet = { kind: "new-item", collectionId: d.newItem }; return render(); }
+  if (d.openItem) { sheet = { kind: "item", id: d.openItem }; return render(); }
+  if (d.deleteItem) return void deleteItem(d.deleteItem);
+  if (d.filterTag) { filterTags = toggleFilter(filterTags, d.filterTag); return render(); }
+  if (d.filterLocation) { filterLocations = toggleFilter(filterLocations, d.filterLocation); return render(); }
+  if (d.toggleTag) return void toggleItemLabel(sheet.id, "tag", d.toggleTag);
+  if (d.toggleLocation) return void toggleItemLabel(sheet.id, "location", d.toggleLocation);
+  if ("pickPhotos" in d) return document.getElementById("photo-input")?.click();
+  if (d.cutout) return void requestCutout(d.cutout);
+  if (d.useCutout) return void setUseCutout(d.photo, Number(d.useCutout));
+  if (d.deletePhoto) return void deletePhoto(d.deletePhoto);
+});
+
+document.addEventListener("submit", (event) => {
+  const form = event.target;
+  event.preventDefault();
+  if (form.id === "collection-form") return void saveCollection(form);
+  if (form.id === "item-form") return void createItem(form);
+  if (form.dataset.addLabel && sheet?.kind === "item") {
+    return void addItemLabel(sheet.id, form.dataset.addLabel, form.name.value, form.name);
+  }
+});
+
+document.addEventListener("change", (event) => {
+  const el = event.target;
+  if (el.id === "photo-input" && sheet?.kind === "item") {
+    const picked = [...el.files];
+    // Cleared so that choosing the same photo again is still a change.
+    el.value = "";
+    void addPhotos(sheet.id, picked);
+    return;
+  }
+  if (el.dataset.itemField && sheet?.kind === "item") {
+    const item = byId(items, sheet.id);
+    if (!item) return;
+    // A date is stored as a day or as nothing; a half-typed one is nothing yet.
+    const value = el.dataset.itemField === "acquired_date" ? cleanDate(el.value) : el.value.trim();
+    // An item always has a name; an emptied box goes back to the one it had.
+    if (el.dataset.itemField === "name" && !value) { el.value = item.name; return; }
+    void saveItemField(sheet.id, el.dataset.itemField, value);
+  }
+});
+
+// Re-render only the list on each keystroke so the search box keeps focus.
+document.addEventListener("input", (event) => {
+  if (event.target.id !== "search") return;
+  searchQ = event.target.value;
+  const list = document.getElementById("list");
+  if (list) list.innerHTML = listHtml();
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && sheet) closeSheet();
+});
+
+// A tab that was asleep wakes with timers that are late and rows that are old.
+// Draw again on the way back in, which asks about anything left unanswered.
+document.addEventListener("visibilitychange", () => { if (!document.hidden) render(); });
+
+refresh();
+</script>
+</body>
+</html>

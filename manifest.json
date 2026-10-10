@@ -1,0 +1,186 @@
+{
+  "$schema": "https://chickadeebandit.com/manifest-schema.json",
+  "id": "collections",
+  "name": "Collections",
+  "version": "1.0.0",
+  "description": "Keep track of the things you collect: teddy bears, power tools, vinyl, anything. Photograph each item, tag it, and record where it is stored. Photos can have their background removed so each one shows the item alone.",
+  "entrypoint": "index.html",
+  "runtime": "static",
+  "category": "home",
+  "tags": [
+    "collections",
+    "inventory",
+    "photos",
+    "tags",
+    "storage",
+    "hobbies"
+  ],
+  "contexts": [
+    "household"
+  ],
+  "data_access": {
+    "reads": [
+      "family.members"
+    ],
+    "writes": []
+  },
+  "permissions": {
+    "default_audience": "everyone",
+    "requires_approval": false
+  },
+  "required_capabilities": [
+    "image_cutout"
+  ],
+  "storage": "db",
+  "db_plaintext_columns": [
+    "cutout_status"
+  ],
+  "preload": {
+    "collections": {
+      "sql": "SELECT id, name, description, auto_cutout, created_by, created_at, updated_at FROM app_collections__collections ORDER BY created_at DESC, id DESC"
+    },
+    "tags": {
+      "sql": "SELECT id, collection_id, name, created_by, created_at FROM app_collections__tags ORDER BY created_at, id"
+    },
+    "locations": {
+      "sql": "SELECT id, name, created_by, created_at FROM app_collections__locations ORDER BY created_at, id"
+    },
+    "items": {
+      "sql": "SELECT id, collection_id, name, note, acquired_date, tag_ids, location_ids, created_by, created_at, updated_at FROM app_collections__items ORDER BY created_at DESC, id DESC LIMIT 120"
+    },
+    "photos": {
+      "sql": "SELECT id, collection_id, item_id, file_id, thumb_file_id, cutout_file_id, cutout_status, cutout_requested_at, use_cutout, sort_order, created_by, created_at FROM app_collections__photos ORDER BY created_at DESC, id DESC LIMIT 120"
+    }
+  },
+  "row_policies": {
+    "collections": {
+      "kind": "owner_or_visibility",
+      "member_column": "created_by",
+      "visibility_column": "visibility",
+      "everyone_values": [
+        "everyone"
+      ]
+    },
+    "tags": {
+      "kind": "owner_or_visibility",
+      "member_column": "created_by",
+      "visibility_column": "visibility",
+      "everyone_values": [
+        "everyone"
+      ]
+    },
+    "locations": {
+      "kind": "owner_or_visibility",
+      "member_column": "created_by",
+      "visibility_column": "visibility",
+      "everyone_values": [
+        "everyone"
+      ]
+    },
+    "items": {
+      "kind": "owner_or_visibility",
+      "member_column": "created_by",
+      "visibility_column": "visibility",
+      "everyone_values": [
+        "everyone"
+      ]
+    },
+    "photos": {
+      "kind": "owner_or_visibility",
+      "member_column": "created_by",
+      "visibility_column": "visibility",
+      "everyone_values": [
+        "everyone"
+      ]
+    }
+  },
+  "delete_file_columns": {
+    "photos": [
+      "file_id",
+      "thumb_file_id",
+      "cutout_file_id"
+    ]
+  },
+  "update_file_columns": {
+    "photos": [
+      "file_id",
+      "thumb_file_id",
+      "cutout_file_id"
+    ]
+  },
+  "delete_cascades": {
+    "collections": [
+      {
+        "table": "items",
+        "foreign_key": "collection_id"
+      },
+      {
+        "table": "tags",
+        "foreign_key": "collection_id"
+      },
+      {
+        "table": "photos",
+        "foreign_key": "collection_id",
+        "file_id_column": [
+          "file_id",
+          "thumb_file_id",
+          "cutout_file_id"
+        ]
+      }
+    ],
+    "items": [
+      {
+        "table": "photos",
+        "foreign_key": "item_id",
+        "file_id_column": [
+          "file_id",
+          "thumb_file_id",
+          "cutout_file_id"
+        ]
+      }
+    ]
+  },
+  "member_references": {
+    "collections": {
+      "column": "created_by",
+      "on_removed": "keep"
+    },
+    "tags": {
+      "column": "created_by",
+      "on_removed": "keep"
+    },
+    "locations": {
+      "column": "created_by",
+      "on_removed": "keep"
+    },
+    "items": {
+      "column": "created_by",
+      "on_removed": "keep"
+    },
+    "photos": {
+      "column": "created_by",
+      "on_removed": "keep"
+    }
+  },
+  "glance": {
+    "source": {
+      "kind": "sql",
+      "query": "SELECT COUNT(*) AS value FROM app_collections__items LIMIT 1"
+    },
+    "display": {
+      "template": "stat",
+      "value": "value",
+      "label": "items collected",
+      "empty_hides": true
+    }
+  },
+  "resource_limits": {
+    "max_db_bytes": 52428800,
+    "max_file_bytes": 20971520,
+    "max_files_bytes": 2147483648
+  },
+  "nav": {
+    "label": "Collections"
+  },
+  "icon": "🧸"
+}

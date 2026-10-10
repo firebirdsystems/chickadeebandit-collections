@@ -1,0 +1,2256 @@
+{
+  "meta": {
+    "version": 1,
+    "nodeCount": 76,
+    "edgeCount": 193,
+    "languages": [
+      "javascript"
+    ],
+    "scopes": [
+      {
+        "prefix": "",
+        "label": "",
+        "markers": [
+          "package.json"
+        ]
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "__tests__/file-reclaim.test.mjs",
+      "name": "file-reclaim.test.mjs",
+      "kind": "file",
+      "path": "__tests__/file-reclaim.test.mjs",
+      "span": "L1-L81",
+      "signature": null,
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "664c89ce48e9a9bb4e9e6dde2f5b26c2546ef2d4a9e5d83f897d865ccaeb8e86",
+      "chars": 3653,
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/file-reclaim.test.mjs#declaredColumns",
+      "name": "declaredColumns",
+      "kind": "function",
+      "path": "__tests__/file-reclaim.test.mjs",
+      "span": "L40-L54",
+      "signature": "function declaredColumns()",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "a9e56c6fde3a88ac2090dad15a8753ea9ae22a61846f527966461c19ff423820",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/file-reclaim.test.mjs#declaredColumns.add",
+      "name": "add",
+      "kind": "function",
+      "path": "__tests__/file-reclaim.test.mjs",
+      "span": "L42-L47",
+      "signature": "add = (table, columns)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "8aa4ef90baca6f31f27579a17898711d4caa0d5160050a6ceb4c46649b1d9813",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/file-reclaim.test.mjs#schemaFileColumns",
+      "name": "schemaFileColumns",
+      "kind": "function",
+      "path": "__tests__/file-reclaim.test.mjs",
+      "span": "L28-L36",
+      "signature": "function schemaFileColumns()",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "0a9e0b9641ddf4e522a1700c9c70c514637634eb6564fd58a32ac8b27a8500fd",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/logic.test.mjs",
+      "name": "logic.test.mjs",
+      "kind": "file",
+      "path": "__tests__/logic.test.mjs",
+      "span": "L1-L299",
+      "signature": null,
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "6661c9bf15d3401c3b023fae7c98dcd7df8214e2e4aee5bf078dc682f24c3764",
+      "chars": 15857,
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/logic.test.mjs#asked",
+      "name": "asked",
+      "kind": "function",
+      "path": "__tests__/logic.test.mjs",
+      "span": "L113-L113",
+      "signature": "asked = (msAgo)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "c5247c21eb4dc13bd1bc0b0552cca868c67db7565153e14eaad1277e2f991b91",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/logic.test.mjs#asked~2",
+      "name": "asked",
+      "kind": "function",
+      "path": "__tests__/logic.test.mjs",
+      "span": "L233-L233",
+      "signature": "asked = (msAgo)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "c5247c21eb4dc13bd1bc0b0552cca868c67db7565153e14eaad1277e2f991b91",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/logic.test.mjs#ids",
+      "name": "ids",
+      "kind": "function",
+      "path": "__tests__/logic.test.mjs",
+      "span": "L63-L63",
+      "signature": "ids = (list)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "f79ab33ae8281b895c55495bfffda54a097d611bcf30570a2ea8ff68e6ee3bce",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/logic.test.mjs#ids~2",
+      "name": "ids",
+      "kind": "function",
+      "path": "__tests__/logic.test.mjs",
+      "span": "L213-L213",
+      "signature": "ids = (rows)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "f6023ce49139904d3769ee332de7e11411e43fc473ce26a6431997eb94cdfe0b",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/logic.test.mjs#taken",
+      "name": "taken",
+      "kind": "function",
+      "path": "__tests__/logic.test.mjs",
+      "span": "L140-L140",
+      "signature": "taken = (msAgo)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "8023404b4bb883b77b757662b5db65d25ada887178bc452fd17dc7e37e5adaac",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/manifest.test.mjs",
+      "name": "manifest.test.mjs",
+      "kind": "file",
+      "path": "__tests__/manifest.test.mjs",
+      "span": "L1-L150",
+      "signature": null,
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "6bd18241cd5e8d90d2e0512982c54b874577d7489574a58339285c84a4a3f8c0",
+      "chars": 6188,
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/preload.test.mjs",
+      "name": "preload.test.mjs",
+      "kind": "file",
+      "path": "__tests__/preload.test.mjs",
+      "span": "L1-L124",
+      "signature": null,
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "3dd5a9c42d0626444ef23966bd3980af0a59e5267b61c8008b1273d4159f148a",
+      "chars": 7126,
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/preload.test.mjs#head",
+      "name": "head",
+      "kind": "function",
+      "path": "__tests__/preload.test.mjs",
+      "span": "L117-L117",
+      "signature": "head = (sql)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "76ce39bc19734f1682564a1e4fe7e56e4621e47176843832e8cf2f741a0f6eaa",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/preload.test.mjs#page",
+      "name": "page",
+      "kind": "function",
+      "path": "__tests__/preload.test.mjs",
+      "span": "L63-L63",
+      "signature": "page = (length)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "c0cbf59308207537fcbdcf929c318dda0e42ac3cda914051ab9928b79ca61c42",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/preload.test.mjs#row",
+      "name": "row",
+      "kind": "function",
+      "path": "__tests__/preload.test.mjs",
+      "span": "L62-L62",
+      "signature": "row = (i)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "3b1fbaf31e9b63254933431807a0e62965ee008c8f102a962b419bcc6df5a1b2",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/preload.test.mjs#tail",
+      "name": "tail",
+      "kind": "function",
+      "path": "__tests__/preload.test.mjs",
+      "span": "L118-L118",
+      "signature": "tail = (sql)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "a88cf9649db3ca647c1f991ee49387391f7828a6a20b1e582d8706f1b5248748",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/schema.mjs",
+      "name": "schema.mjs",
+      "kind": "file",
+      "path": "__tests__/schema.mjs",
+      "span": "L1-L98",
+      "signature": null,
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "92c800f93cd0a4b1315372fe694bee8243d7b6a857cb589be9ba0bc815c0c22b",
+      "chars": 3742,
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/schema.mjs#appTableColumns",
+      "name": "appTableColumns",
+      "kind": "function",
+      "path": "__tests__/schema.mjs",
+      "span": "L61-L72",
+      "signature": "function appTableColumns()",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "e2a757b5d6482f5ee8165d483e58c4d71b404ff4d27bd31b5a618635be22c9de",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/schema.mjs#columnNames",
+      "name": "columnNames",
+      "kind": "function",
+      "path": "__tests__/schema.mjs",
+      "span": "L40-L56",
+      "signature": "function columnNames(body)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "7007e6ac4607429a065489be91cceec35cb92011e45721b40d63d4fcfb1362eb",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/schema.mjs#columnsOf",
+      "name": "columnsOf",
+      "kind": "function",
+      "path": "__tests__/schema.mjs",
+      "span": "L75-L77",
+      "signature": "function columnsOf(table)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "716b395991b21cde6754a0a55c8f74bb1a1a931d43c10a90b33ae3c948932004",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/schema.mjs#createTableBody",
+      "name": "createTableBody",
+      "kind": "function",
+      "path": "__tests__/schema.mjs",
+      "span": "L25-L38",
+      "signature": "function createTableBody(table)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "8a00fa642cea083dfabb167027f1043c21f0728bd4c6e5e951568035ffe4d75c",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/schema.mjs#isPlaintextColumn",
+      "name": "isPlaintextColumn",
+      "kind": "function",
+      "path": "__tests__/schema.mjs",
+      "span": "L92-L97",
+      "signature": "function isPlaintextColumn(column)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "1ec2dcaf8d3e3d87d6d6f67db4b7c10745788264f93ce201604ea07a975007bc",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "build.mjs",
+      "name": "build.mjs",
+      "kind": "file",
+      "path": "build.mjs",
+      "span": "L1-L397",
+      "signature": null,
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "3b8e0b555bf3919bed562c91ee230ee542e28c5507facf3428a6e50a39f75ec6",
+      "chars": 17468,
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "build.mjs#inlineHandlerErrors",
+      "name": "inlineHandlerErrors",
+      "kind": "function",
+      "path": "build.mjs",
+      "span": "L272-L353",
+      "signature": "function inlineHandlerErrors(files)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "5a07c1ecbba733e0265ae43fd02986c34282c4c4d2f9b4a9d45076c5cdb0c99a",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "build.mjs#inlineHandlerErrors.stripComments",
+      "name": "stripComments",
+      "kind": "function",
+      "path": "build.mjs",
+      "span": "L310-L311",
+      "signature": "stripComments = (js)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "56d719bd153d7493b9d47e3a74750e07cb6f667b44a448d1d9c727cf16a6989b",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "build.mjs#inlineHandlerErrors.stripInterpolations",
+      "name": "stripInterpolations",
+      "kind": "function",
+      "path": "build.mjs",
+      "span": "L289-L303",
+      "signature": "stripInterpolations = (s)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "92c8802a8008fb04a1a209b3ac84a3b2ee928cbcbb744c836e9995a800446a4e",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "build.mjs#inlineHandlerErrors.stripStrings",
+      "name": "stripStrings",
+      "kind": "function",
+      "path": "build.mjs",
+      "span": "L306-L306",
+      "signature": "stripStrings = (s)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "4e150cf59ba9d4f16ca0e3f300d197a44381a4b131726e2a18338cbfb83a6fed",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "build.mjs#readDir",
+      "name": "readDir",
+      "kind": "function",
+      "path": "build.mjs",
+      "span": "L31-L39",
+      "signature": "function readDir(dir, base = \"\")",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "18909292c8f4d379b4d99a552ec20638de1d3971cb91da5f5cc8d7903d2ffe51",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "build.mjs#surfaceErrors",
+      "name": "surfaceErrors",
+      "kind": "function",
+      "path": "build.mjs",
+      "span": "L153-L248",
+      "signature": "function surfaceErrors(m)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "27a231a58d0ab0b647d8339b27b067e7c302c978c6fbeae5297c0d3473dafbe5",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "build.mjs#surfaceErrors.aliasesOf",
+      "name": "aliasesOf",
+      "kind": "function",
+      "path": "build.mjs",
+      "span": "L158-L178",
+      "signature": "aliasesOf = (q)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "bf84d6f356582aa12e70d4c3f4a00a746d0588fc654ab3b45322c5307313ba1b",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "build.mjs#surfaceErrors.checkQuery",
+      "name": "checkQuery",
+      "kind": "function",
+      "path": "build.mjs",
+      "span": "L181-L187",
+      "signature": "checkQuery = (q, where)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "debe0f1b6d72d9201f34d999fef531c1765b794275de84d3ecf493005dc2791a",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "build.mjs#surfaceErrors.limitOf",
+      "name": "limitOf",
+      "kind": "function",
+      "path": "build.mjs",
+      "span": "L179-L179",
+      "signature": "limitOf = (q)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "62816b383b7cc339c7755930395addcb62043759917ebf17a1b4cd9870ab0a87",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "dev.mjs",
+      "name": "dev.mjs",
+      "kind": "file",
+      "path": "dev.mjs",
+      "span": "L1-L107",
+      "signature": null,
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "5deae6045a91fa1db0125f3bfb19df83c30e4f59b033aa4f155a3772604ebe23",
+      "chars": 3434,
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "dev.mjs#ensureSdk",
+      "name": "ensureSdk",
+      "kind": "function",
+      "path": "dev.mjs",
+      "span": "L68-L89",
+      "signature": "async function ensureSdk()",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "3f99af637397a911e5fb1d84e4ca2dd927da506f24148952981c352c1cd3e472",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "dev.mjs#fetchSdk",
+      "name": "fetchSdk",
+      "kind": "function",
+      "path": "dev.mjs",
+      "span": "L57-L66",
+      "signature": "function fetchSdk()",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "7ec8e9c5632bc1ad3d6cb27fc5a2af654f9c91da65af1fc08169d8c7273c9a36",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "dev.mjs#mime",
+      "name": "mime",
+      "kind": "function",
+      "path": "dev.mjs",
+      "span": "L42-L44",
+      "signature": "function mime(filepath)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "f00f2149fd7dff6d81fa07e2f3e4b14e265fd0ee8a5deb6e57fc051bcfe87419",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "dev.mjs#serve",
+      "name": "serve",
+      "kind": "function",
+      "path": "dev.mjs",
+      "span": "L46-L55",
+      "signature": "function serve(res, filepath)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "52e06b87ecc7af284739a8fd6dc8d250f701005853f2be1c45e9d1b4ac67f6ba",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js",
+      "name": "logic.js",
+      "kind": "file",
+      "path": "src/logic.js",
+      "span": "L1-L307",
+      "signature": null,
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "cc526c93840c14865314f7366ac6652c5adbbd832c2e6768999782d1cbb9f50b",
+      "chars": 13225,
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#canEdit",
+      "name": "canEdit",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L11-L14",
+      "signature": "function canEdit(row, me)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "56818e512b10d433d3fe44d9808f7cb4615d6a1559196e4823524ef4c107fe4f",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#canRequestCutout",
+      "name": "canRequestCutout",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L158-L161",
+      "signature": "function canRequestCutout(photo, now = Date.now())",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "c7b984eed35bdd034d30ae4f138fe74419230097eb2775995dd6b88c3e7a467c",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#cleanDate",
+      "name": "cleanDate",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L282-L290",
+      "signature": "function cleanDate(value)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "fdb69c62ca80c4d64852f66141a2536882f2f69d772a1b9e6ca27b5dae06ba2b",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#collectionCover",
+      "name": "collectionCover",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L111-L115",
+      "signature": "function collectionCover(items, photos, collectionId)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "207953de7269620a5c9792b4ab06a630f2640b15210d1db087db64a809cca24b",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#countByLabel",
+      "name": "countByLabel",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L89-L95",
+      "signature": "function countByLabel(items, column)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "9602e4ee338da15d2ce5bdcf0cd7a1ce7b71c1707c341a372c41c56f34e6ce42",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#coverPhoto",
+      "name": "coverPhoto",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L106-L108",
+      "signature": "function coverPhoto(photos, itemId)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "e060495d69420c0fd659165b4c1adf0dd3fdf41fe3771f8edd6886615d175434",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#cutoutFailure",
+      "name": "cutoutFailure",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L187-L201",
+      "signature": "function cutoutFailure(status, detail = null)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "89c9bbbc86f6a341b80b54d16db368adb6d0180d494f470411b033164b01b99f",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#cutoutLabel",
+      "name": "cutoutLabel",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L204-L211",
+      "signature": "function cutoutLabel(state)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "1fd2caa46497d5a3bf7f095759e44fe1f5801ef0ada6e5535776f4a4e4180a08",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#cutoutState",
+      "name": "cutoutState",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L142-L150",
+      "signature": "function cutoutState(photo, now = Date.now())",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "deefc2cc2bf766b36e53d9f1212ffd4a745062c415079ed17f93e679e10502ff",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#displayFileId",
+      "name": "displayFileId",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L170-L173",
+      "signature": "function displayFileId(photo, { small = false } = {})",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "be1e13c925ca69bd51e6ac2653f2b9567662db4a5a4ac2408d3dd6f19b8d8045",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#filterItems",
+      "name": "filterItems",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L77-L86",
+      "signature": "function filterItems(items, { collectionId = null, tagIds = [], locationIds = [] } = {})",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "14ba2c19b84e96f6f92dca1ddc1c752362d6bb6bcbbf511231109fb997122796",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#findByName",
+      "name": "findByName",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L47-L50",
+      "signature": "function findByName(rows, name)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "c5309abb5134ea1ad1cc033f9023172b49bd190391ebd11e0452b2986154bebd",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#fitWithin",
+      "name": "fitWithin",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L216-L221",
+      "signature": "function fitWithin(width, height, max)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "fc03a5a2f648801d2dbf79587cd07f7f0aa4b5a543ebc014836e2329b8a3b597",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#formatDate",
+      "name": "formatDate",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L294-L300",
+      "signature": "function formatDate(value, locale = undefined)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "ad366c191a45bc050055fe8cd2661ece8ff3a6e473d042347dcb1238f99a987a",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#holdIsFresh",
+      "name": "holdIsFresh",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L134-L137",
+      "signature": "function holdIsFresh(stamp, now = Date.now())",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "d279708c70fbe45a956fb4d25c058bda1eb8dcecb2d5f42b67e87a3a22d334a8",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#holdKey",
+      "name": "holdKey",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L245-L247",
+      "signature": "function holdKey(photo)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "4c481b4358bce1d2bf86f5fd9601ee530d50f5ff3bb849bae5ac4be82a991ddf",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#liveIds",
+      "name": "liveIds",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L36-L39",
+      "signature": "function liveIds(ids, rows)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "afe9ee336ab102613fcad531b010630d81140e1baaa8580b8ae1f22a8372887a",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#nameKey",
+      "name": "nameKey",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L42-L44",
+      "signature": "function nameKey(name)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "1c27b0043fbff7f4c7e5ae52fd1ced38f61b80db5cf590bf85e4411a75a252f7",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#needsCheck",
+      "name": "needsCheck",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L261-L264",
+      "signature": "function needsCheck(photo, heldHere, checked, now = Date.now())",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "0970b715ede91073d18fbf486fd48a186b14ce541386a6773321653487c621f2",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#parseIds",
+      "name": "parseIds",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L19-L28",
+      "signature": "function parseIds(value)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "28140f2e6549b28f7686574b50471a5ad5acd09dea42df068cab400622d6f911",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#pendingElsewhere",
+      "name": "pendingElsewhere",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L273-L277",
+      "signature": "function pendingElsewhere(photos, heldHere, checked = new Set(), now = Date.now(), max = 25)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "49a53b9876d4e2df6393cf4c7120f5dcf2434e465491ad006d3707d7de66d42e",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#photosOf",
+      "name": "photosOf",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L100-L104",
+      "signature": "function photosOf(photos, itemId)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "c3e3de9e2d437ed0ea76ba9de47d1cbe2242cc8651b912dc525e9796eb7c3834",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#plural",
+      "name": "plural",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L304-L306",
+      "signature": "function plural(count, one, many = `${one}s`)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "eca499768bbfd9b6d8c4749265624cc8a001949c1ed099f12b815bf37de619b5",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#searchableFields",
+      "name": "searchableFields",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L63-L70",
+      "signature": "function searchableFields(item, names = new Map())",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "9d30e42f449413e7f8bc1e5584ff4ceae6e7ea80355fd4d3f64452d253da042b",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#showsCutout",
+      "name": "showsCutout",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L164-L166",
+      "signature": "function showsCutout(photo)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "da302773f83e0ad8355695e1e8a26942e0edfd46e83ec26f24f05d1ee44ba73e",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#tagsOf",
+      "name": "tagsOf",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L52-L54",
+      "signature": "function tagsOf(tags, collectionId)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "23048cb5fe97eafe801c5a07150b84bb1e5ef07ca5858cf1cae0a4c3a55d267b",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#thumbName",
+      "name": "thumbName",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L223-L226",
+      "signature": "function thumbName(filename)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "38562aa452e4e8a69f5ce7f37aa81ff6ca33a0aa55075a93907ac0fedf1e4fc5",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#toggleId",
+      "name": "toggleId",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L30-L32",
+      "signature": "function toggleId(ids, id)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "eab85368ded0a3869b26ec8479d3b335d66783be63ea6ee39294427a18a37f41",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#unresolved",
+      "name": "unresolved",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L250-L252",
+      "signature": "function unresolved(photo)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "615b3e9a015362737f5f46aba1b6fb455538db3156477a82849ce45fabc5a3c4",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#withoutDeleted",
+      "name": "withoutDeleted",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L238-L242",
+      "signature": "function withoutDeleted(rows, gone)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "a84a04f93abf55f8c106eef6b08f29e885a4d20e420507373e3f8b1134d39add",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/reads.js",
+      "name": "reads.js",
+      "kind": "file",
+      "path": "src/reads.js",
+      "span": "L1-L69",
+      "signature": null,
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "e9df8e689dc31ad8d96f01a5e6b0265f995e01bba364e3218fd06240f3aca10e",
+      "chars": 3895,
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/reads.js#firstRenderBatch",
+      "name": "firstRenderBatch",
+      "kind": "function",
+      "path": "src/reads.js",
+      "span": "L40-L42",
+      "signature": "function firstRenderBatch()",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "3391e907a3dd0309580b8360abebdb93348daa60220cc1ff7ec124e80de747e7",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/reads.js#namedResults",
+      "name": "namedResults",
+      "kind": "function",
+      "path": "src/reads.js",
+      "span": "L45-L49",
+      "signature": "function namedResults(results)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "594e3e7dd62e9c3fb3acdd91834ea776b6fa4be03b098d5abaea0ecfd28302b7",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/reads.js#nextPageBatch",
+      "name": "nextPageBatch",
+      "kind": "function",
+      "path": "src/reads.js",
+      "span": "L57-L61",
+      "signature": "function nextPageBatch(lastPages, pageSize)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "54c0d1185dbf9753014a204a8f21a721da5247eb6c262d6209a0ed874fae6218",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/reads.js#nextPageParams",
+      "name": "nextPageParams",
+      "kind": "function",
+      "path": "src/reads.js",
+      "span": "L64-L68",
+      "signature": "function nextPageParams(rows, pageSize)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "32daca904d19cf423fe7e0cb9688f919a72ba94f68d954a266a6f21958f91d83",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/shared.js",
+      "name": "shared.js",
+      "kind": "file",
+      "path": "src/shared.js",
+      "span": "L1-L7",
+      "signature": null,
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "cbd24da4d2c354203ffaa896949f59f187c658acba1c0e446dec5f130c04d113",
+      "chars": 260,
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/shared.js#isAdult",
+      "name": "isAdult",
+      "kind": "function",
+      "path": "src/shared.js",
+      "span": "L4-L6",
+      "signature": "function isAdult(member)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "c9ef975cd88aa02a417aad0273c2fb088153a62848cb21f236b7ff39b27f1ab2",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "vitest.config.mjs",
+      "name": "vitest.config.mjs",
+      "kind": "file",
+      "path": "vitest.config.mjs",
+      "span": "L1-L10",
+      "signature": null,
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "4a97c2087855ca4770c5ed7b7b79ac2365a533482df85fbd72d64e8b34452d45",
+      "chars": 194,
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "__tests__/file-reclaim.test.mjs",
+      "target": "__tests__/file-reclaim.test.mjs#declaredColumns",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/file-reclaim.test.mjs",
+      "target": "__tests__/file-reclaim.test.mjs#schemaFileColumns",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/file-reclaim.test.mjs",
+      "target": "__tests__/schema.mjs#appTableColumns",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/file-reclaim.test.mjs",
+      "target": "__tests__/file-reclaim.test.mjs#declaredColumns",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/file-reclaim.test.mjs",
+      "target": "__tests__/file-reclaim.test.mjs#schemaFileColumns",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/file-reclaim.test.mjs",
+      "target": "__tests__/schema.mjs",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/file-reclaim.test.mjs",
+      "target": "vitest",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/file-reclaim.test.mjs#declaredColumns",
+      "target": "__tests__/file-reclaim.test.mjs#declaredColumns.add",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/file-reclaim.test.mjs#declaredColumns",
+      "target": "__tests__/file-reclaim.test.mjs#declaredColumns.add",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/file-reclaim.test.mjs#schemaFileColumns",
+      "target": "__tests__/schema.mjs#appTableColumns",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "__tests__/logic.test.mjs#asked",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "__tests__/logic.test.mjs#ids",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "__tests__/logic.test.mjs#taken",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#canEdit",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#canRequestCutout",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#cleanDate",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#collectionCover",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#countByLabel",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#coverPhoto",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#cutoutFailure",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#cutoutLabel",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#cutoutState",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#displayFileId",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#filterItems",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#findByName",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#fitWithin",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#formatDate",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#holdIsFresh",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#holdKey",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#liveIds",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#nameKey",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#needsCheck",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#parseIds",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#pendingElsewhere",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#photosOf",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#plural",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#searchableFields",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#showsCutout",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#tagsOf",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#thumbName",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#toggleId",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#withoutDeleted",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "__tests__/logic.test.mjs#asked",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "__tests__/logic.test.mjs#asked~2",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "__tests__/logic.test.mjs#ids",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "__tests__/logic.test.mjs#ids~2",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "__tests__/logic.test.mjs#taken",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "vitest",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#canEdit",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#canRequestCutout",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#collectionCover",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#countByLabel",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#coverPhoto",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#cutoutFailure",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#cutoutLabel",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#cutoutState",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#displayFileId",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#filterItems",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#findByName",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#fitWithin",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#holdIsFresh",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#liveIds",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#nameKey",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#parseIds",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#photosOf",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#searchableFields",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#showsCutout",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#tagsOf",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#thumbName",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#toggleId",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/manifest.test.mjs",
+      "target": "fs",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/manifest.test.mjs",
+      "target": "path",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/manifest.test.mjs",
+      "target": "url",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/manifest.test.mjs",
+      "target": "vitest",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/preload.test.mjs",
+      "target": "__tests__/preload.test.mjs#head",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/preload.test.mjs",
+      "target": "__tests__/preload.test.mjs#page",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/preload.test.mjs",
+      "target": "__tests__/preload.test.mjs#row",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/preload.test.mjs",
+      "target": "__tests__/preload.test.mjs#tail",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/preload.test.mjs",
+      "target": "src/reads.js#firstRenderBatch",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/preload.test.mjs",
+      "target": "src/reads.js#namedResults",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/preload.test.mjs",
+      "target": "src/reads.js#nextPageBatch",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/preload.test.mjs",
+      "target": "src/reads.js#nextPageParams",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/preload.test.mjs",
+      "target": "__tests__/preload.test.mjs#head",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/preload.test.mjs",
+      "target": "__tests__/preload.test.mjs#page",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/preload.test.mjs",
+      "target": "__tests__/preload.test.mjs#row",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/preload.test.mjs",
+      "target": "__tests__/preload.test.mjs#tail",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/preload.test.mjs",
+      "target": "fs",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/preload.test.mjs",
+      "target": "path",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/preload.test.mjs",
+      "target": "src/reads.js",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/preload.test.mjs",
+      "target": "url",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/preload.test.mjs",
+      "target": "vitest",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/preload.test.mjs#page",
+      "target": "__tests__/preload.test.mjs#row",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/schema.mjs",
+      "target": "__tests__/schema.mjs#appTableColumns",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/schema.mjs",
+      "target": "__tests__/schema.mjs#columnNames",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/schema.mjs",
+      "target": "__tests__/schema.mjs#columnsOf",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/schema.mjs",
+      "target": "__tests__/schema.mjs#createTableBody",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/schema.mjs",
+      "target": "__tests__/schema.mjs#isPlaintextColumn",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/schema.mjs",
+      "target": "fs",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/schema.mjs",
+      "target": "path",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/schema.mjs",
+      "target": "url",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/schema.mjs#appTableColumns",
+      "target": "__tests__/schema.mjs#columnNames",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/schema.mjs#appTableColumns",
+      "target": "__tests__/schema.mjs#createTableBody",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/schema.mjs#columnsOf",
+      "target": "__tests__/schema.mjs#appTableColumns",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "build.mjs",
+      "target": "build.mjs#inlineHandlerErrors",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "build.mjs",
+      "target": "build.mjs#readDir",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "build.mjs",
+      "target": "build.mjs#surfaceErrors",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "build.mjs",
+      "target": "build.mjs#inlineHandlerErrors",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "build.mjs",
+      "target": "build.mjs#readDir",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "build.mjs",
+      "target": "build.mjs#surfaceErrors",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "build.mjs",
+      "target": "fs",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "build.mjs",
+      "target": "path",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "build.mjs#inlineHandlerErrors",
+      "target": "build.mjs#inlineHandlerErrors.stripComments",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "build.mjs#inlineHandlerErrors",
+      "target": "build.mjs#inlineHandlerErrors.stripInterpolations",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "build.mjs#inlineHandlerErrors",
+      "target": "build.mjs#inlineHandlerErrors.stripStrings",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "build.mjs#inlineHandlerErrors",
+      "target": "build.mjs#inlineHandlerErrors.stripComments",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "build.mjs#inlineHandlerErrors",
+      "target": "build.mjs#inlineHandlerErrors.stripInterpolations",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "build.mjs#inlineHandlerErrors",
+      "target": "build.mjs#inlineHandlerErrors.stripStrings",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "build.mjs#readDir",
+      "target": "build.mjs#readDir",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "build.mjs#surfaceErrors",
+      "target": "build.mjs#surfaceErrors.aliasesOf",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "build.mjs#surfaceErrors",
+      "target": "build.mjs#surfaceErrors.checkQuery",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "build.mjs#surfaceErrors",
+      "target": "build.mjs#surfaceErrors.limitOf",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "build.mjs#surfaceErrors",
+      "target": "build.mjs#surfaceErrors.aliasesOf",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "build.mjs#surfaceErrors",
+      "target": "build.mjs#surfaceErrors.checkQuery",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "build.mjs#surfaceErrors",
+      "target": "build.mjs#surfaceErrors.limitOf",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "dev.mjs",
+      "target": "dev.mjs#ensureSdk",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "dev.mjs",
+      "target": "dev.mjs#serve",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "dev.mjs",
+      "target": "dev.mjs#ensureSdk",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "dev.mjs",
+      "target": "dev.mjs#fetchSdk",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "dev.mjs",
+      "target": "dev.mjs#mime",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "dev.mjs",
+      "target": "dev.mjs#serve",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "dev.mjs",
+      "target": "fs",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "dev.mjs",
+      "target": "http",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "dev.mjs",
+      "target": "https",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "dev.mjs",
+      "target": "path",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "dev.mjs",
+      "target": "url",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "dev.mjs#ensureSdk",
+      "target": "dev.mjs#fetchSdk",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "dev.mjs#serve",
+      "target": "dev.mjs#mime",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#canEdit",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#canRequestCutout",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#cleanDate",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#collectionCover",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#countByLabel",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#coverPhoto",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#cutoutFailure",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#cutoutLabel",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#cutoutState",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#displayFileId",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#filterItems",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#findByName",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#fitWithin",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#formatDate",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#holdIsFresh",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#holdKey",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#liveIds",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#nameKey",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#needsCheck",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#parseIds",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#pendingElsewhere",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#photosOf",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#plural",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#searchableFields",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#showsCutout",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#tagsOf",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#thumbName",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#toggleId",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#unresolved",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#withoutDeleted",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/shared.js",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js#canEdit",
+      "target": "src/shared.js#isAdult",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "src/logic.js#canRequestCutout",
+      "target": "src/logic.js#cutoutState",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js#collectionCover",
+      "target": "src/logic.js#coverPhoto",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js#countByLabel",
+      "target": "src/logic.js#parseIds",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js#coverPhoto",
+      "target": "src/logic.js#photosOf",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js#displayFileId",
+      "target": "src/logic.js#showsCutout",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js#filterItems",
+      "target": "src/logic.js#parseIds",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js#findByName",
+      "target": "src/logic.js#nameKey",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js#formatDate",
+      "target": "src/logic.js#cleanDate",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js#needsCheck",
+      "target": "src/logic.js#cutoutState",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js#needsCheck",
+      "target": "src/logic.js#holdKey",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js#needsCheck",
+      "target": "src/logic.js#unresolved",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js#pendingElsewhere",
+      "target": "src/logic.js#cutoutState",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js#pendingElsewhere",
+      "target": "src/logic.js#needsCheck",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js#pendingElsewhere",
+      "target": "src/logic.js#unresolved",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js#searchableFields",
+      "target": "src/logic.js#cleanDate",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js#searchableFields",
+      "target": "src/logic.js#parseIds",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/reads.js",
+      "target": "src/reads.js#firstRenderBatch",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/reads.js",
+      "target": "src/reads.js#namedResults",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/reads.js",
+      "target": "src/reads.js#nextPageBatch",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/reads.js",
+      "target": "src/reads.js#nextPageParams",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/reads.js#nextPageBatch",
+      "target": "src/reads.js#nextPageParams",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/shared.js",
+      "target": "src/shared.js#isAdult",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "vitest.config.mjs",
+      "target": "vitest/config",
+      "relation": "imports",
+      "confidence": "extracted"
+    }
+  ]
+}

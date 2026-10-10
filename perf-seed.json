@@ -1,0 +1,2369 @@
+{
+  "seed": [
+    {
+      "sql": "INSERT INTO app_collections__locations (id, name, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-150 days','+0 minutes'))",
+      "params": [
+        "perf-loc-1",
+        "Living room shelf",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__locations (id, name, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-150 days','+1 minutes'))",
+      "params": [
+        "perf-loc-2",
+        "Garage",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__locations (id, name, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-150 days','+2 minutes'))",
+      "params": [
+        "perf-loc-3",
+        "Attic",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__locations (id, name, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-150 days','+3 minutes'))",
+      "params": [
+        "perf-loc-4",
+        "Kid's bedroom",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__locations (id, name, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-150 days','+4 minutes'))",
+      "params": [
+        "perf-loc-5",
+        "Display cabinet",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__locations (id, name, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-150 days','+5 minutes'))",
+      "params": [
+        "perf-loc-6",
+        "Storage unit",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__locations (id, name, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-150 days','+6 minutes'))",
+      "params": [
+        "perf-loc-7",
+        "Office",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__locations (id, name, created_by, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-150 days','+7 minutes'))",
+      "params": [
+        "perf-loc-8",
+        "Basement",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__collections (id, name, description, auto_cutout, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-140 days','+0 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-3 days','+0 minutes'))",
+      "params": [
+        "perf-col-1",
+        "Teddy bears",
+        "Every bear in the house, and where each one came from.",
+        1,
+        "everyone",
+        "{{child2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-139 days','+1 minutes'))",
+      "params": [
+        "perf-tag-01",
+        "perf-col-1",
+        "Steiff",
+        "everyone",
+        "{{child2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-139 days','+2 minutes'))",
+      "params": [
+        "perf-tag-02",
+        "perf-col-1",
+        "Gift",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-139 days','+3 minutes'))",
+      "params": [
+        "perf-tag-03",
+        "perf-col-1",
+        "Vintage",
+        "everyone",
+        "{{child2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-139 days','+4 minutes'))",
+      "params": [
+        "perf-tag-04",
+        "perf-col-1",
+        "Handmade",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-139 days','+5 minutes'))",
+      "params": [
+        "perf-tag-05",
+        "perf-col-1",
+        "Travel souvenir",
+        "everyone",
+        "{{child2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__collections (id, name, description, auto_cutout, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-135 days','+1 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-4 days','+1 minutes'))",
+      "params": [
+        "perf-col-2",
+        "Power tools",
+        "What we own, so we stop buying a second one.",
+        1,
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-134 days','+6 minutes'))",
+      "params": [
+        "perf-tag-06",
+        "perf-col-2",
+        "Cordless",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-134 days','+7 minutes'))",
+      "params": [
+        "perf-tag-07",
+        "perf-col-2",
+        "Corded",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-134 days','+8 minutes'))",
+      "params": [
+        "perf-tag-08",
+        "perf-col-2",
+        "Needs repair",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-134 days','+9 minutes'))",
+      "params": [
+        "perf-tag-09",
+        "perf-col-2",
+        "Lent out",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-134 days','+10 minutes'))",
+      "params": [
+        "perf-tag-10",
+        "perf-col-2",
+        "Battery 18V",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__collections (id, name, description, auto_cutout, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-130 days','+2 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-5 days','+2 minutes'))",
+      "params": [
+        "perf-col-3",
+        "Vinyl records",
+        "The shelf by the turntable.",
+        1,
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-129 days','+11 minutes'))",
+      "params": [
+        "perf-tag-11",
+        "perf-col-3",
+        "Jazz",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-129 days','+12 minutes'))",
+      "params": [
+        "perf-tag-12",
+        "perf-col-3",
+        "Rock",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-129 days','+13 minutes'))",
+      "params": [
+        "perf-tag-13",
+        "perf-col-3",
+        "First pressing",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-129 days','+14 minutes'))",
+      "params": [
+        "perf-tag-14",
+        "perf-col-3",
+        "Soundtrack",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-129 days','+15 minutes'))",
+      "params": [
+        "perf-tag-15",
+        "perf-col-3",
+        "Signed",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-129 days','+16 minutes'))",
+      "params": [
+        "perf-tag-16",
+        "perf-col-3",
+        "Classical",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__collections (id, name, description, auto_cutout, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-125 days','+3 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-6 days','+3 minutes'))",
+      "params": [
+        "perf-col-4",
+        "Rocks and fossils",
+        "Found on walks and holidays.",
+        1,
+        "everyone",
+        "{{child}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-124 days','+17 minutes'))",
+      "params": [
+        "perf-tag-17",
+        "perf-col-4",
+        "Fossil",
+        "everyone",
+        "{{child}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-124 days','+18 minutes'))",
+      "params": [
+        "perf-tag-18",
+        "perf-col-4",
+        "Crystal",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-124 days','+19 minutes'))",
+      "params": [
+        "perf-tag-19",
+        "perf-col-4",
+        "Found locally",
+        "everyone",
+        "{{child}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-124 days','+20 minutes'))",
+      "params": [
+        "perf-tag-20",
+        "perf-col-4",
+        "Bought",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-124 days','+21 minutes'))",
+      "params": [
+        "perf-tag-21",
+        "perf-col-4",
+        "Glows under UV",
+        "everyone",
+        "{{child}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__collections (id, name, description, auto_cutout, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-120 days','+4 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-7 days','+4 minutes'))",
+      "params": [
+        "perf-col-5",
+        "Board games",
+        "Shelf inventory, with missing pieces noted.",
+        0,
+        "everyone",
+        "{{adult2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-119 days','+22 minutes'))",
+      "params": [
+        "perf-tag-22",
+        "perf-col-5",
+        "Two player",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-119 days','+23 minutes'))",
+      "params": [
+        "perf-tag-23",
+        "perf-col-5",
+        "Party",
+        "everyone",
+        "{{adult2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-119 days','+24 minutes'))",
+      "params": [
+        "perf-tag-24",
+        "perf-col-5",
+        "Cooperative",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-119 days','+25 minutes'))",
+      "params": [
+        "perf-tag-25",
+        "perf-col-5",
+        "Missing pieces",
+        "everyone",
+        "{{adult2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-119 days','+26 minutes'))",
+      "params": [
+        "perf-tag-26",
+        "perf-col-5",
+        "Kids",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__collections (id, name, description, auto_cutout, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-115 days','+5 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-8 days','+5 minutes'))",
+      "params": [
+        "perf-col-6",
+        "Christmas ornaments",
+        "One new one each year.",
+        1,
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-114 days','+27 minutes'))",
+      "params": [
+        "perf-tag-27",
+        "perf-col-6",
+        "Glass",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-114 days','+28 minutes'))",
+      "params": [
+        "perf-tag-28",
+        "perf-col-6",
+        "Handmade",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-114 days','+29 minutes'))",
+      "params": [
+        "perf-tag-29",
+        "perf-col-6",
+        "From Grandma",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-114 days','+30 minutes'))",
+      "params": [
+        "perf-tag-30",
+        "perf-col-6",
+        "Kid-made",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__tags (id, collection_id, name, visibility, created_by, created_at) VALUES (?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-114 days','+31 minutes'))",
+      "params": [
+        "perf-tag-31",
+        "perf-col-6",
+        "Fragile",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-130 days','+1 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-126 days','+1 minutes'))",
+      "params": [
+        "perf-item-001",
+        "perf-col-1",
+        "Barnaby",
+        "From Grandma.",
+        "2012-01-01",
+        "[]",
+        "[\"perf-loc-1\", \"perf-loc-5\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-130 days','+2 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-126 days','+2 minutes'))",
+      "params": [
+        "perf-item-002",
+        "perf-col-2",
+        "Drill driver",
+        "[\"perf-tag-06\"]",
+        "[\"perf-loc-4\", \"perf-loc-8\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-129 days','+3 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-125 days','+3 minutes'))",
+      "params": [
+        "perf-item-003",
+        "perf-col-3",
+        "Kind of Blue",
+        "2016-03-07",
+        "[\"perf-tag-11\", \"perf-tag-12\"]",
+        "[\"perf-loc-7\", \"perf-loc-3\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-128 days','+4 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-124 days','+4 minutes'))",
+      "params": [
+        "perf-item-004",
+        "perf-col-4",
+        "Ammonite",
+        "Favourite of the lot.",
+        "[]",
+        "[\"perf-loc-2\", \"perf-loc-6\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-127 days','+5 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-123 days','+5 minutes'))",
+      "params": [
+        "perf-item-005",
+        "perf-col-5",
+        "Catan",
+        "2020-05-13",
+        "[\"perf-tag-22\"]",
+        "[\"perf-loc-5\", \"perf-loc-1\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-126 days','+6 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-122 days','+6 minutes'))",
+      "params": [
+        "perf-item-006",
+        "perf-col-6",
+        "Glass robin",
+        "[\"perf-tag-27\", \"perf-tag-28\"]",
+        "[\"perf-loc-8\", \"perf-loc-4\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-125 days','+7 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-121 days','+7 minutes'))",
+      "params": [
+        "perf-item-007",
+        "perf-col-1",
+        "Little Honey",
+        "[\"perf-tag-02\"]",
+        "[\"perf-loc-2\"]",
+        "everyone",
+        "{{child2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-124 days','+8 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-120 days','+8 minutes'))",
+      "params": [
+        "perf-item-008",
+        "perf-col-2",
+        "Circular saw",
+        "2015-07-11",
+        "[\"perf-tag-07\", \"perf-tag-08\"]",
+        "[\"perf-loc-5\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-124 days','+9 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-120 days','+9 minutes'))",
+      "params": [
+        "perf-item-009",
+        "perf-col-3",
+        "Rumours",
+        "Favourite of the lot.",
+        "[]",
+        "[\"perf-loc-8\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-123 days','+10 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-119 days','+10 minutes'))",
+      "params": [
+        "perf-item-010",
+        "perf-col-4",
+        "Trilobite",
+        "2019-09-17",
+        "[\"perf-tag-18\"]",
+        "[\"perf-loc-3\"]",
+        "everyone",
+        "{{child}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-122 days','+11 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-118 days','+11 minutes'))",
+      "params": [
+        "perf-item-011",
+        "perf-col-5",
+        "Ticket to Ride",
+        "[\"perf-tag-23\", \"perf-tag-24\"]",
+        "[\"perf-loc-6\"]",
+        "everyone",
+        "{{adult2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-121 days','+12 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-117 days','+12 minutes'))",
+      "params": [
+        "perf-item-012",
+        "perf-col-6",
+        "Felt reindeer",
+        "Still in the original box.",
+        "2023-11-23",
+        "[]",
+        "[\"perf-loc-1\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-120 days','+13 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-116 days','+13 minutes'))",
+      "params": [
+        "perf-item-013",
+        "perf-col-1",
+        "Mr Buttons",
+        "2014-11-15",
+        "[\"perf-tag-03\", \"perf-tag-04\"]",
+        "[\"perf-loc-3\"]",
+        "everyone",
+        "{{child2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-119 days','+14 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-115 days','+14 minutes'))",
+      "params": [
+        "perf-item-014",
+        "perf-col-2",
+        "Jigsaw",
+        "Favourite of the lot.",
+        "[]",
+        "[\"perf-loc-6\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-118 days','+15 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-114 days','+15 minutes'))",
+      "params": [
+        "perf-item-015",
+        "perf-col-3",
+        "Abbey Road",
+        "2018-01-21",
+        "[\"perf-tag-13\"]",
+        "[\"perf-loc-1\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-117 days','+16 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-113 days','+16 minutes'))",
+      "params": [
+        "perf-item-016",
+        "perf-col-4",
+        "Amethyst geode",
+        "[\"perf-tag-19\", \"perf-tag-20\"]",
+        "[\"perf-loc-4\"]",
+        "everyone",
+        "{{child}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-117 days','+17 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-113 days','+17 minutes'))",
+      "params": [
+        "perf-item-017",
+        "perf-col-5",
+        "Carcassonne",
+        "Still in the original box.",
+        "2022-03-27",
+        "[]",
+        "[\"perf-loc-7\"]",
+        "everyone",
+        "{{adult2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-116 days','+18 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-112 days','+18 minutes'))",
+      "params": [
+        "perf-item-018",
+        "perf-col-6",
+        "Salt-dough star",
+        "[\"perf-tag-29\"]",
+        "[\"perf-loc-2\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-115 days','+19 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-111 days','+19 minutes'))",
+      "params": [
+        "perf-item-019",
+        "perf-col-1",
+        "Captain Fuzz",
+        "Favourite of the lot.",
+        "[]",
+        "[\"perf-loc-4\"]",
+        "everyone",
+        "{{child2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-114 days','+20 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-110 days','+20 minutes'))",
+      "params": [
+        "perf-item-020",
+        "perf-col-2",
+        "Orbital sander",
+        "2017-05-25",
+        "[\"perf-tag-09\"]",
+        "[\"perf-loc-7\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-113 days','+21 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-109 days','+21 minutes'))",
+      "params": [
+        "perf-item-021",
+        "perf-col-3",
+        "Blue Train",
+        "[\"perf-tag-14\", \"perf-tag-15\"]",
+        "[\"perf-loc-2\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-112 days','+22 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-108 days','+22 minutes'))",
+      "params": [
+        "perf-item-022",
+        "perf-col-4",
+        "Rose quartz",
+        "Still in the original box.",
+        "2021-07-03",
+        "[]",
+        "[\"perf-loc-5\"]",
+        "everyone",
+        "{{child}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-111 days','+23 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-107 days','+23 minutes'))",
+      "params": [
+        "perf-item-023",
+        "perf-col-5",
+        "Pandemic",
+        "[\"perf-tag-25\"]",
+        "[\"perf-loc-8\"]",
+        "everyone",
+        "{{adult2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-111 days','+24 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-107 days','+24 minutes'))",
+      "params": [
+        "perf-item-024",
+        "perf-col-6",
+        "Brass bell",
+        "2025-09-09",
+        "[\"perf-tag-30\", \"perf-tag-31\"]",
+        "[\"perf-loc-3\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-110 days','+25 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-106 days','+25 minutes'))",
+      "params": [
+        "perf-item-025",
+        "perf-col-1",
+        "Maple",
+        "2016-09-01",
+        "[\"perf-tag-05\"]",
+        "[\"perf-loc-5\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-109 days','+26 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-105 days','+26 minutes'))",
+      "params": [
+        "perf-item-026",
+        "perf-col-2",
+        "Impact driver",
+        "[\"perf-tag-10\", \"perf-tag-06\"]",
+        "[\"perf-loc-8\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-108 days','+27 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-104 days','+27 minutes'))",
+      "params": [
+        "perf-item-027",
+        "perf-col-3",
+        "Pet Sounds",
+        "Still in the original box.",
+        "2020-11-07",
+        "[]",
+        "[\"perf-loc-3\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-107 days','+28 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-103 days','+28 minutes'))",
+      "params": [
+        "perf-item-028",
+        "perf-col-4",
+        "Pyrite cube",
+        "[\"perf-tag-21\"]",
+        "[\"perf-loc-6\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-106 days','+29 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-102 days','+29 minutes'))",
+      "params": [
+        "perf-item-029",
+        "perf-col-5",
+        "Azul",
+        "2024-01-13",
+        "[\"perf-tag-26\", \"perf-tag-22\"]",
+        "[\"perf-loc-1\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-105 days','+30 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-101 days','+30 minutes'))",
+      "params": [
+        "perf-item-030",
+        "perf-col-6",
+        "Wooden sleigh",
+        "Do not let the dog near this one.",
+        "[]",
+        "[\"perf-loc-4\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-104 days','+31 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-100 days','+31 minutes'))",
+      "params": [
+        "perf-item-031",
+        "perf-col-1",
+        "Old Ted",
+        "[\"perf-tag-01\", \"perf-tag-02\"]",
+        "[]",
+        "everyone",
+        "{{child2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-104 days','+32 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-100 days','+32 minutes'))",
+      "params": [
+        "perf-item-032",
+        "perf-col-2",
+        "Mitre saw",
+        "Still in the original box.",
+        "2019-03-11",
+        "[]",
+        "[]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-103 days','+33 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-99 days','+33 minutes'))",
+      "params": [
+        "perf-item-033",
+        "perf-col-3",
+        "Harvest",
+        "[\"perf-tag-16\"]",
+        "[]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-102 days','+34 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-98 days','+34 minutes'))",
+      "params": [
+        "perf-item-034",
+        "perf-col-4",
+        "Obsidian shard",
+        "2023-05-17",
+        "[\"perf-tag-17\", \"perf-tag-18\"]",
+        "[]",
+        "everyone",
+        "{{child}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-101 days','+35 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-97 days','+35 minutes'))",
+      "params": [
+        "perf-item-035",
+        "perf-col-5",
+        "Wingspan",
+        "Do not let the dog near this one.",
+        "[]",
+        "[]",
+        "everyone",
+        "{{adult2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-100 days','+36 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-96 days','+36 minutes'))",
+      "params": [
+        "perf-item-036",
+        "perf-col-6",
+        "Blown-glass icicle",
+        "2013-07-23",
+        "[\"perf-tag-27\"]",
+        "[]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-99 days','+37 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-95 days','+37 minutes'))",
+      "params": [
+        "perf-item-037",
+        "perf-col-1",
+        "Pudding",
+        "Still in the original box.",
+        "2018-07-15",
+        "[]",
+        "[\"perf-loc-7\"]",
+        "everyone",
+        "{{child2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-98 days','+38 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-94 days','+38 minutes'))",
+      "params": [
+        "perf-item-038",
+        "perf-col-2",
+        "Router",
+        "[\"perf-tag-07\"]",
+        "[\"perf-loc-2\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-98 days','+39 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-94 days','+39 minutes'))",
+      "params": [
+        "perf-item-039",
+        "perf-col-3",
+        "Tapestry",
+        "2022-09-21",
+        "[\"perf-tag-11\", \"perf-tag-12\"]",
+        "[\"perf-loc-5\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-97 days','+40 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-93 days','+40 minutes'))",
+      "params": [
+        "perf-item-040",
+        "perf-col-4",
+        "Shark tooth",
+        "Do not let the dog near this one.",
+        "[]",
+        "[\"perf-loc-8\"]",
+        "everyone",
+        "{{child}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-96 days','+41 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-92 days','+41 minutes'))",
+      "params": [
+        "perf-item-041",
+        "perf-col-5",
+        "Codenames",
+        "2012-11-27",
+        "[\"perf-tag-23\"]",
+        "[\"perf-loc-3\"]",
+        "everyone",
+        "{{adult2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-95 days','+42 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-91 days','+42 minutes'))",
+      "params": [
+        "perf-item-042",
+        "perf-col-6",
+        "Paper angel",
+        "[\"perf-tag-28\", \"perf-tag-29\"]",
+        "[\"perf-loc-6\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-94 days','+43 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-90 days','+43 minutes'))",
+      "params": [
+        "perf-item-043",
+        "perf-col-1",
+        "Biscuit Bear",
+        "[\"perf-tag-03\"]",
+        "[\"perf-loc-8\"]",
+        "everyone",
+        "{{child2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-93 days','+44 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-89 days','+44 minutes'))",
+      "params": [
+        "perf-item-044",
+        "perf-col-2",
+        "Angle grinder",
+        "2021-01-25",
+        "[\"perf-tag-08\", \"perf-tag-09\"]",
+        "[\"perf-loc-3\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-92 days','+45 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-88 days','+45 minutes'))",
+      "params": [
+        "perf-item-045",
+        "perf-col-3",
+        "A Love Supreme",
+        "Do not let the dog near this one.",
+        "[]",
+        "[\"perf-loc-6\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-91 days','+46 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-87 days','+46 minutes'))",
+      "params": [
+        "perf-item-046",
+        "perf-col-4",
+        "Petrified wood",
+        "2025-03-03",
+        "[\"perf-tag-19\"]",
+        "[\"perf-loc-1\"]",
+        "everyone",
+        "{{child}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-91 days','+47 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-87 days','+47 minutes'))",
+      "params": [
+        "perf-item-047",
+        "perf-col-5",
+        "Dixit",
+        "[\"perf-tag-24\", \"perf-tag-25\"]",
+        "[\"perf-loc-4\"]",
+        "everyone",
+        "{{adult2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-90 days','+48 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-86 days','+48 minutes'))",
+      "params": [
+        "perf-item-048",
+        "perf-col-6",
+        "Tin soldier",
+        "Needs a small repair.",
+        "2015-05-09",
+        "[]",
+        "[\"perf-loc-7\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-89 days','+49 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-85 days','+49 minutes'))",
+      "params": [
+        "perf-item-049",
+        "perf-col-1",
+        "Sir Hugs",
+        "2020-05-01",
+        "[\"perf-tag-04\", \"perf-tag-05\"]",
+        "[\"perf-loc-1\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-88 days','+50 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-84 days','+50 minutes'))",
+      "params": [
+        "perf-item-050",
+        "perf-col-2",
+        "Heat gun",
+        "Do not let the dog near this one.",
+        "[]",
+        "[\"perf-loc-4\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-87 days','+51 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-83 days','+51 minutes'))",
+      "params": [
+        "perf-item-051",
+        "perf-col-3",
+        "Purple Rain",
+        "2024-07-07",
+        "[\"perf-tag-13\"]",
+        "[\"perf-loc-7\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-86 days','+52 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-82 days','+52 minutes'))",
+      "params": [
+        "perf-item-052",
+        "perf-col-4",
+        "Fluorite",
+        "[\"perf-tag-20\", \"perf-tag-21\"]",
+        "[\"perf-loc-2\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-85 days','+53 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-81 days','+53 minutes'))",
+      "params": [
+        "perf-item-053",
+        "perf-col-5",
+        "Scrabble",
+        "Needs a small repair.",
+        "2014-09-13",
+        "[]",
+        "[\"perf-loc-5\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-85 days','+54 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-81 days','+54 minutes'))",
+      "params": [
+        "perf-item-054",
+        "perf-col-6",
+        "Knitted stocking",
+        "[\"perf-tag-30\"]",
+        "[\"perf-loc-8\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-84 days','+55 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-80 days','+55 minutes'))",
+      "params": [
+        "perf-item-055",
+        "perf-col-1",
+        "Clover",
+        "Do not let the dog near this one.",
+        "[]",
+        "[\"perf-loc-2\", \"perf-loc-6\"]",
+        "everyone",
+        "{{child2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-83 days','+56 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-79 days','+56 minutes'))",
+      "params": [
+        "perf-item-056",
+        "perf-col-2",
+        "Reciprocating saw",
+        "2023-11-11",
+        "[\"perf-tag-10\"]",
+        "[\"perf-loc-5\", \"perf-loc-1\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-82 days','+57 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-78 days','+57 minutes'))",
+      "params": [
+        "perf-item-057",
+        "perf-col-3",
+        "Graceland",
+        "[\"perf-tag-14\", \"perf-tag-15\"]",
+        "[\"perf-loc-8\", \"perf-loc-4\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-81 days','+58 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-77 days','+58 minutes'))",
+      "params": [
+        "perf-item-058",
+        "perf-col-4",
+        "Desert rose",
+        "Needs a small repair.",
+        "2013-01-17",
+        "[]",
+        "[\"perf-loc-3\", \"perf-loc-7\"]",
+        "everyone",
+        "{{child}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-80 days','+59 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-76 days','+59 minutes'))",
+      "params": [
+        "perf-item-059",
+        "perf-col-5",
+        "Monopoly",
+        "[\"perf-tag-26\"]",
+        "[\"perf-loc-6\", \"perf-loc-2\"]",
+        "everyone",
+        "{{adult2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-79 days','+60 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-75 days','+60 minutes'))",
+      "params": [
+        "perf-item-060",
+        "perf-col-6",
+        "Ceramic snowman",
+        "2017-03-23",
+        "[\"perf-tag-31\", \"perf-tag-27\"]",
+        "[\"perf-loc-1\", \"perf-loc-5\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-78 days','+61 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-74 days','+61 minutes'))",
+      "params": [
+        "perf-item-061",
+        "perf-col-1",
+        "Nutmeg",
+        "2022-03-15",
+        "[\"perf-tag-01\"]",
+        "[\"perf-loc-3\"]",
+        "everyone",
+        "{{child2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-78 days','+62 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-74 days','+62 minutes'))",
+      "params": [
+        "perf-item-062",
+        "perf-col-2",
+        "Oscillating multi-tool",
+        "[\"perf-tag-06\", \"perf-tag-07\"]",
+        "[\"perf-loc-6\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-77 days','+63 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-73 days','+63 minutes'))",
+      "params": [
+        "perf-item-063",
+        "perf-col-3",
+        "Blue",
+        "Needs a small repair.",
+        "2012-05-21",
+        "[]",
+        "[\"perf-loc-1\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-76 days','+64 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-72 days','+64 minutes'))",
+      "params": [
+        "perf-item-064",
+        "perf-col-4",
+        "Agate slice",
+        "[\"perf-tag-17\"]",
+        "[\"perf-loc-4\"]",
+        "everyone",
+        "{{child}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-75 days','+65 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-71 days','+65 minutes'))",
+      "params": [
+        "perf-item-065",
+        "perf-col-5",
+        "Cluedo",
+        "2016-07-27",
+        "[\"perf-tag-22\", \"perf-tag-23\"]",
+        "[\"perf-loc-7\"]",
+        "everyone",
+        "{{adult2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-74 days','+66 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-70 days','+66 minutes'))",
+      "params": [
+        "perf-item-066",
+        "perf-col-6",
+        "Pinecone owl",
+        "Found on the beach walk.",
+        "[]",
+        "[\"perf-loc-2\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-73 days','+67 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-69 days','+67 minutes'))",
+      "params": [
+        "perf-item-067",
+        "perf-col-1",
+        "Bramble",
+        "[\"perf-tag-02\", \"perf-tag-03\"]",
+        "[\"perf-loc-4\"]",
+        "everyone",
+        "{{child2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-72 days','+68 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-68 days','+68 minutes'))",
+      "params": [
+        "perf-item-068",
+        "perf-col-2",
+        "Belt sander",
+        "Needs a small repair.",
+        "2025-09-25",
+        "[]",
+        "[\"perf-loc-7\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-72 days','+69 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-68 days','+69 minutes'))",
+      "params": [
+        "perf-item-069",
+        "perf-col-3",
+        "Thriller",
+        "[\"perf-tag-16\"]",
+        "[\"perf-loc-2\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-71 days','+70 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-67 days','+70 minutes'))",
+      "params": [
+        "perf-item-070",
+        "perf-col-4",
+        "Tiger's eye",
+        "2015-11-03",
+        "[\"perf-tag-18\", \"perf-tag-19\"]",
+        "[\"perf-loc-5\"]",
+        "everyone",
+        "{{child}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-70 days','+71 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-66 days','+71 minutes'))",
+      "params": [
+        "perf-item-071",
+        "perf-col-5",
+        "Risk",
+        "Found on the beach walk.",
+        "[]",
+        "[\"perf-loc-8\"]",
+        "everyone",
+        "{{adult2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-69 days','+72 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-65 days','+72 minutes'))",
+      "params": [
+        "perf-item-072",
+        "perf-col-6",
+        "Red glass bauble",
+        "2019-01-09",
+        "[\"perf-tag-28\"]",
+        "[\"perf-loc-3\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-68 days','+73 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-64 days','+73 minutes'))",
+      "params": [
+        "perf-item-073",
+        "perf-col-1",
+        "Juniper",
+        "Needs a small repair.",
+        "2024-01-01",
+        "[]",
+        "[\"perf-loc-5\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-67 days','+74 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-63 days','+74 minutes'))",
+      "params": [
+        "perf-item-074",
+        "perf-col-2",
+        "Shop vacuum",
+        "[\"perf-tag-08\"]",
+        "[\"perf-loc-8\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-66 days','+75 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-62 days','+75 minutes'))",
+      "params": [
+        "perf-item-075",
+        "perf-col-3",
+        "Hunky Dory",
+        "2014-03-07",
+        "[\"perf-tag-11\", \"perf-tag-12\"]",
+        "[\"perf-loc-3\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-65 days','+76 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-61 days','+76 minutes'))",
+      "params": [
+        "perf-item-076",
+        "perf-col-4",
+        "Sea glass, green",
+        "Found on the beach walk.",
+        "[]",
+        "[\"perf-loc-6\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-65 days','+77 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-61 days','+77 minutes'))",
+      "params": [
+        "perf-item-077",
+        "perf-col-5",
+        "Patchwork",
+        "2018-05-13",
+        "[\"perf-tag-24\"]",
+        "[\"perf-loc-1\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-64 days','+78 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-60 days','+78 minutes'))",
+      "params": [
+        "perf-item-078",
+        "perf-col-6",
+        "Silver snowflake",
+        "[\"perf-tag-29\", \"perf-tag-30\"]",
+        "[\"perf-loc-4\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-63 days','+79 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-59 days','+79 minutes'))",
+      "params": [
+        "perf-item-079",
+        "perf-col-1",
+        "Patch",
+        "[\"perf-tag-04\"]",
+        "[\"perf-loc-6\"]",
+        "everyone",
+        "{{child2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-62 days','+80 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-58 days','+80 minutes'))",
+      "params": [
+        "perf-item-080",
+        "perf-col-2",
+        "Nail gun",
+        "2013-07-11",
+        "[\"perf-tag-09\", \"perf-tag-10\"]",
+        "[\"perf-loc-1\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-61 days','+81 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-57 days','+81 minutes'))",
+      "params": [
+        "perf-item-081",
+        "perf-col-3",
+        "The Koln Concert",
+        "Found on the beach walk.",
+        "[]",
+        "[\"perf-loc-4\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-60 days','+82 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-56 days','+82 minutes'))",
+      "params": [
+        "perf-item-082",
+        "perf-col-4",
+        "Fossil fern",
+        "2017-09-17",
+        "[\"perf-tag-20\"]",
+        "[\"perf-loc-7\"]",
+        "everyone",
+        "{{child}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-59 days','+83 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-55 days','+83 minutes'))",
+      "params": [
+        "perf-item-083",
+        "perf-col-5",
+        "Splendor",
+        "[\"perf-tag-25\", \"perf-tag-26\"]",
+        "[\"perf-loc-2\"]",
+        "everyone",
+        "{{adult2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-59 days','+84 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-55 days','+84 minutes'))",
+      "params": [
+        "perf-item-084",
+        "perf-col-6",
+        "Clay handprint",
+        "Missing one small piece.",
+        "2021-11-23",
+        "[]",
+        "[\"perf-loc-5\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-58 days','+85 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-54 days','+85 minutes'))",
+      "params": [
+        "perf-item-085",
+        "perf-col-1",
+        "Marmalade",
+        "2012-11-15",
+        "[\"perf-tag-05\", \"perf-tag-01\"]",
+        "[\"perf-loc-7\"]",
+        "everyone",
+        "{{child2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-57 days','+86 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-53 days','+86 minutes'))",
+      "params": [
+        "perf-item-086",
+        "perf-col-2",
+        "Hedge trimmer",
+        "Found on the beach walk.",
+        "[]",
+        "[\"perf-loc-2\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-56 days','+87 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-52 days','+87 minutes'))",
+      "params": [
+        "perf-item-087",
+        "perf-col-3",
+        "Time Out",
+        "2016-01-21",
+        "[\"perf-tag-13\"]",
+        "[\"perf-loc-5\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-55 days','+88 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-51 days','+88 minutes'))",
+      "params": [
+        "perf-item-088",
+        "perf-col-4",
+        "Malachite",
+        "[\"perf-tag-21\", \"perf-tag-17\"]",
+        "[\"perf-loc-8\"]",
+        "everyone",
+        "{{child}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-54 days','+89 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-50 days','+89 minutes'))",
+      "params": [
+        "perf-item-089",
+        "perf-col-5",
+        "7 Wonders",
+        "Missing one small piece.",
+        "2020-03-27",
+        "[]",
+        "[\"perf-loc-3\"]",
+        "everyone",
+        "{{adult2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-53 days','+90 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-49 days','+90 minutes'))",
+      "params": [
+        "perf-item-090",
+        "perf-col-6",
+        "Beaded candy cane",
+        "[\"perf-tag-31\"]",
+        "[\"perf-loc-6\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-52 days','+91 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-48 days','+91 minutes'))",
+      "params": [
+        "perf-item-091",
+        "perf-col-1",
+        "Toffee",
+        "Found on the beach walk.",
+        "[]",
+        "[\"perf-loc-8\"]",
+        "everyone",
+        "{{child2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-52 days','+92 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-48 days','+92 minutes'))",
+      "params": [
+        "perf-item-092",
+        "perf-col-2",
+        "Leaf blower",
+        "2015-05-25",
+        "[\"perf-tag-06\"]",
+        "[\"perf-loc-3\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-51 days','+93 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-47 days','+93 minutes'))",
+      "params": [
+        "perf-item-093",
+        "perf-col-3",
+        "Songs in the Key of Life",
+        "[\"perf-tag-14\", \"perf-tag-15\"]",
+        "[\"perf-loc-6\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-50 days','+94 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-46 days','+94 minutes'))",
+      "params": [
+        "perf-item-094",
+        "perf-col-4",
+        "Pumice",
+        "Missing one small piece.",
+        "2019-07-03",
+        "[]",
+        "[\"perf-loc-1\"]",
+        "everyone",
+        "{{child}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-49 days','+95 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-45 days','+95 minutes'))",
+      "params": [
+        "perf-item-095",
+        "perf-col-5",
+        "Forbidden Island",
+        "[\"perf-tag-22\"]",
+        "[\"perf-loc-4\"]",
+        "everyone",
+        "{{adult2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-48 days','+96 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-44 days','+96 minutes'))",
+      "params": [
+        "perf-item-096",
+        "perf-col-6",
+        "Nutcracker",
+        "2023-09-09",
+        "[\"perf-tag-27\", \"perf-tag-28\"]",
+        "[\"perf-loc-7\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-47 days','+97 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-43 days','+97 minutes'))",
+      "params": [
+        "perf-item-097",
+        "perf-col-1",
+        "Snowdrop",
+        "2014-09-01",
+        "[\"perf-tag-02\"]",
+        "[\"perf-loc-1\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-46 days','+98 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-42 days','+98 minutes'))",
+      "params": [
+        "perf-item-098",
+        "perf-col-2",
+        "Pressure washer",
+        "[\"perf-tag-07\", \"perf-tag-08\"]",
+        "[\"perf-loc-4\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-46 days','+99 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-42 days','+99 minutes'))",
+      "params": [
+        "perf-item-099",
+        "perf-col-3",
+        "Moondance",
+        "Missing one small piece.",
+        "2018-11-07",
+        "[]",
+        "[\"perf-loc-7\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-45 days','+100 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-41 days','+100 minutes'))",
+      "params": [
+        "perf-item-100",
+        "perf-col-4",
+        "Garnet in schist",
+        "[\"perf-tag-18\"]",
+        "[\"perf-loc-2\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-44 days','+101 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-40 days','+101 minutes'))",
+      "params": [
+        "perf-item-101",
+        "perf-col-5",
+        "Uno",
+        "2022-01-13",
+        "[\"perf-tag-23\", \"perf-tag-24\"]",
+        "[\"perf-loc-5\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-43 days','+102 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-39 days','+102 minutes'))",
+      "params": [
+        "perf-item-102",
+        "perf-col-6",
+        "Straw goat",
+        "Bought at the flea market for almost nothing.",
+        "[]",
+        "[\"perf-loc-8\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-42 days','+103 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-38 days','+103 minutes'))",
+      "params": [
+        "perf-item-103",
+        "perf-col-1",
+        "Pip",
+        "[\"perf-tag-03\", \"perf-tag-04\"]",
+        "[\"perf-loc-2\"]",
+        "everyone",
+        "{{child2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-41 days','+104 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-37 days','+104 minutes'))",
+      "params": [
+        "perf-item-104",
+        "perf-col-2",
+        "Rotary tool",
+        "Missing one small piece.",
+        "2017-03-11",
+        "[]",
+        "[\"perf-loc-5\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-40 days','+105 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-36 days','+105 minutes'))",
+      "params": [
+        "perf-item-105",
+        "perf-col-3",
+        "Nighthawks at the Diner",
+        "[\"perf-tag-16\"]",
+        "[\"perf-loc-8\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-39 days','+106 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-35 days','+106 minutes'))",
+      "params": [
+        "perf-item-106",
+        "perf-col-4",
+        "Belemnite",
+        "2021-05-17",
+        "[\"perf-tag-19\", \"perf-tag-20\"]",
+        "[\"perf-loc-3\"]",
+        "everyone",
+        "{{child}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-39 days','+107 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-35 days','+107 minutes'))",
+      "params": [
+        "perf-item-107",
+        "perf-col-5",
+        "Jenga",
+        "Bought at the flea market for almost nothing.",
+        "[]",
+        "[\"perf-loc-6\"]",
+        "everyone",
+        "{{adult2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-38 days','+108 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-34 days','+108 minutes'))",
+      "params": [
+        "perf-item-108",
+        "perf-col-6",
+        "Gingerbread house",
+        "2025-07-23",
+        "[\"perf-tag-29\"]",
+        "[\"perf-loc-1\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-37 days','+109 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-33 days','+109 minutes'))",
+      "params": [
+        "perf-item-109",
+        "perf-col-1",
+        "Hazel",
+        "Missing one small piece.",
+        "2016-07-15",
+        "[]",
+        "[]",
+        "everyone",
+        "{{child2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-36 days','+110 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-32 days','+110 minutes'))",
+      "params": [
+        "perf-item-110",
+        "perf-col-2",
+        "Bench grinder",
+        "[\"perf-tag-09\"]",
+        "[]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-35 days','+111 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-31 days','+111 minutes'))",
+      "params": [
+        "perf-item-111",
+        "perf-col-3",
+        "Getz/Gilberto",
+        "2020-09-21",
+        "[\"perf-tag-11\", \"perf-tag-12\"]",
+        "[]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-34 days','+112 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-30 days','+112 minutes'))",
+      "params": [
+        "perf-item-112",
+        "perf-col-4",
+        "Lapis lazuli",
+        "Bought at the flea market for almost nothing.",
+        "[]",
+        "[]",
+        "everyone",
+        "{{child}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-33 days','+113 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-29 days','+113 minutes'))",
+      "params": [
+        "perf-item-113",
+        "perf-col-5",
+        "Sushi Go",
+        "2024-11-27",
+        "[\"perf-tag-25\"]",
+        "[]",
+        "everyone",
+        "{{adult2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-33 days','+114 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-29 days','+114 minutes'))",
+      "params": [
+        "perf-item-114",
+        "perf-col-6",
+        "Gold pear",
+        "[\"perf-tag-30\", \"perf-tag-31\"]",
+        "[]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-32 days','+115 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-28 days','+115 minutes'))",
+      "params": [
+        "perf-item-115",
+        "perf-col-1",
+        "Dumpling",
+        "[\"perf-tag-05\"]",
+        "[\"perf-loc-4\"]",
+        "everyone",
+        "{{child2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-31 days','+116 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-27 days','+116 minutes'))",
+      "params": [
+        "perf-item-116",
+        "perf-col-2",
+        "Tile cutter",
+        "2019-01-25",
+        "[\"perf-tag-10\", \"perf-tag-06\"]",
+        "[\"perf-loc-7\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-30 days','+117 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-26 days','+117 minutes'))",
+      "params": [
+        "perf-item-117",
+        "perf-col-3",
+        "Astral Weeks",
+        "Bought at the flea market for almost nothing.",
+        "[]",
+        "[\"perf-loc-2\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-29 days','+118 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-25 days','+118 minutes'))",
+      "params": [
+        "perf-item-118",
+        "perf-col-4",
+        "Calcite",
+        "2023-03-03",
+        "[\"perf-tag-21\"]",
+        "[\"perf-loc-5\"]",
+        "everyone",
+        "{{child}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-28 days','+119 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-24 days','+119 minutes'))",
+      "params": [
+        "perf-item-119",
+        "perf-col-5",
+        "King of Tokyo",
+        "[\"perf-tag-26\", \"perf-tag-22\"]",
+        "[\"perf-loc-8\"]",
+        "everyone",
+        "{{adult2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-27 days','+120 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-23 days','+120 minutes'))",
+      "params": [
+        "perf-item-120",
+        "perf-col-6",
+        "Crochet wreath",
+        "Lent to the neighbours, check it came back.",
+        "2013-05-09",
+        "[]",
+        "[\"perf-loc-3\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-26 days','+121 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-22 days','+121 minutes'))",
+      "params": [
+        "perf-item-121",
+        "perf-col-1",
+        "Acorn",
+        "2018-05-01",
+        "[\"perf-tag-01\", \"perf-tag-02\"]",
+        "[\"perf-loc-5\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-26 days','+122 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-22 days','+122 minutes'))",
+      "params": [
+        "perf-item-122",
+        "perf-col-2",
+        "Planer",
+        "Bought at the flea market for almost nothing.",
+        "[]",
+        "[\"perf-loc-8\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-25 days','+123 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-21 days','+123 minutes'))",
+      "params": [
+        "perf-item-123",
+        "perf-col-3",
+        "Innervisions",
+        "2022-07-07",
+        "[\"perf-tag-13\"]",
+        "[\"perf-loc-3\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-24 days','+124 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-20 days','+124 minutes'))",
+      "params": [
+        "perf-item-124",
+        "perf-col-4",
+        "Jasper pebble",
+        "[\"perf-tag-17\", \"perf-tag-18\"]",
+        "[\"perf-loc-6\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-23 days','+125 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-19 days','+125 minutes'))",
+      "params": [
+        "perf-item-125",
+        "perf-col-5",
+        "Kingdomino",
+        "Lent to the neighbours, check it came back.",
+        "2012-09-13",
+        "[]",
+        "[\"perf-loc-1\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-22 days','+126 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-18 days','+126 minutes'))",
+      "params": [
+        "perf-item-126",
+        "perf-col-6",
+        "Painted pinecone",
+        "[\"perf-tag-27\"]",
+        "[\"perf-loc-4\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-21 days','+127 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-17 days','+127 minutes'))",
+      "params": [
+        "perf-item-127",
+        "perf-col-1",
+        "Fig",
+        "Bought at the flea market for almost nothing.",
+        "[]",
+        "[\"perf-loc-6\"]",
+        "everyone",
+        "{{child2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-20 days','+128 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-16 days','+128 minutes'))",
+      "params": [
+        "perf-item-128",
+        "perf-col-2",
+        "Stud finder",
+        "2021-11-11",
+        "[\"perf-tag-07\"]",
+        "[\"perf-loc-1\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-20 days','+129 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-16 days','+129 minutes'))",
+      "params": [
+        "perf-item-129",
+        "perf-col-3",
+        "Pink Moon",
+        "[\"perf-tag-14\", \"perf-tag-15\"]",
+        "[\"perf-loc-4\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-19 days','+130 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-15 days','+130 minutes'))",
+      "params": [
+        "perf-item-130",
+        "perf-col-4",
+        "Mica sheet",
+        "Lent to the neighbours, check it came back.",
+        "2025-01-17",
+        "[]",
+        "[\"perf-loc-7\"]",
+        "everyone",
+        "{{child}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-18 days','+131 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-14 days','+131 minutes'))",
+      "params": [
+        "perf-item-131",
+        "perf-col-5",
+        "Hive",
+        "[\"perf-tag-23\"]",
+        "[\"perf-loc-2\"]",
+        "everyone",
+        "{{adult2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-17 days','+132 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-13 days','+132 minutes'))",
+      "params": [
+        "perf-item-132",
+        "perf-col-6",
+        "Glass pickle",
+        "2015-03-23",
+        "[\"perf-tag-28\", \"perf-tag-29\"]",
+        "[\"perf-loc-5\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-16 days','+133 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-12 days','+133 minutes'))",
+      "params": [
+        "perf-item-133",
+        "perf-col-1",
+        "Bluebell",
+        "2020-03-15",
+        "[\"perf-tag-03\"]",
+        "[\"perf-loc-7\"]",
+        "everyone",
+        "{{child2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-15 days','+134 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-11 days','+134 minutes'))",
+      "params": [
+        "perf-item-134",
+        "perf-col-2",
+        "Laser level",
+        "[\"perf-tag-08\", \"perf-tag-09\"]",
+        "[\"perf-loc-2\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-14 days','+135 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-10 days','+135 minutes'))",
+      "params": [
+        "perf-item-135",
+        "perf-col-3",
+        "Mingus Ah Um",
+        "Lent to the neighbours, check it came back.",
+        "2024-05-21",
+        "[]",
+        "[\"perf-loc-5\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-13 days','+136 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-9 days','+136 minutes'))",
+      "params": [
+        "perf-item-136",
+        "perf-col-4",
+        "Sandstone with ripples",
+        "[\"perf-tag-19\"]",
+        "[\"perf-loc-8\"]",
+        "everyone",
+        "{{child}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-13 days','+137 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-9 days','+137 minutes'))",
+      "params": [
+        "perf-item-137",
+        "perf-col-5",
+        "Labyrinth",
+        "2014-07-27",
+        "[\"perf-tag-24\", \"perf-tag-25\"]",
+        "[\"perf-loc-3\"]",
+        "everyone",
+        "{{adult2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-12 days','+138 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-8 days','+138 minutes'))",
+      "params": [
+        "perf-item-138",
+        "perf-col-6",
+        "Lace heart",
+        "Birthday present.",
+        "[]",
+        "[\"perf-loc-6\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-11 days','+139 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-7 days','+139 minutes'))",
+      "params": [
+        "perf-item-139",
+        "perf-col-1",
+        "Truffle",
+        "[\"perf-tag-04\", \"perf-tag-05\"]",
+        "[\"perf-loc-8\"]",
+        "everyone",
+        "{{child2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-10 days','+140 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-6 days','+140 minutes'))",
+      "params": [
+        "perf-item-140",
+        "perf-col-2",
+        "Air compressor",
+        "Lent to the neighbours, check it came back.",
+        "2023-09-25",
+        "[]",
+        "[\"perf-loc-3\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-9 days','+141 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-5 days','+141 minutes'))",
+      "params": [
+        "perf-item-141",
+        "perf-col-3",
+        "After the Gold Rush",
+        "[\"perf-tag-16\"]",
+        "[\"perf-loc-6\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-8 days','+142 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-4 days','+142 minutes'))",
+      "params": [
+        "perf-item-142",
+        "perf-col-4",
+        "Coral fossil",
+        "2013-11-03",
+        "[\"perf-tag-20\", \"perf-tag-21\"]",
+        "[\"perf-loc-1\"]",
+        "everyone",
+        "{{child}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-7 days','+143 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-3 days','+143 minutes'))",
+      "params": [
+        "perf-item-143",
+        "perf-col-5",
+        "Qwirkle",
+        "Birthday present.",
+        "[]",
+        "[\"perf-loc-4\"]",
+        "everyone",
+        "{{adult2}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-7 days','+144 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-3 days','+144 minutes'))",
+      "params": [
+        "perf-item-144",
+        "perf-col-6",
+        "Popsicle-stick sled",
+        "2017-01-09",
+        "[\"perf-tag-30\"]",
+        "[\"perf-loc-7\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-6 days','+145 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-2 days','+145 minutes'))",
+      "params": [
+        "perf-item-145",
+        "perf-col-1",
+        "Waffles",
+        "Lent to the neighbours, check it came back.",
+        "2022-01-01",
+        "[]",
+        "[\"perf-loc-1\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-5 days','+146 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-1 days','+146 minutes'))",
+      "params": [
+        "perf-item-146",
+        "perf-col-2",
+        "Work light",
+        "[\"perf-tag-10\"]",
+        "[\"perf-loc-4\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-4 days','+147 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-1 days','+147 minutes'))",
+      "params": [
+        "perf-item-147",
+        "perf-col-3",
+        "Ella and Louis",
+        "2012-03-07",
+        "[\"perf-tag-11\", \"perf-tag-12\"]",
+        "[\"perf-loc-7\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-3 days','+148 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-1 days','+148 minutes'))",
+      "params": [
+        "perf-item-148",
+        "perf-col-4",
+        "Smoky quartz",
+        "Birthday present.",
+        "[]",
+        "[\"perf-loc-2\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, acquired_date, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-2 days','+149 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-1 days','+149 minutes'))",
+      "params": [
+        "perf-item-149",
+        "perf-col-5",
+        "Chess set",
+        "2016-05-13",
+        "[\"perf-tag-26\"]",
+        "[\"perf-loc-5\"]",
+        "everyone",
+        "{{me}}"
+      ]
+    },
+    {
+      "sql": "INSERT INTO app_collections__items (id, collection_id, name, tag_ids, location_ids, visibility, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, strftime('%Y-%m-%dT%H:%M:%fZ','now','-1 days','+150 minutes'), strftime('%Y-%m-%dT%H:%M:%fZ','now','-1 days','+150 minutes'))",
+      "params": [
+        "perf-item-150",
+        "perf-col-6",
+        "First Christmas bauble",
+        "[\"perf-tag-31\", \"perf-tag-27\"]",
+        "[\"perf-loc-8\"]",
+        "everyone",
+        "{{partner}}"
+      ]
+    }
+  ]
+}
