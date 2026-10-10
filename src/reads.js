@@ -12,19 +12,23 @@
  * before its note, so the first page is small enough that both fit with room
  * for notes, collections, tags and places.
  *
- * Every LATER page travels over the network, where the limit is 5,000 rows a
- * request across both tables. A large page there means a household with a
- * thousand photos pays one more request, not eight.
+ * Every LATER page travels over the network, where the hub refuses a reply of
+ * more than 2 MB (and of more than 5,000 rows). The size is the one that
+ * binds: an item's note may run to 2,000 characters, which can be 6,000 bytes,
+ * so a round of 200 items and 200 photos stays under it even when every note
+ * is full. A larger page would be fewer requests for most households and a
+ * request that fails on every launch for one with long notes, with nothing
+ * after the first page ever shown.
  */
-export const FIRST_PAGE_SIZE = 120;
-export const NEXT_PAGE_SIZE = 1500;
+export const FIRST_PAGE_SIZE = 110;
+export const NEXT_PAGE_SIZE = 200;
 
 export const READS = {
   collections: "SELECT id, name, description, auto_cutout, created_by, created_at, updated_at FROM app_collections__collections ORDER BY created_at DESC, id DESC",
   tags: "SELECT id, collection_id, name, created_by, created_at FROM app_collections__tags ORDER BY created_at, id",
   locations: "SELECT id, name, created_by, created_at FROM app_collections__locations ORDER BY created_at, id",
-  items: `SELECT id, collection_id, name, note, acquired_date, tag_ids, location_ids, created_by, created_at, updated_at FROM app_collections__items ORDER BY created_at DESC, id DESC LIMIT ${FIRST_PAGE_SIZE}`,
-  photos: `SELECT id, collection_id, item_id, file_id, thumb_file_id, cutout_file_id, cutout_status, cutout_requested_at, use_cutout, sort_order, created_by, created_at FROM app_collections__photos ORDER BY created_at DESC, id DESC LIMIT ${FIRST_PAGE_SIZE}`,
+  items: `SELECT id, collection_id, name, note, acquired_date, tag_ids, location_ids, cover_file_ids, created_by, created_at, updated_at FROM app_collections__items ORDER BY created_at DESC, id DESC LIMIT ${FIRST_PAGE_SIZE}`,
+  photos: `SELECT id, collection_id, item_id, file_id, thumb_file_id, cutout_file_id, cutout_thumb_file_id, cutout_status, cutout_requested_at, use_cutout, sort_order, created_by, created_at FROM app_collections__photos ORDER BY created_at DESC, id DESC LIMIT ${FIRST_PAGE_SIZE}`,
 };
 
 /** The order of the first-render batch, and of manifest.preload. */
@@ -33,8 +37,8 @@ export const READ_ORDER = ["collections", "tags", "locations", "items", "photos"
 // The page after a given row. Same columns and order as the first page, so the
 // pages concatenate.
 export const NEXT_PAGE = {
-  items: `SELECT id, collection_id, name, note, acquired_date, tag_ids, location_ids, created_by, created_at, updated_at FROM app_collections__items WHERE (created_at < ? OR (created_at = ? AND id < ?)) ORDER BY created_at DESC, id DESC LIMIT ${NEXT_PAGE_SIZE}`,
-  photos: `SELECT id, collection_id, item_id, file_id, thumb_file_id, cutout_file_id, cutout_status, cutout_requested_at, use_cutout, sort_order, created_by, created_at FROM app_collections__photos WHERE (created_at < ? OR (created_at = ? AND id < ?)) ORDER BY created_at DESC, id DESC LIMIT ${NEXT_PAGE_SIZE}`,
+  items: `SELECT id, collection_id, name, note, acquired_date, tag_ids, location_ids, cover_file_ids, created_by, created_at, updated_at FROM app_collections__items WHERE (created_at < ? OR (created_at = ? AND id < ?)) ORDER BY created_at DESC, id DESC LIMIT ${NEXT_PAGE_SIZE}`,
+  photos: `SELECT id, collection_id, item_id, file_id, thumb_file_id, cutout_file_id, cutout_thumb_file_id, cutout_status, cutout_requested_at, use_cutout, sort_order, created_by, created_at FROM app_collections__photos WHERE (created_at < ? OR (created_at = ? AND id < ?)) ORDER BY created_at DESC, id DESC LIMIT ${NEXT_PAGE_SIZE}`,
 };
 
 export function firstRenderBatch() {

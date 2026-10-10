@@ -144,7 +144,7 @@
         {
           "action": "db",
           "as": "sibling",
-          "sql": "SELECT id, collection_id, name, note, acquired_date, tag_ids, location_ids, created_by, created_at, updated_at FROM app_collections__items ORDER BY created_at DESC, id DESC LIMIT 120",
+          "sql": "SELECT id, collection_id, name, note, acquired_date, tag_ids, location_ids, cover_file_ids, created_by, created_at, updated_at FROM app_collections__items ORDER BY created_at DESC, id DESC LIMIT 110",
           "expect": {
             "status": 200,
             "rowCount": 1,
@@ -160,7 +160,7 @@
         {
           "action": "db",
           "as": "sibling",
-          "sql": "SELECT id, collection_id, item_id, file_id, thumb_file_id, cutout_file_id, cutout_status, cutout_requested_at, use_cutout, sort_order, created_by, created_at FROM app_collections__photos ORDER BY created_at DESC, id DESC LIMIT 120",
+          "sql": "SELECT id, collection_id, item_id, file_id, thumb_file_id, cutout_file_id, cutout_thumb_file_id, cutout_status, cutout_requested_at, use_cutout, sort_order, created_by, created_at FROM app_collections__photos ORDER BY created_at DESC, id DESC LIMIT 110",
           "expect": {
             "status": 200,
             "rowCount": 1,
@@ -177,7 +177,7 @@
         {
           "action": "db",
           "as": "parent",
-          "sql": "SELECT id, collection_id, name, note, acquired_date, tag_ids, location_ids, created_by, created_at, updated_at FROM app_collections__items WHERE (created_at < ? OR (created_at = ? AND id < ?)) ORDER BY created_at DESC, id DESC LIMIT 1500",
+          "sql": "SELECT id, collection_id, name, note, acquired_date, tag_ids, location_ids, cover_file_ids, created_by, created_at, updated_at FROM app_collections__items WHERE (created_at < ? OR (created_at = ? AND id < ?)) ORDER BY created_at DESC, id DESC LIMIT 200",
           "params": [
             "2026-01-03T00:00:00Z",
             "2026-01-03T00:00:00Z",
@@ -191,7 +191,7 @@
         {
           "action": "db",
           "as": "parent",
-          "sql": "SELECT id, collection_id, name, note, acquired_date, tag_ids, location_ids, created_by, created_at, updated_at FROM app_collections__items WHERE (created_at < ? OR (created_at = ? AND id < ?)) ORDER BY created_at DESC, id DESC LIMIT 1500",
+          "sql": "SELECT id, collection_id, name, note, acquired_date, tag_ids, location_ids, cover_file_ids, created_by, created_at, updated_at FROM app_collections__items WHERE (created_at < ? OR (created_at = ? AND id < ?)) ORDER BY created_at DESC, id DESC LIMIT 200",
           "params": [
             "2026-01-02T00:00:00Z",
             "2026-01-02T00:00:00Z",
@@ -205,7 +205,7 @@
         {
           "action": "db",
           "as": "parent",
-          "sql": "SELECT id, collection_id, item_id, file_id, thumb_file_id, cutout_file_id, cutout_status, cutout_requested_at, use_cutout, sort_order, created_by, created_at FROM app_collections__photos WHERE (created_at < ? OR (created_at = ? AND id < ?)) ORDER BY created_at DESC, id DESC LIMIT 1500",
+          "sql": "SELECT id, collection_id, item_id, file_id, thumb_file_id, cutout_file_id, cutout_thumb_file_id, cutout_status, cutout_requested_at, use_cutout, sort_order, created_by, created_at FROM app_collections__photos WHERE (created_at < ? OR (created_at = ? AND id < ?)) ORDER BY created_at DESC, id DESC LIMIT 200",
           "params": [
             "2026-01-03T00:00:00Z",
             "2026-01-03T00:00:00Z",
@@ -219,7 +219,7 @@
         {
           "action": "db",
           "as": "parent",
-          "sql": "SELECT id, collection_id, item_id, file_id, thumb_file_id, cutout_file_id, cutout_status, cutout_requested_at, use_cutout, sort_order, created_by, created_at FROM app_collections__photos WHERE (created_at < ? OR (created_at = ? AND id < ?)) ORDER BY created_at DESC, id DESC LIMIT 1500",
+          "sql": "SELECT id, collection_id, item_id, file_id, thumb_file_id, cutout_file_id, cutout_thumb_file_id, cutout_status, cutout_requested_at, use_cutout, sort_order, created_by, created_at FROM app_collections__photos WHERE (created_at < ? OR (created_at = ? AND id < ?)) ORDER BY created_at DESC, id DESC LIMIT 200",
           "params": [
             "2026-01-02T00:00:00Z",
             "2026-01-02T00:00:00Z",
@@ -233,7 +233,7 @@
       ]
     },
     {
-      "name": "a row is changed by whoever added it or by an adult, never by another child",
+      "name": "a row is changed by whoever added it or by an adult, never by another child; the picture a shared page shows is written by an adult, never by a child, not even on an item the child added",
       "members": {
         "parent": "adult",
         "kid": "child",
@@ -805,6 +805,145 @@
               }
             ]
           }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "UPDATE app_collections__items SET cover_file_ids = ? WHERE id = ?",
+          "params": [
+            "[\"file-9\"]",
+            "i1"
+          ],
+          "expect": {
+            "status": 403,
+            "errorIncludes": "may only be updated by adult members"
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "SELECT cover_file_ids FROM app_collections__items WHERE id = ?",
+          "params": [
+            "i1"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "cover_file_ids": ""
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "UPDATE app_collections__items SET cover_file_ids = ? WHERE id = ?",
+          "params": [
+            "[\"11111111-1111-4111-8111-111111111111\",\"22222222-2222-4222-8222-222222222222\"]",
+            "i1"
+          ],
+          "expect": {
+            "status": 403,
+            "errorIncludes": "may only be updated by adult members"
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "SELECT cover_file_ids FROM app_collections__items WHERE id = ?",
+          "params": [
+            "i1"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "cover_file_ids": ""
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, cover_file_ids, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          "params": [
+            "i9",
+            "c1",
+            "Smuggled",
+            "",
+            "[]",
+            "[]",
+            "[\"11111111-1111-4111-8111-111111111111\",\"22222222-2222-4222-8222-222222222222\"]",
+            "{{kid}}",
+            "2026-01-06T00:00:00Z",
+            "2026-01-06T00:00:00Z"
+          ],
+          "expect": {
+            "status": 403,
+            "errorIncludes": "may only be set by adult members"
+          }
+        },
+        {
+          "action": "db",
+          "as": "parent",
+          "sql": "UPDATE app_collections__items SET cover_file_ids = ? WHERE id = ?",
+          "params": [
+            "[\"file-1\"]",
+            "i1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "SELECT cover_file_ids FROM app_collections__items WHERE id = ?",
+          "params": [
+            "i1"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "cover_file_ids": "[\"file-1\"]"
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "parent",
+          "sql": "UPDATE app_collections__items SET cover_file_ids = ? WHERE id = ?",
+          "params": [
+            "[]",
+            "i1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "sibling",
+          "sql": "SELECT cover_file_ids FROM app_collections__items WHERE id = ?",
+          "params": [
+            "i1"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "cover_file_ids": "[]"
+              }
+            ]
+          }
         }
       ]
     },
@@ -925,7 +1064,7 @@
         {
           "action": "db",
           "as": "kid",
-          "sql": "SELECT cutout_file_id, cutout_status, cutout_requested_at FROM app_collections__photos WHERE id = ?",
+          "sql": "SELECT cutout_file_id, cutout_thumb_file_id, cutout_status, cutout_requested_at, use_cutout FROM app_collections__photos WHERE id = ?",
           "params": [
             "p1"
           ],
@@ -956,7 +1095,7 @@
         {
           "action": "db",
           "as": "kid",
-          "sql": "SELECT cutout_file_id, cutout_status, cutout_requested_at FROM app_collections__photos WHERE id = ?",
+          "sql": "SELECT cutout_file_id, cutout_thumb_file_id, cutout_status, cutout_requested_at, use_cutout FROM app_collections__photos WHERE id = ?",
           "params": [
             "p1"
           ],
@@ -986,7 +1125,7 @@
         {
           "action": "db",
           "as": "kid",
-          "sql": "SELECT cutout_file_id, cutout_status, cutout_requested_at FROM app_collections__photos WHERE id = ?",
+          "sql": "SELECT cutout_file_id, cutout_thumb_file_id, cutout_status, cutout_requested_at, use_cutout FROM app_collections__photos WHERE id = ?",
           "params": [
             "p1"
           ],
@@ -1017,7 +1156,7 @@
         {
           "action": "db",
           "as": "kid",
-          "sql": "SELECT cutout_file_id, cutout_status, cutout_requested_at FROM app_collections__photos WHERE id = ?",
+          "sql": "SELECT cutout_file_id, cutout_thumb_file_id, cutout_status, cutout_requested_at, use_cutout FROM app_collections__photos WHERE id = ?",
           "params": [
             "p1"
           ],
@@ -1073,7 +1212,7 @@
         {
           "action": "db",
           "as": "kid",
-          "sql": "SELECT cutout_file_id, cutout_status, cutout_requested_at FROM app_collections__photos WHERE id = ?",
+          "sql": "SELECT cutout_file_id, cutout_thumb_file_id, cutout_status, cutout_requested_at, use_cutout FROM app_collections__photos WHERE id = ?",
           "params": [
             "p1"
           ],
@@ -1105,7 +1244,7 @@
         {
           "action": "db",
           "as": "kid",
-          "sql": "SELECT cutout_file_id, cutout_status, cutout_requested_at FROM app_collections__photos WHERE id = ?",
+          "sql": "SELECT cutout_file_id, cutout_thumb_file_id, cutout_status, cutout_requested_at, use_cutout FROM app_collections__photos WHERE id = ?",
           "params": [
             "p1"
           ],
@@ -1160,8 +1299,51 @@
         },
         {
           "action": "db",
+          "as": "kid",
+          "sql": "UPDATE app_collections__photos SET cutout_thumb_file_id = ? WHERE id = ? AND cutout_file_id = ?",
+          "params": [
+            "cutout-thumb-stale",
+            "p1",
+            "a-cutout-this-row-does-not-name"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "UPDATE app_collections__photos SET cutout_thumb_file_id = ? WHERE id = ? AND cutout_file_id = ?",
+          "params": [
+            "cutout-thumb-1",
+            "p1",
+            "cutout-1"
+          ],
+          "expect": {
+            "status": 200
+          }
+        },
+        {
+          "action": "db",
           "as": "parent",
-          "sql": "SELECT cutout_file_id, cutout_status, cutout_requested_at FROM app_collections__photos WHERE id = ?",
+          "sql": "SELECT cutout_thumb_file_id FROM app_collections__photos WHERE id = ?",
+          "params": [
+            "p1"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "cutout_thumb_file_id": "cutout-thumb-1"
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "parent",
+          "sql": "SELECT cutout_file_id, cutout_thumb_file_id, cutout_status, cutout_requested_at, use_cutout FROM app_collections__photos WHERE id = ?",
           "params": [
             "p1"
           ],
@@ -1206,7 +1388,7 @@
         {
           "action": "db",
           "as": "parent",
-          "sql": "SELECT cutout_file_id, cutout_status, cutout_requested_at FROM app_collections__photos WHERE id = ?",
+          "sql": "SELECT cutout_file_id, cutout_thumb_file_id, cutout_status, cutout_requested_at, use_cutout FROM app_collections__photos WHERE id = ?",
           "params": [
             "p1"
           ],
@@ -1306,7 +1488,7 @@
         {
           "action": "db",
           "as": "kid",
-          "sql": "SELECT cutout_file_id, cutout_status, cutout_requested_at FROM app_collections__photos WHERE id = ?",
+          "sql": "SELECT cutout_file_id, cutout_thumb_file_id, cutout_status, cutout_requested_at, use_cutout FROM app_collections__photos WHERE id = ?",
           "params": [
             "p1"
           ],
@@ -1447,6 +1629,23 @@
         {
           "action": "db",
           "as": "kid",
+          "sql": "SELECT COALESCE(MAX(sort_order), -1) + 1 AS next_order FROM app_collections__photos WHERE item_id = ?",
+          "params": [
+            "i1"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "next_order": 0
+              }
+            ]
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
           "sql": "INSERT INTO app_collections__photos (id, collection_id, item_id, file_id, thumb_file_id, cutout_file_id, cutout_status, cutout_requested_at, use_cutout, sort_order, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
           "params": [
             "p1",
@@ -1508,6 +1707,23 @@
           ],
           "expect": {
             "status": 200
+          }
+        },
+        {
+          "action": "db",
+          "as": "kid",
+          "sql": "SELECT COALESCE(MAX(sort_order), -1) + 1 AS next_order FROM app_collections__photos WHERE item_id = ?",
+          "params": [
+            "i1"
+          ],
+          "expect": {
+            "status": 200,
+            "rowCount": 1,
+            "rowsContain": [
+              {
+                "next_order": 1
+              }
+            ]
           }
         },
         {

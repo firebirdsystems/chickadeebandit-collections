@@ -1,0 +1,15 @@
+-- The one picture a shared collection page shows for an item, as a JSON array
+-- holding at most one hub file id: the item's first photo, as its cutout when
+-- the item shows one. '' and '[]' both mean no picture.
+--
+-- A share link lists a collection's items, and the hub reads each entry's
+-- pictures from a column on the item (manifest.shareable.collection.feed). The
+-- photos live in their own table, so the app keeps this copy current.
+--
+-- It is a second name for a file a photo row already owns, and it owns nothing:
+-- the photos table alone decides when the bytes go. That is why it is a list
+-- column named in no reclaim key. Declared there, it would count as a row still
+-- naming the file, and a deleted photo would stay stored, and stay public,
+-- until this copy caught up. Left out, a photo that is deleted is gone at once
+-- and an id still written here names nothing.
+ALTER TABLE app_collections__items ADD COLUMN cover_file_ids TEXT NOT NULL DEFAULT '';

@@ -63,6 +63,8 @@
     }
     textarea { min-height: 60px; resize: vertical; }
     input:focus, textarea:focus { outline: none; border-color: var(--accent); }
+    /* A box holding an edit that could not be saved. */
+    input[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: var(--red); }
     .check { display: flex; align-items: flex-start; gap: 8px; font-size: .88rem; text-transform: none; letter-spacing: 0; color: var(--text); font-weight: 400; }
     .check input { margin-top: 4px; }
     .search-row { margin-bottom: 12px; }
@@ -127,12 +129,18 @@
 <div id="modal"></div>
 
 <script type="module">
-import { createDbHelper, createFilesHelper, esc, searchMatch, hubConfirm, glyph, chickadee } from "/hub-sdk.js";
+import {
+  createDbHelper, createFilesHelper, esc, searchMatch, hubConfirm, glyph, chickadee,
+  createShareHelper, activeShareLinks, SHARE_EXPIRY_CHOICES, DEFAULT_SHARE_EXPIRY_HOURS, heicAsJpeg,
+} from "/hub-sdk.js";
 import {
   canEdit as _canEdit, parseIds, toggleId, liveIds, findByName, tagsOf, searchableFields, filterItems, countByLabel,
   photosOf, coverPhoto, collectionCover, cutoutState, canRequestCutout, showsCutout, displayFileId, cutoutFailure,
-  cutoutLabel, fitWithin, thumbName, plural, holdIsFresh, cleanDate, formatDate, withoutDeleted, pendingElsewhere, needsCheck, holdKey, PENDING_TIMEOUT_MS,
+  cutoutLabel, plural, holdIsFresh, cleanDate, formatDate, withoutDeleted, pendingElsewhere, needsCheck, holdKey, PENDING_TIMEOUT_MS,
+  coverWrites, isAdult, cutoutIsUnnamed, isHeic, storedAsHeic, heicRefusal, heicKeptRefusal, cutoutSupported, missingCutoutThumbs, withNoThumb, intoHeld, carriedOver,
+  wroteNothing, imageRetryDelay,
 } from "./logic.js";
+import { createShareUi, createOverlayView } from "./share.js";
 import { firstRenderBatch, namedResults, nextPageBatch, FIRST_PAGE_SIZE, NEXT_PAGE_SIZE } from "./reads.js";
 
 // --- Hub runtime globals (empty in demo mode) --------------------------------
@@ -144,16 +152,21 @@ const HUB_MEMBER = window.__CURRENT_MEMBER ?? null;
 const db = createDbHelper(DB_URL);
 const files = FILES_URL ? createFilesHelper(FILES_URL) : null;
 
-const THUMB_MAX = 480;
 // The hub allows a member a fixed number of file requests a minute. A burst of
 // photos can pass it; the request is worth making again after a pause.
 // The limit is counted over a minute, so the pauses together outlast one.
 const RATE_LIMIT_PAUSE_MS = 20_000;
 const RATE_LIMIT_RETRIES = 4;
+// The hub asks for five seconds when a photo's cutout is already being made.
+const CUTOUT_BUSY_PAUSE_MS = 6_000;
 
 // --- App state ---------------------------------------------------------------
 let memberMap = new Map();
-let me = null;
+// Known from the start inside the hub; in demo mode, once the members are read.
+// Inside the hub it is whoever the hub says is looking and nobody else. With
+// no member the app only shows: the first of the household's members is a
+// different person, and rows drawn as theirs would not be theirs in the hub.
+let me = HUB_MEMBER;
 let collections = [];
 let tags = [];
 let locations = [];
@@ -185,12 +198,113 @@ let submitting = false;
 let itemWrites = Promise.resolve();
 let cutoutsStopped = false;
 let cutoutChain = Promise.resolve();
+// True once every page of items and photos has been read. Until then an item
+// can look as though it has no photos, and its cover must not be written.
+let loadedAll = false;
+// The last page read of each table and the size it was asked for, so that
+// reading can pick up where a failed request left off.
+let restPages = {};
+let restSize = FIRST_PAGE_SIZE;
+let restLoad = null;
+// True while the error on show is a failed read of the household's rows. Only
+// that one is taken down when a later try succeeds; an error about anything
+// else (an edit that was not saved) stays until it is dismissed.
+let errorIsLoad = false;
+// Whether the members and the first page of rows have been read.
+let membersLoaded = false;
+let firstLoaded = false;
+let firstLoad = null;
+let coverSync = Promise.resolve();
+// False while a cover is known or suspected to be out of date: the pages are
+// not all read, or a write of one failed.
+let coversCurrent = false;
+let coverRetry = 0;
+// True once a cover write that matched no row has had the rows read again
+// for it, so that a write that keeps matching none is left to the slow retry.
+let coverMissRead = false;
+let sharing = false;
+// Counts the times the first page has been read. A later page asked for
+// before the rows were read again belongs to the reading before, and is dropped.
+let readEpoch = 0;
+// True while the rows are to be read again from the start.
+let rereadOwed = false;
+// Items and photos held from before the rows were read again that the first
+// page did not have, by id, until a later page has them or every page is in.
+let carried = { items: new Set(), photos: new Set() };
+// Why the members could not be read, or "" once they have been.
+let membersFailure = "";
+// Failed reads already said. A try comes round every half minute, and one
+// that fails the way an earlier one did is not put back up once dismissed.
+const loadErrorsTold = new Set();
+// An item's name, notes or date typed into the open sheet and not saved,
+// as `${itemId}|${column}`. Tried again when the box is left or the sheet closed.
+const unsaved = new Set();
+// The same, for each edit on its way to being saved: how many saves of it are
+// queued or with the hub. Its box holds what is being stored, not what a read
+// made meanwhile would say.
+const saving = new Map();
+// How many edits to an item's name, notes or date have been stored.
+let itemEdits = 0;
+// Photos whose cutout the hub answered for with no small copy to keep. They
+// are remembered on this device, which may refuse to: then they are asked
+// about once a visit.
+const NO_THUMB_KEY = "collections.cutouts-without-thumb";
+function noThumbRemembered() {
+  try { return parseIds(localStorage.getItem(NO_THUMB_KEY)); } catch { return []; }
+}
+function rememberNoThumb(id) {
+  try { localStorage.setItem(NO_THUMB_KEY, JSON.stringify(withNoThumb(noThumbRemembered(), id))); } catch { /* asked again next visit */ }
+}
+// Photos asked about again in this visit for the small copy of their cutout,
+// and those remembered as taking none.
+const thumbsTried = new Set(noThumbRemembered());
+let thumbsFilling = false;
+let thumbsStopped = false;
+// How many times each picture that failed to load has been asked for again,
+// by address, and the addresses waiting to be asked for.
+const imageTries = new Map();
+const imageWaits = new Set();
 
 const nowIso = () => new Date().toISOString();
 const canEdit = (row) => _canEdit(row, me);
 const byId = (rows, id) => rows.find((row) => row.id === id) ?? null;
 const memberName = (id) => memberMap.get(id)?.name ?? "Someone";
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+// A request made behind the scenes that has had no answer in this long is
+// given up on, so that whatever waits on it can try again. One that is never
+// answered at all would otherwise hold up every later one for the whole visit.
+const BACKGROUND_TIMEOUT_MS = 45_000;
+const answered = (request) => Promise.race([
+  request,
+  wait(BACKGROUND_TIMEOUT_MS).then(() => { throw new Error("The hub did not answer."); }),
+]);
+
+// A share link to one collection (manifest.shareable.collection). The hub hands
+// out the addresses only when the manifest declares it, and makes links for
+// adults only. Whether this household allows sharing at all is answered by the
+// panel's first read, which it reports.
+const SHARE_SCOPE = "The page shows the collection’s name and description, and each item’s name, notes, the date it was acquired and one photo, which opens at full size. Tags and where things are stored stay in the household. It lists the newest 200 items and shows up to 100 photos. The page is live: whatever anyone in the household adds to this collection or changes in it later appears there too, for as long as the link works. Anyone who gets the link can see it.";
+const share = createShareHelper(window.__SHARE_CREATE_URL, window.__SHARE_REVOKE_URL, window.__SHARE_LIST_URL);
+const canShare = () => share.enabled && isAdult(me);
+const shareView = createOverlayView(document);
+const shareUi = createShareUi({
+  share,
+  itemType: "collection",
+  noun: "collection",
+  scopeHtml: () => `${coversCurrent ? "" : "<strong>The photos on the shared page could not be brought up to date just now, so it may show older ones. Close this and press Share again before making a link.</strong> "}${SHARE_SCOPE}`,
+  esc,
+  glyph,
+  confirm: (message, opts) => hubConfirm({ message, ...opts, destructive: true }),
+  writeText: (text) => navigator.clipboard.writeText(text),
+  activeLinks: activeShareLinks,
+  expiryChoices: SHARE_EXPIRY_CHOICES,
+  defaultExpiryHours: DEFAULT_SHARE_EXPIRY_HOURS,
+  getMe: () => me,
+  isAdmin: () => window.__IS_ADMIN === true,
+  memberName: (id) => memberMap.get(id)?.name ?? "",
+  view: shareView,
+});
+shareView.bind(shareUi);
 
 function labelNames() {
   return new Map([...tags, ...locations].map((row) => [row.id, row.name]));
@@ -198,6 +312,39 @@ function labelNames() {
 
 function fail(e) {
   error = e?.message ?? String(e);
+  errorIsLoad = false;
+  render();
+  // The rows on show are not the rows there are.
+  if (e?.elsewhere) void reread();
+}
+
+/**
+ * A write that changed no row. The hub answers an UPDATE or DELETE that
+ * matches nothing with a success, whether the row was deleted on another
+ * device or is one this member may not change. Either way what is on show is
+ * out of date, so `fail` says so and reads the rows again.
+ */
+function changedElsewhere() {
+  return Object.assign(new Error("That was changed or removed somewhere else, so nothing was done here. Showing what is there now."), { elsewhere: true });
+}
+
+/** The hub's answer to an UPDATE or DELETE, thrown as `changedElsewhere` when it changed no row. */
+function landed(result) {
+  if (wroteNothing(result)) throw changedElsewhere();
+  return result;
+}
+
+/** Say that reading the household's rows failed. Unlike any other error, this
+ *  one is taken down again when a later try reads them. */
+function loadFailed(e) {
+  // An error about something else (an edit that was not saved) is left on
+  // show: replaced by this one, it would be taken down with it.
+  if (error && !errorIsLoad) return;
+  const message = e?.message ?? String(e);
+  if (loadErrorsTold.has(message)) return;
+  loadErrorsTold.add(message);
+  error = message;
+  errorIsLoad = true;
   render();
 }
 
@@ -210,11 +357,16 @@ async function loadMembers() {
       { id: "demo-2", name: "Casey", role: "child" },
     ];
   } else {
-    const res = await fetch(`${CONTEXT}?keys=family.members`);
+    const res = await answered(fetch(`${CONTEXT}?keys=family.members`));
+    // A refusal is not an empty household: thrown, it is tried again.
+    if (!res.ok) throw new Error("The household's members could not be read.");
     members = ((await res.json())["family.members"]) ?? [];
   }
   memberMap = new Map(members.map((m) => [m.id, m]));
-  me = HUB_MEMBER ?? members[0] ?? { id: "guest", name: "Guest", role: "adult" };
+  // Demo mode has no hub to say who is looking: the first sample member is.
+  if (!DB_URL) me = HUB_MEMBER ?? members[0];
+  membersLoaded = true;
+  membersFailure = "";
 }
 
 function loadDemo() {
@@ -241,39 +393,201 @@ function loadDemo() {
   photos = [];
 }
 
-/** Items and photos arrive a page at a time; read the rest behind the first
- *  paint, one request for each round of pages. */
-async function loadRest(lastPages) {
-  for (let wanted = nextPageBatch(lastPages, FIRST_PAGE_SIZE); wanted.length; wanted = nextPageBatch(lastPages, NEXT_PAGE_SIZE)) {
-    const results = await db.batch(wanted.map(({ sql, params }) => ({ sql, params })));
-    lastPages = {};
-    wanted.forEach(({ name }, i) => {
-      const rows = results[i]?.rows ?? [];
-      // The page as it was read decides where the next one starts; what is
-      // kept of it leaves out anything deleted while it was on its way.
-      lastPages[name] = rows;
-      if (name === "items") items = [...items, ...withoutDeleted(rows, gone)];
-      else photos = [...photos, ...withoutDeleted(rows, gone)];
-    });
-    render();
+/**
+ * Items and photos arrive a page at a time; read the rest behind the first
+ * paint, one request for each round of pages. A round that fails leaves the
+ * place it had reached, and the next call carries on from there. One runs at a
+ * time; a second call is handed the first's promise.
+ */
+function loadRest() {
+  if (loadedAll) return Promise.resolve();
+  if (restLoad) return restLoad;
+  const reading = (async () => {
+    for (let wanted = nextPageBatch(restPages, restSize); wanted.length; wanted = nextPageBatch(restPages, restSize)) {
+      const epoch = readEpoch;
+      const results = await answered(db.batch(wanted.map(({ sql, params }) => ({ sql, params }))));
+      // The rows were read again from the start while this page was on its
+      // way: it carries on from a place that is no longer the place.
+      if (epoch !== readEpoch) continue;
+      const read = {};
+      wanted.forEach(({ name }, i) => {
+        const rows = results[i]?.rows ?? [];
+        // The page as it was read decides where the next one starts. What is
+        // kept of it leaves out anything deleted while it was on its way, and
+        // any row already held: one added here moments ago, on a device whose
+        // clock is behind, sorts into a page still to come.
+        read[name] = rows;
+        const held = new Map((name === "items" ? items : photos).map((row) => [row.id, row]));
+        const fresh = [];
+        for (const row of withoutDeleted(rows, gone)) {
+          const mine = held.get(row.id);
+          if (!mine) fresh.push(row);
+          // Kept from before the rows were read again, and here it is.
+          else if (carried[name].delete(row.id)) Object.assign(mine, row);
+        }
+        if (name === "items") items = [...items, ...fresh];
+        else photos = [...photos, ...fresh];
+      });
+      restPages = read;
+      restSize = NEXT_PAGE_SIZE;
+      render();
+    }
+    // Kept from before the rows were read again, and on no page: deleted on
+    // another device.
+    if (carried.items.size || carried.photos.size) {
+      items = items.filter((row) => !carried.items.has(row.id));
+      photos = photos.filter((row) => !carried.photos.has(row.id));
+      carried = { items: new Set(), photos: new Set() };
+      render();
+    }
+    loadedAll = true;
+  })();
+  restLoad = reading;
+  // Cleared once it settles, and only after it was stored: with nothing left
+  // to read the work above is over before this line is reached.
+  const clear = () => { if (restLoad === reading) restLoad = null; };
+  reading.then(clear, clear);
+  return reading;
+}
+
+/** Read the first page of everything, and start the later pages from it. */
+async function readFirstPage() {
+  const named = namedResults(await answered(db.batch(firstRenderBatch())));
+  ({ collections, tags, locations } = named);
+  // A write on its way holds the row it is changing: see `intoHeld`.
+  const kept = { items: carriedOver(items, named.items), photos: carriedOver(photos, named.photos) };
+  items = [...intoHeld(items, named.items), ...kept.items];
+  photos = [...intoHeld(photos, named.photos), ...kept.photos];
+  // Rows a first page does not reach stay until the later pages say whether
+  // they are still there: see `carriedOver`.
+  carried = { items: new Set(kept.items.map((row) => row.id)), photos: new Set(kept.photos.map((row) => row.id)) };
+  loadedAll = false;
+  restPages = { items: named.items, photos: named.photos };
+  restSize = FIRST_PAGE_SIZE;
+  readEpoch++;
+}
+
+/**
+ * Read every row again, after a write found that a row on show is not what
+ * the database holds. The cover sync does the reading: it is what reads the
+ * later pages, it runs one at a time, and it tries again if it cannot.
+ */
+function reread() {
+  if (!DB_URL || !firstLoaded) return Promise.resolve();
+  rereadOwed = true;
+  return syncCovers();
+}
+
+/**
+ * The first page, read again. A later page already on its way is dropped when
+ * it lands (`readEpoch`). The open sheet is closed if what it was open on is
+ * gone. Otherwise its boxes take what was read, except those holding
+ * someone's words: this runs behind the scenes, while they may be typing.
+ */
+async function readAgain() {
+  // An edit stored while the rows were being read may not be in them: what
+  // was read would put the item, and its box, back to the value before. Read
+  // once more, until no edit landed in the meantime.
+  for (let stored = -1; stored !== itemEdits;) {
+    stored = itemEdits;
+    await readFirstPage();
+  }
+  rereadOwed = false;
+  if (sheet?.kind === "collection" && sheet.id && !byId(collections, sheet.id)) sheet = null;
+  if (sheet?.kind === "new-item" && !byId(collections, sheet.collectionId)) sheet = null;
+  if (sheet?.kind !== "item" || !byId(items, sheet.id)) unsaved.clear();
+  render();
+  refreshSheetBoxes();
+}
+
+/**
+ * Bring the boxes of the open sheet up to the rows just read. A box is left
+ * alone while it is being typed in, and while it holds an edit nobody has
+ * stored: an item's on its way to being saved or that failed to save, or a
+ * collection's not yet submitted.
+ */
+function refreshSheetBoxes() {
+  const modal = document.getElementById("modal");
+  const idle = (el) => el && el !== document.activeElement;
+  if (sheet?.kind === "item") {
+    const item = byId(items, sheet.id);
+    if (!item) return;
+    const stored = { name: item.name, note: item.note ?? "", acquired_date: cleanDate(item.acquired_date) ?? "" };
+    for (const el of modal.querySelectorAll("[data-item-field]")) {
+      const field = el.dataset.itemField;
+      const key = `${item.id}|${field}`;
+      if (idle(el) && !unsaved.has(key) && !saving.has(key)) el.value = stored[field];
+    }
+  }
+  if (sheet?.kind === "collection" && sheet.id) {
+    const collection = byId(collections, sheet.id);
+    const form = modal.querySelector("#collection-form");
+    if (!collection || !form) return;
+    for (const [name, value] of [["name", collection.name], ["description", collection.description ?? ""]]) {
+      const el = form.elements[name];
+      if (idle(el) && el.value === el.defaultValue) el.value = el.defaultValue = value;
+    }
+    const check = form.elements.auto_cutout;
+    if (idle(check) && check.checked === check.defaultChecked) check.checked = check.defaultChecked = !!Number(collection.auto_cutout);
   }
 }
 
-async function loadData() {
-  if (!DB_URL) return loadDemo();
-  const named = namedResults(await db.batch(firstRenderBatch()));
-  ({ collections, tags, locations, items, photos } = named);
-  loadRest({ items: named.items, photos: named.photos }).catch(fail);
+/**
+ * Read the first page of everything. One runs at a time, and it is not run
+ * again once it has succeeded: a second answer landing after the later pages
+ * had begun to arrive would put the rows back to page one and lose the place.
+ */
+function loadData() {
+  if (firstLoaded) return Promise.resolve();
+  if (firstLoad) return firstLoad;
+  const reading = (async () => {
+    if (!DB_URL) { loadDemo(); firstLoaded = true; return; }
+    await readFirstPage();
+    firstLoaded = true;
+  })();
+  firstLoad = reading;
+  const clear = () => { if (firstLoad === reading) firstLoad = null; };
+  reading.then(clear, clear);
+  return reading;
+}
+
+/**
+ * Read everything not read yet: the members, the first page, the later pages.
+ * Each part that has been read is not read again, so this is also how a
+ * failed launch is tried again. Rejects if any part still could not be read.
+ */
+async function readAll() {
+  // Names are drawn from the members. Reading them failing does not hold up
+  // the rows or anything worked out from them, which do not depend on the
+  // names: it is said once, and tried again each time this is.
+  if (!membersLoaded) {
+    await loadMembers().then(render, (e) => { membersFailure = e?.message ?? String(e); loadFailed(e); });
+  }
+  if (!firstLoaded) { await loadData(); render(); }
+  await loadRest();
+  // The rows are in. An error about the members stays up while it is true.
+  if (errorIsLoad && error !== membersFailure) { error = ""; errorIsLoad = false; render(); }
+  if (membersLoaded) loadErrorsTold.clear();
 }
 
 async function refresh() {
   error = "";
-  try {
-    await Promise.all([loadMembers(), loadData()]);
-  } catch (e) {
-    error = e.message;
+  // Both are waited for, so the rows are drawn even if the members failed.
+  // (A members read that is never answered is given up on by `answered`.)
+  const tried = await Promise.allSettled([loadMembers(), loadData()]);
+  const failed = tried.find((result) => result.status === "rejected");
+  if (failed) {
+    error = failed.reason?.message ?? String(failed.reason);
+    errorIsLoad = true;
+    loadErrorsTold.add(error);
+    if (tried[0].status === "rejected") membersFailure = tried[0].reason?.message ?? String(tried[0].reason);
   }
+  if (DB_URL && !me) notice = "You are not here as a member of this household, so nothing can be added or changed.";
   render();
+  // Started here, once it is known who is looking: which covers a member may
+  // write depends on who they are. It reads whatever is still to come itself,
+  // and tries again if it cannot.
+  void syncCovers();
 }
 
 // --- Collections -------------------------------------------------------------
@@ -286,15 +600,15 @@ async function saveCollection(form) {
   const existing = sheet.id ? byId(collections, sheet.id) : null;
   // The collection being edited was deleted meanwhile; there is nothing to save.
   if (sheet.id && !existing) { sheet = null; return render(); }
-  if (submitting) return;
+  if (submitting || !me) return;
   submitting = true;
   // The sheet this save was sent from. By the time the hub answers, the person
   // may have closed it and opened another, which this must leave alone.
   const from = sheet;
   try {
     if (existing) {
-      await db("UPDATE app_collections__collections SET name = ?, description = ?, auto_cutout = ?, updated_at = ? WHERE id = ?",
-        [name, description, autoCutout, at, existing.id]);
+      landed(await db("UPDATE app_collections__collections SET name = ?, description = ?, auto_cutout = ?, updated_at = ? WHERE id = ?",
+        [name, description, autoCutout, at, existing.id]));
       Object.assign(existing, { name, description, auto_cutout: autoCutout, updated_at: at });
     } else {
       const row = { id: crypto.randomUUID(), name, description, auto_cutout: autoCutout, created_by: me.id, created_at: at, updated_at: at };
@@ -319,7 +633,9 @@ async function deleteCollection(id) {
   if (!ok) return;
   try {
     // The hub deletes the items, tags and photos with it, and reclaims the files.
-    await db("DELETE FROM app_collections__collections WHERE id = ?", [id]);
+    // A delete that matched no collection may still have taken its items: they
+    // are found before it runs. `landed` has the rows read again either way.
+    landed(await db("DELETE FROM app_collections__collections WHERE id = ?", [id]));
     gone.collections.add(id);
     collections = collections.filter((row) => row.id !== id);
     items = items.filter((row) => row.collection_id !== id);
@@ -358,7 +674,7 @@ async function deleteLabel(kind, id) {
   });
   if (!ok) return;
   try {
-    await db(kind === "tag" ? "DELETE FROM app_collections__tags WHERE id = ?" : "DELETE FROM app_collections__locations WHERE id = ?", [id]);
+    landed(await db(kind === "tag" ? "DELETE FROM app_collections__tags WHERE id = ?" : "DELETE FROM app_collections__locations WHERE id = ?", [id]));
     if (kind === "tag") tags = tags.filter((other) => other.id !== id);
     else locations = locations.filter((other) => other.id !== id);
     filterTags = filterTags.filter((other) => other !== id);
@@ -373,11 +689,11 @@ async function createItem(form) {
   const name = form.name.value.trim();
   if (!name) { form.name.focus(); return; }
   if (!byId(collections, sheet.collectionId)) { sheet = null; return render(); }
-  if (submitting) return;
+  if (submitting || !me) return;
   submitting = true;
   const from = sheet;
   const at = nowIso();
-  const row = { id: crypto.randomUUID(), collection_id: sheet.collectionId, name, note: "", acquired_date: null, tag_ids: "[]", location_ids: "[]", created_by: me.id, created_at: at, updated_at: at };
+  const row = { id: crypto.randomUUID(), collection_id: sheet.collectionId, name, note: "", acquired_date: null, tag_ids: "[]", location_ids: "[]", cover_file_ids: "", created_by: me.id, created_at: at, updated_at: at };
   try {
     await db("INSERT INTO app_collections__items (id, collection_id, name, note, tag_ids, location_ids, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [row.id, row.collection_id, row.name, row.note, row.tag_ids, row.location_ids, row.created_by, row.created_at, row.updated_at]);
@@ -401,7 +717,8 @@ async function updateItem(id, column, value) {
   const item = byId(items, id);
   if (!item) return;
   const at = nowIso();
-  await db(ITEM_UPDATES[column], [value, at, id]);
+  landed(await db(ITEM_UPDATES[column], [value, at, id]));
+  itemEdits++;
   Object.assign(item, { [column]: value, updated_at: at });
 }
 
@@ -411,15 +728,71 @@ function queueItemWrite(work) {
   return itemWrites;
 }
 
-/** A person changed an item's name, notes or date. */
+/**
+ * A person changed an item's name, notes or date. An edit that could not be
+ * saved stays in its box, marked, and is tried again when the box is left or
+ * the sheet closed: the box never passes for saved while it is not. If the
+ * sheet has moved on by the time the save fails, the error is all that is left.
+ */
 function saveItemField(itemId, column, value) {
-  return queueItemWrite(() => {
+  const key = `${itemId}|${column}`;
+  // From here, not from when its turn comes: the rows can be read again while
+  // it waits behind an earlier edit.
+  saving.set(key, (saving.get(key) ?? 0) + 1);
+  const settled = () => {
+    const left = saving.get(key) - 1;
+    if (left > 0) saving.set(key, left);
+    else saving.delete(key);
+  };
+  return queueItemWrite(async () => {
     const item = byId(items, itemId);
-    // Compared here, not when the box changed: by now every earlier edit has
-    // been stored, so this is the value the edit would actually replace.
-    if (!item || (item[column] ?? null) === value) return;
-    return updateItem(itemId, column, value);
+    try {
+      // Compared here, not when the box changed: by now every earlier edit has
+      // been stored, so this is the value the edit would actually replace.
+      if (!item || (item[column] ?? null) === value) { unsaved.delete(key); return; }
+      await updateItem(itemId, column, value);
+      unsaved.delete(key);
+    } catch (e) {
+      unsaved.delete(key);
+      // Changed elsewhere: the sheet is about to be drawn again from the rows.
+      if (e.elsewhere) throw e;
+      // The sheet has moved on, and the box with it.
+      if (sheet?.kind !== "item" || sheet.id !== itemId) throw new Error(`An edit to "${item.name}" could not be saved (${e.message}).`);
+      unsaved.add(key);
+      throw new Error(`That edit is not saved yet (${e.message}). It is tried again when you leave the box or close this.`);
+    } finally {
+      settled();
+    }
   });
+}
+
+/** What a name, notes or date box holds, as it would be stored. */
+function fieldValue(el) {
+  // A date is stored as a day or as nothing; a half-typed one is nothing yet.
+  return el.dataset.itemField === "acquired_date" ? cleanDate(el.value) : el.value.trim();
+}
+
+/** Save what a box of the open item holds. */
+function saveItemBox(el) {
+  const item = byId(items, sheet.id);
+  if (!item) return;
+  const value = fieldValue(el);
+  // An item always has a name; an emptied box goes back to the one it had.
+  if (el.dataset.itemField === "name" && !value) {
+    el.value = item.name;
+    unsaved.delete(`${item.id}|name`);
+    return markUnsaved();
+  }
+  void saveItemField(item.id, el.dataset.itemField, value);
+}
+
+/** Mark the boxes of the open sheet that hold an edit not yet saved. */
+function markUnsaved() {
+  for (const el of document.querySelectorAll("#modal [data-item-field]")) {
+    const dirty = sheet?.kind === "item" && unsaved.has(`${sheet.id}|${el.dataset.itemField}`);
+    if (dirty) el.setAttribute("aria-invalid", "true");
+    else el.removeAttribute("aria-invalid");
+  }
 }
 
 async function setItemLabel(itemId, kind, labelId, want) {
@@ -467,7 +840,7 @@ function addItemLabel(itemId, kind, name, box) {
     try {
       await db.batch([insert, { sql: ITEM_UPDATES[column], params: [next, at, itemId], requireChanges: true }]);
     } catch (e) {
-      throw /stale/i.test(e.message) ? new Error("That item is no longer there.") : e;
+      throw /stale/i.test(e.message) ? changedElsewhere() : e;
     }
     if (kind === "tag") tags = [...tags, row];
     else locations = [...locations, row];
@@ -482,7 +855,7 @@ async function deleteItem(id) {
   const ok = await hubConfirm(`Delete "${item.name}"?`, { description: "Its photos are deleted with it.", confirmLabel: "Delete", destructive: true });
   if (!ok) return;
   try {
-    await db("DELETE FROM app_collections__items WHERE id = ?", [id]);
+    landed(await db("DELETE FROM app_collections__items WHERE id = ?", [id]));
     gone.items.add(id);
     items = items.filter((row) => row.id !== id);
     photos = photos.filter((row) => row.item_id !== id);
@@ -491,62 +864,200 @@ async function deleteItem(id) {
   } catch (e) { fail(e); }
 }
 
-// --- Photos ------------------------------------------------------------------
-/** A small JPEG of the photo for the grid, or null when one is not worth
- *  making or the browser cannot decode the picture (HEIC outside Safari). */
-function makeThumbnail(file) {
-  return new Promise((resolve) => {
-    const url = URL.createObjectURL(file);
-    const img = new Image();
-    img.onload = () => {
-      URL.revokeObjectURL(url);
-      const size = fitWithin(img.naturalWidth, img.naturalHeight, THUMB_MAX);
-      if (!size.scaled) return resolve(null);
-      const canvas = document.createElement("canvas");
-      canvas.width = size.width;
-      canvas.height = size.height;
-      canvas.getContext("2d").drawImage(img, 0, 0, size.width, size.height);
-      canvas.toBlob((blob) => resolve(blob), "image/jpeg", 0.82);
-    };
-    img.onerror = () => { URL.revokeObjectURL(url); resolve(null); };
-    img.src = url;
+// --- The picture a shared page shows -----------------------------------------
+const COVER_RETRY_MS = 30_000;
+
+/**
+ * Store, on each item, the one picture a shared page shows for it. Called
+ * whenever a photo is added, removed, cut out or switched, when the app is
+ * opened, and before the share panel opens. Only an adult's visit writes any:
+ * a change a child makes waits for an adult to open the app, which runs this
+ * too. For anyone else this only reads the rows that are still to come.
+ *
+ * Calls run one after another. Resolves to whether every cover this member may
+ * write is now stored, and never rejects. When it is not (the rows are not all
+ * read yet, or a write failed) it is tried again shortly, and again when the
+ * tab is next looked at.
+ */
+function syncCovers() {
+  coverSync = coverSync.then(async () => {
+    if (!DB_URL) return true;
+    try {
+      try {
+        if (rereadOwed) await readAgain();
+        await readAll();
+      } catch (e) {
+        loadFailed(e);
+        throw e;
+      }
+      // Not every row read: nothing can be worked out, and saying "current"
+      // would be a guess.
+      if (!loadedAll) throw new Error("not ready");
+      // Only an adult writes a cover, of any item: the manifest lets nobody
+      // else write the column (row_policies.items.column_write_acls), since
+      // whatever file it names is served to anyone holding a share link.
+      for (const group of coverWrites(isAdult(me) ? items : [], photos)) {
+        try {
+          // All or none: a write that matches no row is an item deleted on
+          // another device, and the rows are read again before any is retried.
+          await answered(db.batch(group.map(({ id, value }) => ({ sql: "UPDATE app_collections__items SET cover_file_ids = ? WHERE id = ?", params: [value, id], requireChanges: true }))));
+        } catch (e) {
+          if (/stale/i.test(e.message) && !coverMissRead) { coverMissRead = true; void reread(); }
+          throw e;
+        }
+        for (const { id, value } of group) {
+          const item = byId(items, id);
+          if (item) item.cover_file_ids = value;
+        }
+      }
+      coversCurrent = true;
+      coverMissRead = false;
+      void fillCutoutThumbs();
+    } catch {
+      coversCurrent = false;
+      if (!coverRetry) coverRetry = setTimeout(() => { coverRetry = 0; if (!document.hidden) void syncCovers(); }, COVER_RETRY_MS);
+    }
+    return coversCurrent;
   });
+  return coverSync;
 }
 
+// How long Share waits for the covers before opening the panel anyway.
+const SHARE_WAIT_MS = 4_000;
+
+/**
+ * Open the share panel for a collection, with its covers brought up to date
+ * first so the page a new link opens is already right. A link must always be
+ * revocable, so the panel opens whatever happens: if the covers could not be
+ * stored, or are still being stored after a few seconds (a large household's
+ * first visit writes one for every item), it opens saying so.
+ */
+async function openShare(id) {
+  if (!canShare() || !byId(collections, id) || sharing) return;
+  sharing = true;
+  render();
+  let current = false;
+  try {
+    current = await Promise.race([syncCovers(), wait(SHARE_WAIT_MS).then(() => false)]);
+  } finally {
+    sharing = false;
+  }
+  if (!current) coversCurrent = false;
+  // The wait can be long enough to have gone somewhere else.
+  const collection = byId(collections, id);
+  if (collection && !sheet && view.name === "collection" && view.id === id) {
+    shareUi.open({ id: collection.id, title: collection.name });
+  }
+  render();
+}
+
+// --- Photos ------------------------------------------------------------------
+/** Upload a photo and, in the same request, the small copy the grid draws.
+ *  The hub keeps that copy with the photo: it is deleted with it and opens
+ *  for the same people. None comes back when the picture is already small or
+ *  the browser cannot decode it. */
 async function uploadPatiently(file) {
   for (let attempt = 0; ; attempt++) {
     try {
-      return await files.upload(file);
+      return await files.upload(file, { thumbnail: true });
     } catch (e) {
-      if (attempt >= RATE_LIMIT_RETRIES || !/too many requests/i.test(e.message)) throw e;
+      // The status is there on a current hub; the wording covers an older one.
+      if (attempt >= RATE_LIMIT_RETRIES || !(e.status === 429 || /too many requests/i.test(e.message))) throw e;
       await wait(RATE_LIMIT_PAUSE_MS);
     }
   }
 }
 
-async function addOnePhoto(item, file) {
-  const collection = byId(collections, item.collection_id);
-  const { id: fileId } = await uploadPatiently(file);
-  let thumbFileId = null;
-  const thumb = await makeThumbnail(file);
-  if (thumb) {
-    // A photo without a thumbnail is still a photo; the grid draws the original.
-    thumbFileId = await uploadPatiently(new File([thumb], thumbName(file.name), { type: "image/jpeg" }))
-      .then((made) => made.id, () => null);
+/**
+ * Delete a stored file that no row names. Resolves to whether it is gone, and
+ * never rejects. The hub counts a delete against the same per-minute limit as
+ * an upload, so one refused for that is made again after a pause: nothing else
+ * would ever remove the file.
+ */
+async function deleteFile(id) {
+  for (let attempt = 0; ; attempt++) {
+    const res = await fetch(files.url(id), { method: "DELETE" }).catch(() => null);
+    // Already gone is gone.
+    if (res?.ok || res?.status === 404) return true;
+    if (res?.status !== 429 || attempt >= RATE_LIMIT_RETRIES) {
+      console.warn(`[collections] file ${id} could not be deleted (${res?.status ?? "no answer"}); nothing names it.`);
+      return false;
+    }
+    await wait(RATE_LIMIT_PAUSE_MS);
   }
+}
+
+/** Why a HEIC photo was not added. */
+const notConverted = (file) => new Error(`"${file.name}" is a HEIC photo, which could not be turned into a JPEG here. Add it from Safari, or save it as a JPEG first.`);
+
+/**
+ * Upload a picked photo. A HEIC photo comes back stored as a JPEG: the hub's
+ * upload redraws it in a browser that can read it, and the hub converts one
+ * that arrives unread when it can. One that is still a HEIC after both is not
+ * kept, for three reasons: only Safari can show it, the hub does not remove
+ * the location it carries, and no cutout can be made from it.
+ *
+ * The redrawing is done here, ahead of the upload, so that a JPEG the hub
+ * refuses is reported as what it is. Left to the upload, a JPEG refused for
+ * its size is followed by the HEIC it came from, and all that could be said
+ * of the HEIC then stored is that it was not converted.
+ */
+async function uploadPhoto(picked) {
+  const heic = isHeic(picked);
+  // The photo itself when it is no HEIC, or when this browser cannot read one.
+  const sending = heic ? await heicAsJpeg(picked) : picked;
+  const uploaded = await uploadPatiently(sending).catch((e) => {
+    if (!heic) throw e;
+    if (sending !== picked) throw new Error(heicRefusal(picked.name, e.status) ?? e.message);
+    // A HEIC file the browser gave no type is refused as an unknown type.
+    throw e.status === 415 ? notConverted(picked) : e;
+  });
+  if (!storedAsHeic(uploaded, sending)) return uploaded;
+  await deleteFile(uploaded.id);
+  const refusal = heicKeptRefusal(picked.name, uploaded);
+  throw refusal ? new Error(refusal) : notConverted(picked);
+}
+
+/**
+ * Where a new photo of an item goes: after every photo the database holds of
+ * it. Asked of the database, because the photos held here can be fewer: the
+ * later pages may not be in yet, and another device may have added some. The
+ * count held here is the answer when the database cannot be asked.
+ */
+async function nextSortOrder(itemId) {
+  const held = photosOf(photos, itemId).length;
+  try {
+    const { rows } = await db("SELECT COALESCE(MAX(sort_order), -1) + 1 AS next_order FROM app_collections__photos WHERE item_id = ?", [itemId]);
+    const next = Number(rows[0]?.next_order);
+    return Number.isInteger(next) && next >= 0 ? next : held;
+  } catch {
+    return held;
+  }
+}
+
+async function addOnePhoto(item, picked) {
+  const collection = byId(collections, item.collection_id);
+  const uploaded = await uploadPhoto(picked);
+  const fileId = uploaded.id;
+  // A photo without a thumbnail is still a photo; the grid draws the original.
+  const thumbFileId = uploaded.thumbnailId ?? null;
   const discard = async () => {
-    // No row names these files, so nothing else will ever reclaim them.
-    await files.delete(fileId).catch(() => {});
-    if (thumbFileId) await files.delete(thumbFileId).catch(() => {});
+    // No row names the photo, so nothing else will ever reclaim it. Its
+    // thumbnail goes with it.
+    await deleteFile(fileId);
   };
+  const sortOrder = await nextSortOrder(item.id);
   // The item or its collection was deleted while the photo was on its way up.
   if (!byId(items, item.id)) { await discard(); return false; }
-  const wantsCutout = !!Number(collection?.auto_cutout) && !cutoutsStopped;
+  // A picture of a kind the hub makes no cutout from (a GIF) is never asked
+  // about, and its row says so from the start.
+  const cuttable = cutoutSupported(uploaded.mimeType ?? picked.type);
+  const wantsCutout = cuttable && !!Number(collection?.auto_cutout) && !cutoutsStopped;
   const at = nowIso();
   const row = {
     id: crypto.randomUUID(), collection_id: item.collection_id, item_id: item.id, file_id: fileId, thumb_file_id: thumbFileId,
-    cutout_file_id: null, cutout_status: wantsCutout ? "pending" : "none", cutout_requested_at: wantsCutout ? at : null,
-    use_cutout: 1, sort_order: photosOf(photos, item.id).length, created_by: me.id, created_at: at,
+    cutout_file_id: null, cutout_status: wantsCutout ? "pending" : cuttable ? "none" : "unsupported", cutout_requested_at: wantsCutout ? at : null,
+    use_cutout: 1, sort_order: sortOrder, created_by: me.id, created_at: at,
   };
   try {
     await db("INSERT INTO app_collections__photos (id, collection_id, item_id, file_id, thumb_file_id, cutout_file_id, cutout_status, cutout_requested_at, use_cutout, sort_order, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -565,8 +1076,9 @@ async function addOnePhoto(item, file) {
 }
 
 async function addPhotos(itemId, fileList) {
-  const picked = [...fileList].filter((file) => file.type.startsWith("image/"));
-  if (!byId(items, itemId) || !files || !picked.length || adding) return;
+  // A HEIC file can arrive with no type at all, so it is known by its name too.
+  const picked = [...fileList].filter((file) => file.type.startsWith("image/") || isHeic(file));
+  if (!byId(items, itemId) || !files || !me || !picked.length || adding) return;
   adding = { done: 0, total: picked.length };
   render();
   const refused = [];
@@ -584,11 +1096,13 @@ async function addPhotos(itemId, fileList) {
     render();
   }
   if (refused.length) {
+    errorIsLoad = false;
     error = refused.length === 1 && picked.length === 1
       ? refused[0]
       : `${plural(refused.length, "photo")} could not be added: ${refused[refused.length - 1]}`;
   }
   adding = null;
+  void syncCovers();
   render();
 }
 
@@ -597,20 +1111,36 @@ async function deletePhoto(id) {
   if (!ok) return;
   try {
     // The hub reclaims the photo, its thumbnail and its cutout with the row.
-    await db("DELETE FROM app_collections__photos WHERE id = ?", [id]);
+    landed(await db("DELETE FROM app_collections__photos WHERE id = ?", [id]));
     gone.photos.add(id);
     photos = photos.filter((row) => row.id !== id);
     mine.delete(id);
+    void syncCovers();
     render();
   } catch (e) { fail(e); }
+}
+
+/** Stop showing a photo that turned out to have been deleted somewhere else. */
+function forgetPhoto(id) {
+  gone.photos.add(id);
+  photos = photos.filter((row) => row.id !== id);
+  mine.delete(id);
+  void syncCovers();
 }
 
 async function setUseCutout(id, value) {
   const photo = byId(photos, id);
   if (!photo) return;
   try {
-    await db("UPDATE app_collections__photos SET use_cutout = ? WHERE id = ?", [value, id]);
+    const { changed } = await db("UPDATE app_collections__photos SET use_cutout = ? WHERE id = ?", [value, id]);
+    if (changed === 0) {
+      // Nothing was switched. If the photo was deleted somewhere else, stop
+      // showing it: a cover worked out from it would name a file that is gone.
+      if ((await photoRowStored(id)) === false) forgetPhoto(id);
+      return render();
+    }
     photo.use_cutout = value;
+    void syncCovers();
     render();
   } catch (e) { fail(e); }
 }
@@ -618,6 +1148,12 @@ async function setUseCutout(id, value) {
 // --- Cutouts -----------------------------------------------------------------
 // One at a time: each is a file request against the per-minute limit, and a
 // queue is what lets a refusal that applies to all of them stop the rest.
+//
+// The hub keeps one cutout for a photo. Asking again for a photo that has one
+// returns the same file and spends nothing, and a request that arrives while
+// another is making it is told to ask again in a few seconds. So the hold on a
+// row is not what protects the month's allowance. It keeps two tabs from both
+// working on a photo, and says which of them writes the answer.
 function queueCutout(photoId) {
   cutoutChain = cutoutChain.then(() => makeCutout(photoId)).catch(() => {});
 }
@@ -629,16 +1165,19 @@ async function setCutoutStatus(photo, status, stamp) {
     [status, photo.id, stamp]).catch(() => {});
 }
 
+/** Read a photo's cutout columns again: the cutout, its small copy, where the
+ *  request stands and which picture is shown. Resolves to whether its row is there. */
 async function reloadCutout(photo) {
-  const { rows } = await db("SELECT cutout_file_id, cutout_status, cutout_requested_at FROM app_collections__photos WHERE id = ?", [photo.id]);
+  const { rows } = await db("SELECT cutout_file_id, cutout_thumb_file_id, cutout_status, cutout_requested_at, use_cutout FROM app_collections__photos WHERE id = ?", [photo.id]);
   if (rows[0]) Object.assign(photo, rows[0]);
+  return rows.length > 0;
 }
 
 /** Whether a photo's row is in the database: true, false, or null when that
  *  could not be found out. */
 async function photoRowStored(id) {
   try {
-    const { rows } = await db("SELECT cutout_file_id, cutout_status, cutout_requested_at FROM app_collections__photos WHERE id = ?", [id]);
+    const { rows } = await db("SELECT cutout_file_id, cutout_thumb_file_id, cutout_status, cutout_requested_at, use_cutout FROM app_collections__photos WHERE id = ?", [id]);
     return rows.length > 0;
   } catch {
     return null;
@@ -652,13 +1191,16 @@ async function requestCutout(photoId) {
   const at = nowIso();
   const staleBefore = new Date(Date.now() - PENDING_TIMEOUT_MS).toISOString();
   try {
-    // Take the row only if nobody else holds it. Two tabs pressing the button
-    // must not both reach the hub: each request it accepts is spent.
+    // Take the row only if nobody else holds it, so two tabs pressing the
+    // button do not both wait on the same photo.
     const { changed } = await db(
       "UPDATE app_collections__photos SET cutout_status = 'pending', cutout_requested_at = ? WHERE id = ? AND cutout_file_id IS NULL AND (cutout_status != 'pending' OR cutout_requested_at IS NULL OR cutout_requested_at < ?)",
       [at, photoId, staleBefore]);
     if (changed === 0) {
-      await reloadCutout(photo);
+      // Someone else holds it, or has finished it: show what the row says. A
+      // cutout learned of here changes the item's cover.
+      if (await reloadCutout(photo)) void syncCovers();
+      else forgetPhoto(photoId);
       return render();
     }
   } catch (e) { return fail(e); }
@@ -667,6 +1209,70 @@ async function requestCutout(photoId) {
   cutoutsStopped = false;
   render();
   queueCutout(photoId);
+}
+
+/**
+ * Store the small copy of a cutout on the row that names the cutout, and only
+ * on that row. If the write is lost the cutout is drawn whole, the hub still
+ * removes the copy with it, and `fillCutoutThumbs` makes it up on a later visit.
+ */
+async function nameCutoutThumb(photo, made) {
+  if (!made.thumbnailId) return;
+  const named = await db(
+    "UPDATE app_collections__photos SET cutout_thumb_file_id = ? WHERE id = ? AND cutout_file_id = ?",
+    [made.thumbnailId, photo.id, made.id]).then((result) => result.changed !== 0, () => false);
+  if (named) photo.cutout_thumb_file_id = made.thumbnailId;
+}
+
+// Two requests to the hub's files for each photo made up, against the thirty
+// a minute it allows a member. This pace uses half of them at most.
+const THUMB_FILL_PAUSE_MS = 8_000;
+
+/**
+ * Make up the small copies of cutouts that have none, for the photos this
+ * member added: the hub lets only a photo's owner (or an adult) add one. A
+ * copy goes missing when the request that stores it is refused or lost, which
+ * a burst of new photos brings about, and the grid then draws each of those
+ * cutouts at full size.
+ *
+ * The hub is asked for the photo's cutout again. It keeps one for a photo, so
+ * it hands back the one it holds, spends none of the month's allowance, and
+ * stores no second file; the small copy is drawn from that and kept beside it.
+ * A row whose cutout the hub no longer holds is not one to ask about, and no
+ * row here should be: a cutout goes only with its photo.
+ *
+ * One at a time and slowly, behind new photos, which need the same allowance
+ * of requests. Any refusal ends it for the visit; the next visit starts again.
+ */
+async function fillCutoutThumbs() {
+  if (thumbsFilling || thumbsStopped || !files || !me) return;
+  thumbsFilling = true;
+  try {
+    for (const { id } of missingCutoutThumbs(photos, me, thumbsTried)) {
+      while (adding || mine.size) await wait(THUMB_FILL_PAUSE_MS);
+      // Looked up now: the rows may have been read again, or the photo deleted.
+      const photo = byId(photos, id);
+      thumbsTried.add(id);
+      if (!photo?.cutout_file_id || photo.cutout_thumb_file_id) continue;
+      let made;
+      try {
+        made = await files.cutout(photo.file_id, { thumbnail: true });
+      } catch {
+        thumbsStopped = true;
+        return;
+      }
+      if (made?.id === photo.cutout_file_id && made.thumbnailId) {
+        await nameCutoutThumb(photo, made);
+        render();
+      } else {
+        // Answered, with nothing to keep: the same answer waits on every visit.
+        rememberNoThumb(id);
+      }
+      await wait(THUMB_FILL_PAUSE_MS);
+    }
+  } finally {
+    thumbsFilling = false;
+  }
 }
 
 async function makeCutout(photoId) {
@@ -679,7 +1285,7 @@ async function makeCutout(photoId) {
       await setCutoutStatus(photo, "none", stamp);
       return;
     }
-    // Renew the hold before spending anything. A photo can wait in the queue
+    // Renew the hold before asking. A photo can wait in the queue
     // long enough for its `pending` to look abandoned, and someone else may
     // have taken it since; the row may also be gone. Either way it matches
     // nothing here and the hub is never asked.
@@ -691,7 +1297,7 @@ async function makeCutout(photoId) {
         "UPDATE app_collections__photos SET cutout_requested_at = ? WHERE id = ? AND cutout_file_id IS NULL AND cutout_status = 'pending' AND cutout_requested_at = ?",
         [renewed, photoId, stamp]);
       if (held === 0) {
-        await reloadCutout(photo).catch(() => {});
+        if ((await reloadCutout(photo).catch(() => null)) === false) forgetPhoto(photoId);
         return;
       }
       stamp = renewed;
@@ -703,12 +1309,16 @@ async function makeCutout(photoId) {
     let failure = null;
     for (let attempt = 0; !made && !failure; attempt++) {
       try {
-        made = await files.cutout(photo.file_id);
-        // An answer with no file in it is not a reason to ask, and spend, again.
+        // The hub also keeps a small copy of the cutout, for the shelf and grids.
+        made = await files.cutout(photo.file_id, { thumbnail: true });
+        // An answer with no file in it is not a reason to ask again.
         if (!made?.id) { made = null; failure = cutoutFailure(undefined); }
       } catch (e) {
         const rateLimited = e.status === 429 && typeof e.detail?.limit !== "number";
-        if (rateLimited && attempt < RATE_LIMIT_RETRIES) await wait(RATE_LIMIT_PAUSE_MS);
+        // 409: another request is making this photo's cutout right now. The
+        // same question a few seconds on is answered with the one it made.
+        const pause = rateLimited ? RATE_LIMIT_PAUSE_MS : e.status === 409 ? CUTOUT_BUSY_PAUSE_MS : 0;
+        if (pause && attempt < RATE_LIMIT_RETRIES) await wait(pause);
         else failure = cutoutFailure(e.status, e.detail);
       }
     }
@@ -720,24 +1330,32 @@ async function makeCutout(photoId) {
     }
     // A write that matches no row is not an error: the hub answers it with
     // zero rows changed. That is the photo having been deleted, or taken by
-    // someone else, while the cutout was being made, and it leaves a file no
-    // row names. Remove it here; nothing else can.
-    // A write whose answer is lost is a third case: it may have been stored.
-    // So the row is read back, and the file is deleted only once the row is
-    // known not to name it. Unknown is left alone: a stray file costs storage,
-    // a deleted one that a row names is a broken photo with no way to retry.
+    // someone else, while the cutout was being made. A write whose answer is
+    // lost is a third case: it may have been stored. So the row is read back.
+    //
+    // The file is the photo's one cutout, not this request's own: whoever
+    // took the row is handed the same file by the hub and is about to write
+    // its id. So it is deleted only when no row will ever name it, which is
+    // when the photo's row is gone, or already names a different cutout. A
+    // row that is there and names none is left its file; "Try again" finds it.
     const written = await db(
       "UPDATE app_collections__photos SET cutout_file_id = ?, cutout_status = 'done' WHERE id = ? AND cutout_file_id IS NULL AND cutout_requested_at = ?",
       [made.id, photoId, stamp]).then((result) => result.changed !== 0, () => null);
     if (written) {
       Object.assign(photo, { cutout_file_id: made.id, cutout_status: "done" });
+      await nameCutoutThumb(photo, made);
     } else {
       photo.cutout_file_id = null;
-      const known = await reloadCutout(photo).then(() => true, () => false);
-      if (known && photo.cutout_file_id !== made.id) await files.delete(made.id).catch(() => {});
+      const there = await reloadCutout(photo).catch(() => null);
+      if (cutoutIsUnnamed(there, photo.cutout_file_id, made.id)) await deleteFile(made.id);
+      // The write landed and its answer was lost: the row names this cutout,
+      // and is owed its small copy like any other.
+      else if (photo.cutout_file_id === made.id && !photo.cutout_thumb_file_id) await nameCutoutThumb(photo, made);
+      if (there === false) forgetPhoto(photoId);
     }
   } finally {
     mine.delete(photoId);
+    void syncCovers();
     render();
   }
 }
@@ -795,6 +1413,8 @@ function searchRow(placeholder) {
 
 function homeList() {
   if (searchQ) return itemGrid(items, "");
+  // Not "no collections yet": they have not been read, and may be many.
+  if (!firstLoaded) return `<div class="card empty"><p>${error ? "Your collections could not be loaded. Trying again shortly." : "Loading…"}</p></div>`;
   if (!collections.length) {
     return `<div class="card empty">${chickadee("nest")}<p>No collections yet. Start one for anything you keep more than a few of.</p></div>`;
   }
@@ -816,7 +1436,7 @@ function renderHome() {
   return `
     <div class="topbar">
       <div class="topbar-main"><h1>Collections</h1></div>
-      <button class="btn" type="button" data-new-collection>${glyph("plus")} New collection</button>
+      ${firstLoaded && me ? `<button class="btn" type="button" data-new-collection>${glyph("plus")} New collection</button>` : ""}
     </div>
     ${banners()}
     ${items.length ? searchRow("Search every collection…") : ""}
@@ -851,8 +1471,9 @@ function renderCollection() {
         <p class="muted tiny">${esc([collection.description, plural(inside.length, "item"), `started by ${memberName(collection.created_by)}`].filter(Boolean).join(" · "))}</p>
       </div>
       <div class="row">
+        ${canShare() ? `<button class="btn btn-ghost btn-sm" type="button" data-testid="collection-share" data-share-collection="${esc(collection.id)}"${sharing ? " disabled" : ""}>${sharing ? "Sharing…" : "Share"}</button>` : ""}
         ${canEdit(collection) ? `<button class="btn btn-ghost btn-sm" type="button" data-edit-collection="${esc(collection.id)}">${glyph("pencil")} Edit</button>` : ""}
-        <button class="btn" type="button" data-new-item="${esc(collection.id)}">${glyph("plus")} Add item</button>
+        ${me ? `<button class="btn" type="button" data-new-item="${esc(collection.id)}">${glyph("plus")} Add item</button>` : ""}
       </div>
     </div>
     ${banners()}
@@ -992,7 +1613,7 @@ function itemSheet() {
       <h2>Photos</h2>
       <div data-region="photos">
         ${own.length ? `<div class="photos">${own.map((photo) => photoCard(photo, item)).join("")}</div>` : `<p class="muted tiny">No photos yet.</p>`}
-        ${files ? `
+        ${files && me ? `
           <div class="row" style="margin-top:10px">
             <button class="btn btn-ghost btn-sm" type="button" data-pick-photos ${adding ? "disabled" : ""}>${glyph("camera")} ${adding ? `Adding ${Math.min(adding.done + 1, adding.total)} of ${adding.total}…` : "Add photos"}</button>
           </div>` : ""}
@@ -1004,6 +1625,8 @@ function itemSheet() {
     </div>`;
 }
 
+// What `root` was last given, or null when it has been changed since by hand.
+let drawn = null;
 let pendingTimer = 0;
 let polling = false;
 let pollFailed = false;
@@ -1024,7 +1647,7 @@ async function pollPending() {
   polling = true;
   try {
     const results = await db.batch(waiting.map((photo) => ({
-      sql: "SELECT cutout_file_id, cutout_status, cutout_requested_at FROM app_collections__photos WHERE id = ?", params: [photo.id],
+      sql: "SELECT cutout_file_id, cutout_thumb_file_id, cutout_status, cutout_requested_at, use_cutout FROM app_collections__photos WHERE id = ?", params: [photo.id],
     })));
     waiting.forEach((photo, i) => {
       const row = results[i]?.rows?.[0];
@@ -1036,6 +1659,7 @@ async function pollPending() {
       if (needsCheck(photo, mine, checkedStale)) checkedStale.add(holdKey(photo));
     });
     pollFailed = false;
+    void syncCovers();
   } catch {
     // Asked again on the next turn of the timer, not at once.
     pollFailed = true;
@@ -1073,14 +1697,20 @@ function renderSheet() {
     const next = fresh.querySelector(`[data-region="${region.dataset.region}"]`);
     if (next && region.innerHTML !== next.innerHTML) region.innerHTML = next.innerHTML;
   }
+  markUnsaved();
 }
 
 function render() {
   const root = document.getElementById("root");
   const searching = document.activeElement?.id === "search" ? document.activeElement.selectionStart : null;
   root.className = "";
-  root.innerHTML = view.name === "collection" ? renderCollection() : view.name === "location" ? renderLocation() : renderHome();
-  if (searching !== null) {
+  const html = view.name === "collection" ? renderCollection() : view.name === "location" ? renderLocation() : renderHome();
+  // A redraw that would change nothing is skipped. Rows arrive and cutouts
+  // finish behind the scenes, and replacing a button between the press and
+  // the release of a click loses the click.
+  const changed = html !== drawn;
+  if (changed) { root.innerHTML = html; drawn = html; }
+  if (changed && searching !== null) {
     const box = document.getElementById("search");
     if (box) { box.focus(); try { box.setSelectionRange(searching, searching); } catch {} }
   }
@@ -1105,11 +1735,19 @@ function toggleFilter(list, id) { return toggleId(list, id); }
 /**
  * Close the open sheet. However it is closed, the box being typed in is blurred
  * first: that is what fires its save, and a sheet closed by key or by a click
- * outside it would otherwise drop the edit.
+ * outside it would otherwise drop the edit. A save that fails after this has
+ * no box left to stay in, and is reported as an error.
  */
 function closeSheet() {
   const typing = document.activeElement;
   if (typing?.dataset?.itemField) typing.blur();
+  // An edit that failed to save earlier, in a box since left, has its last try.
+  if (sheet?.kind === "item") {
+    for (const el of document.querySelectorAll("#modal [data-item-field]")) {
+      // The box just left has had its try already, from `focusout`.
+      if (el !== typing && unsaved.has(`${sheet.id}|${el.dataset.itemField}`)) saveItemBox(el);
+    }
+  }
   sheet = null;
   render();
 }
@@ -1125,13 +1763,14 @@ document.addEventListener("click", (event) => {
   const el = event.target.closest("button");
   if (!el) return;
   const d = el.dataset;
-  if ("dismiss" in d) { if (d.dismiss === "error") error = ""; else notice = ""; return render(); }
+  if ("dismiss" in d) { if (d.dismiss === "error") { error = ""; errorIsLoad = false; } else notice = ""; return render(); }
   if ("close" in d) return closeSheet();
   if ("home" in d) { openView({ name: "home" }); return render(); }
   if ("newCollection" in d) { sheet = { kind: "collection" }; return render(); }
   if (d.openCollection) { openView({ name: "collection", id: d.openCollection }); return render(); }
   if (d.openLocation) { openView({ name: "location", id: d.openLocation }); return render(); }
   if (d.editCollection) { sheet = { kind: "collection", id: d.editCollection }; return render(); }
+  if (d.shareCollection) return void openShare(d.shareCollection);
   if (d.deleteCollection) return void deleteCollection(d.deleteCollection);
   if (d.deleteTag) return void deleteLabel("tag", d.deleteTag);
   if (d.deleteLocation) return void deleteLabel("location", d.deleteLocation);
@@ -1167,16 +1806,42 @@ document.addEventListener("change", (event) => {
     void addPhotos(sheet.id, picked);
     return;
   }
-  if (el.dataset.itemField && sheet?.kind === "item") {
-    const item = byId(items, sheet.id);
-    if (!item) return;
-    // A date is stored as a day or as nothing; a half-typed one is nothing yet.
-    const value = el.dataset.itemField === "acquired_date" ? cleanDate(el.value) : el.value.trim();
-    // An item always has a name; an emptied box goes back to the one it had.
-    if (el.dataset.itemField === "name" && !value) { el.value = item.name; return; }
-    void saveItemField(sheet.id, el.dataset.itemField, value);
-  }
+  if (el.dataset.itemField && sheet?.kind === "item") saveItemBox(el);
 });
+
+// A box left while it holds an edit that failed to save: try the save again.
+// (`change` does not fire for it, since nothing in the box has changed since.)
+document.addEventListener("focusout", (event) => {
+  const el = event.target;
+  if (el.dataset?.itemField && sheet?.kind === "item" && unsaved.has(`${sheet.id}|${el.dataset.itemField}`)) saveItemBox(el);
+});
+
+// A picture that did not load is asked for again a few times, further apart
+// each time. `error` and `load` do not bubble, so both are caught on the way
+// down. Counted by address, so that a tile drawn again does not start over.
+document.addEventListener("error", (event) => {
+  const img = event.target;
+  const src = img?.tagName === "IMG" ? img.getAttribute("src") : null;
+  if (!src || !FILES_URL || !src.startsWith(FILES_URL)) return;
+  // One wait for an address, however many tiles draw it: the others are
+  // asked for again with it.
+  if (imageWaits.has(src)) return;
+  const tries = imageTries.get(src) ?? 0;
+  const delay = imageRetryDelay(tries);
+  if (delay === null) return;
+  imageTries.set(src, tries + 1);
+  imageWaits.add(src);
+  setTimeout(() => {
+    imageWaits.delete(src);
+    // Setting the same address again is what makes the browser fetch it again.
+    for (const other of document.querySelectorAll("img")) {
+      if (other.getAttribute("src") === src && !(other.complete && other.naturalWidth)) other.setAttribute("src", src);
+    }
+  }, delay);
+}, true);
+document.addEventListener("load", (event) => {
+  if (event.target?.tagName === "IMG") imageTries.delete(event.target.getAttribute("src"));
+}, true);
 
 // Re-render only the list on each keystroke so the search box keeps focus.
 document.addEventListener("input", (event) => {
@@ -1184,6 +1849,7 @@ document.addEventListener("input", (event) => {
   searchQ = event.target.value;
   const list = document.getElementById("list");
   if (list) list.innerHTML = listHtml();
+  drawn = null;
 });
 
 document.addEventListener("keydown", (event) => {
@@ -1192,7 +1858,13 @@ document.addEventListener("keydown", (event) => {
 
 // A tab that was asleep wakes with timers that are late and rows that are old.
 // Draw again on the way back in, which asks about anything left unanswered.
-document.addEventListener("visibilitychange", () => { if (!document.hidden) render(); });
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) return;
+  render();
+  if (!coversCurrent) void syncCovers();
+  // Names that could not be read at the start are asked for again.
+  else if (!membersLoaded) void readAll().catch(loadFailed);
+});
 
 refresh();
 </script>

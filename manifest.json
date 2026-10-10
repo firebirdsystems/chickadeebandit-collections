@@ -46,10 +46,10 @@
       "sql": "SELECT id, name, created_by, created_at FROM app_collections__locations ORDER BY created_at, id"
     },
     "items": {
-      "sql": "SELECT id, collection_id, name, note, acquired_date, tag_ids, location_ids, created_by, created_at, updated_at FROM app_collections__items ORDER BY created_at DESC, id DESC LIMIT 120"
+      "sql": "SELECT id, collection_id, name, note, acquired_date, tag_ids, location_ids, cover_file_ids, created_by, created_at, updated_at FROM app_collections__items ORDER BY created_at DESC, id DESC LIMIT 110"
     },
     "photos": {
-      "sql": "SELECT id, collection_id, item_id, file_id, thumb_file_id, cutout_file_id, cutout_status, cutout_requested_at, use_cutout, sort_order, created_by, created_at FROM app_collections__photos ORDER BY created_at DESC, id DESC LIMIT 120"
+      "sql": "SELECT id, collection_id, item_id, file_id, thumb_file_id, cutout_file_id, cutout_thumb_file_id, cutout_status, cutout_requested_at, use_cutout, sort_order, created_by, created_at FROM app_collections__photos ORDER BY created_at DESC, id DESC LIMIT 110"
     }
   },
   "row_policies": {
@@ -83,7 +83,14 @@
       "visibility_column": "visibility",
       "everyone_values": [
         "everyone"
-      ]
+      ],
+      "column_write_acls": {
+        "cover_file_ids": {
+          "writable_by": [
+            "adult"
+          ]
+        }
+      }
     },
     "photos": {
       "kind": "owner_or_visibility",
@@ -98,14 +105,16 @@
     "photos": [
       "file_id",
       "thumb_file_id",
-      "cutout_file_id"
+      "cutout_file_id",
+      "cutout_thumb_file_id"
     ]
   },
   "update_file_columns": {
     "photos": [
       "file_id",
       "thumb_file_id",
-      "cutout_file_id"
+      "cutout_file_id",
+      "cutout_thumb_file_id"
     ]
   },
   "delete_cascades": {
@@ -124,7 +133,8 @@
         "file_id_column": [
           "file_id",
           "thumb_file_id",
-          "cutout_file_id"
+          "cutout_file_id",
+          "cutout_thumb_file_id"
         ]
       }
     ],
@@ -135,7 +145,8 @@
         "file_id_column": [
           "file_id",
           "thumb_file_id",
-          "cutout_file_id"
+          "cutout_file_id",
+          "cutout_thumb_file_id"
         ]
       }
     ]
@@ -160,6 +171,48 @@
     "photos": {
       "column": "created_by",
       "on_removed": "keep"
+    }
+  },
+  "shareable": {
+    "collection": {
+      "table": "collections",
+      "title_column": "name",
+      "columns": [
+        {
+          "column": "description",
+          "label": "About",
+          "format": "multiline"
+        }
+      ],
+      "feed": {
+        "label": "Items",
+        "table": "items",
+        "fk_column": "collection_id",
+        "columns": [
+          {
+            "column": "name",
+            "label": "Name",
+            "role": "heading"
+          },
+          {
+            "column": "acquired_date",
+            "label": "Acquired",
+            "format": "date",
+            "role": "detail"
+          },
+          {
+            "column": "note",
+            "label": "Notes",
+            "format": "multiline",
+            "role": "body"
+          }
+        ],
+        "files_column": "cover_file_ids",
+        "order_column": "created_at",
+        "order": "newest",
+        "max_items": 200,
+        "empty_text": "Nothing in this collection yet."
+      }
     }
   },
   "glance": {

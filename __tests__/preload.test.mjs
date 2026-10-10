@@ -102,7 +102,7 @@ describe("paging", () => {
     const uuid = "6082ba46-bf70-4a1a-b4c7-337679bef918";
     const at = "2026-10-09T23:11:04.912Z";
     const photo = { id: uuid, collection_id: uuid, item_id: uuid, file_id: uuid, thumb_file_id: uuid, cutout_file_id: uuid, cutout_status: "pending", cutout_requested_at: at, use_cutout: 1, sort_order: 12, created_by: uuid, created_at: at };
-    const item = { id: uuid, collection_id: uuid, name: "n".repeat(40), note: "n".repeat(500), tag_ids: JSON.stringify([uuid, uuid, uuid, uuid]), location_ids: JSON.stringify([uuid, uuid]), created_by: uuid, created_at: at, updated_at: at };
+    const item = { id: uuid, collection_id: uuid, name: "n".repeat(40), note: "n".repeat(500), tag_ids: JSON.stringify([uuid, uuid, uuid, uuid]), location_ids: JSON.stringify([uuid, uuid]), cover_file_ids: JSON.stringify([uuid]), created_by: uuid, created_at: at, updated_at: at };
     const firstPages = FIRST_PAGE_SIZE * (JSON.stringify(photo).length + JSON.stringify(item).length);
     // The other three reads share the budget; leave them a quarter of it.
     expect(firstPages).toBeLessThan(256 * 1024 * 0.75);
@@ -110,6 +110,18 @@ describe("paging", () => {
 
   it("stays under the rows one request may return", () => {
     expect(Object.keys(NEXT_PAGE).length * NEXT_PAGE_SIZE).toBeLessThanOrEqual(5000);
+  });
+
+  // The hub answers a reply over 2 MB with a 413, the same way every time, so
+  // a page that can exceed it is a household that never sees its older rows.
+  it("keeps a later round under the size one reply may be, with every note full", () => {
+    const uuid = "6082ba46-bf70-4a1a-b4c7-337679bef918";
+    const at = "2026-10-09T23:11:04.912Z";
+    const bytes = (row) => new TextEncoder().encode(JSON.stringify(row)).length;
+    const photo = { id: uuid, collection_id: uuid, item_id: uuid, file_id: uuid, thumb_file_id: uuid, cutout_file_id: uuid, cutout_status: "pending", cutout_requested_at: at, use_cutout: 1, sort_order: 12, created_by: uuid, created_at: at };
+    // The longest the boxes allow, in characters that take three bytes each.
+    const item = { id: uuid, collection_id: uuid, name: "名".repeat(120), note: "記".repeat(2000), acquired_date: "2019-12-25", tag_ids: JSON.stringify(Array(8).fill(uuid)), location_ids: JSON.stringify(Array(4).fill(uuid)), cover_file_ids: JSON.stringify([uuid]), created_by: uuid, created_at: at, updated_at: at };
+    expect(NEXT_PAGE_SIZE * (bytes(photo) + bytes(item))).toBeLessThan(2 * 1024 * 1024);
   });
 
   it("pages carry the same columns and order as the first page", () => {

@@ -1,8 +1,8 @@
 {
   "meta": {
     "version": 1,
-    "nodeCount": 76,
-    "edgeCount": 193,
+    "nodeCount": 143,
+    "edgeCount": 351,
     "languages": [
       "javascript"
     ],
@@ -79,12 +79,12 @@
       "name": "logic.test.mjs",
       "kind": "file",
       "path": "__tests__/logic.test.mjs",
-      "span": "L1-L299",
+      "span": "L1-L511",
       "signature": null,
       "exported": true,
       "origin": "ast",
-      "body_hash": "6661c9bf15d3401c3b023fae7c98dcd7df8214e2e4aee5bf078dc682f24c3764",
-      "chars": 15857,
+      "body_hash": "9d987a3dc5febab40fb02de8b72c168e1858db27ad3e82b042cf1031dfd32791",
+      "chars": 27682,
       "summary_state": "pending",
       "summary": null,
       "crux": null
@@ -94,7 +94,7 @@
       "name": "asked",
       "kind": "function",
       "path": "__tests__/logic.test.mjs",
-      "span": "L113-L113",
+      "span": "L115-L115",
       "signature": "asked = (msAgo)",
       "exported": false,
       "origin": "ast",
@@ -108,7 +108,7 @@
       "name": "asked",
       "kind": "function",
       "path": "__tests__/logic.test.mjs",
-      "span": "L233-L233",
+      "span": "L342-L342",
       "signature": "asked = (msAgo)",
       "exported": false,
       "origin": "ast",
@@ -122,7 +122,7 @@
       "name": "ids",
       "kind": "function",
       "path": "__tests__/logic.test.mjs",
-      "span": "L63-L63",
+      "span": "L65-L65",
       "signature": "ids = (list)",
       "exported": false,
       "origin": "ast",
@@ -136,7 +136,7 @@
       "name": "ids",
       "kind": "function",
       "path": "__tests__/logic.test.mjs",
-      "span": "L213-L213",
+      "span": "L322-L322",
       "signature": "ids = (rows)",
       "exported": false,
       "origin": "ast",
@@ -146,11 +146,53 @@
       "crux": null
     },
     {
+      "id": "__tests__/logic.test.mjs#item",
+      "name": "item",
+      "kind": "function",
+      "path": "__tests__/logic.test.mjs",
+      "span": "L411-L411",
+      "signature": "item = (cover)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "4028ec5883457101ba16e5a46c16dca65070b0061ab170081de3e60fcb0dddf8",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/logic.test.mjs#photo",
+      "name": "photo",
+      "kind": "function",
+      "path": "__tests__/logic.test.mjs",
+      "span": "L227-L227",
+      "signature": "photo = (id, extra = {})",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "6474a8a3dbdb6a2e58a09ae92f42942c34793b44f213fb625092b308fa8ff706",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/logic.test.mjs#photo~2",
+      "name": "photo",
+      "kind": "function",
+      "path": "__tests__/logic.test.mjs",
+      "span": "L410-L410",
+      "signature": "photo = (over)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "395a2b19e195485aeb6b531f4e63236c6ad90ffc59901e1864b5e8d0162ad431",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
       "id": "__tests__/logic.test.mjs#taken",
       "name": "taken",
       "kind": "function",
       "path": "__tests__/logic.test.mjs",
-      "span": "L140-L140",
+      "span": "L142-L142",
       "signature": "taken = (msAgo)",
       "exported": false,
       "origin": "ast",
@@ -179,12 +221,26 @@
       "name": "preload.test.mjs",
       "kind": "file",
       "path": "__tests__/preload.test.mjs",
-      "span": "L1-L124",
+      "span": "L1-L136",
       "signature": null,
       "exported": true,
       "origin": "ast",
-      "body_hash": "3dd5a9c42d0626444ef23966bd3980af0a59e5267b61c8008b1273d4159f148a",
-      "chars": 7126,
+      "body_hash": "2c56900d40174120decab148e13e5da17e80a1bad4ae04a0532a5df40a879f90",
+      "chars": 8325,
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/preload.test.mjs#bytes",
+      "name": "bytes",
+      "kind": "function",
+      "path": "__tests__/preload.test.mjs",
+      "span": "L120-L120",
+      "signature": "bytes = (row)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "4a5fa294b9e161afae14cbc6ec3fe4bfd7070e8bac42e6da27535dcd50331819",
       "summary_state": "pending",
       "summary": null,
       "crux": null
@@ -194,7 +250,7 @@
       "name": "head",
       "kind": "function",
       "path": "__tests__/preload.test.mjs",
-      "span": "L117-L117",
+      "span": "L129-L129",
       "signature": "head = (sql)",
       "exported": false,
       "origin": "ast",
@@ -236,7 +292,7 @@
       "name": "tail",
       "kind": "function",
       "path": "__tests__/preload.test.mjs",
-      "span": "L118-L118",
+      "span": "L130-L130",
       "signature": "tail = (sql)",
       "exported": false,
       "origin": "ast",
@@ -326,6 +382,359 @@
       "exported": true,
       "origin": "ast",
       "body_hash": "1ec2dcaf8d3e3d87d6d6f67db4b7c10745788264f93ce201604ea07a975007bc",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/share-overlay-ui.test.mjs",
+      "name": "share-overlay-ui.test.mjs",
+      "kind": "file",
+      "path": "__tests__/share-overlay-ui.test.mjs",
+      "span": "L1-L121",
+      "signature": null,
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "65eb5d72179202860d642419fd75e50a025328fd9510940427f73241c37df83a",
+      "chars": 5022,
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/share-overlay-ui.test.mjs#deferred",
+      "name": "deferred",
+      "kind": "function",
+      "path": "__tests__/share-overlay-ui.test.mjs",
+      "span": "L22-L26",
+      "signature": "function deferred()",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "22f744e3d0dffd1e5dfd15e6000bad81ac4443271ed9e0f289c3a8d96118bf85",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/share-overlay-ui.test.mjs#esc",
+      "name": "esc",
+      "kind": "function",
+      "path": "__tests__/share-overlay-ui.test.mjs",
+      "span": "L18-L19",
+      "signature": "esc = (s)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "10b6c3e78f8640fdd3dbb70ec7d2b3baf4fd6c415912a3bd637bb9fc1c4f1e52",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/share-overlay-ui.test.mjs#field",
+      "name": "field",
+      "kind": "function",
+      "path": "__tests__/share-overlay-ui.test.mjs",
+      "span": "L50-L50",
+      "signature": "field = ()",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "6795691b922ff31de4babb517ab41a33f83778ea12135e125e2d397089afe3db",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/share-overlay-ui.test.mjs#flush",
+      "name": "flush",
+      "kind": "function",
+      "path": "__tests__/share-overlay-ui.test.mjs",
+      "span": "L20-L20",
+      "signature": "flush = async (n = 10)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "92fa32646a108533d3187358f5a413e8f1338789830322fbda886ae8301c1a2e",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/share-overlay-ui.test.mjs#mount",
+      "name": "mount",
+      "kind": "function",
+      "path": "__tests__/share-overlay-ui.test.mjs",
+      "span": "L28-L48",
+      "signature": "function mount({ list = Promise.resolve(null), create } = {})",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "a2cea1c4dfd481694d949620e0ac6293abe91841c7e67d99eecb9acad0f62c91",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/share-overlay-ui.test.mjs#type",
+      "name": "type",
+      "kind": "function",
+      "path": "__tests__/share-overlay-ui.test.mjs",
+      "span": "L51-L57",
+      "signature": "function type(value)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "c4ae315ee3e2a22d2e0f4b96dbc0755c49409b0f45a8b60d689cdeef418e20a9",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/share-ui.test.mjs",
+      "name": "share-ui.test.mjs",
+      "kind": "file",
+      "path": "__tests__/share-ui.test.mjs",
+      "span": "L1-L660",
+      "signature": null,
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "235dd972876601cfe2dea0a7512293168c12ed222be5284b4ab104ba6df88cb7",
+      "chars": 31109,
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/share-ui.test.mjs#activeShareLinks",
+      "name": "activeShareLinks",
+      "kind": "function",
+      "path": "__tests__/share-ui.test.mjs",
+      "span": "L15-L18",
+      "signature": "activeShareLinks = (links, itemId, now = new Date())",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "1612e5c3e18c65c20eeef752cb4a99c29f9d617e2bf975e84f93ab29737f29d3",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/share-ui.test.mjs#calendarUrl",
+      "name": "calendarUrl",
+      "kind": "function",
+      "path": "__tests__/share-ui.test.mjs",
+      "span": "L45-L46",
+      "signature": "calendarUrl = (l)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "f2633aac966be7e13cdd5d96d08329e99735e1bf4104ea11dc2349fb07d1a202",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/share-ui.test.mjs#click",
+      "name": "click",
+      "kind": "function",
+      "path": "__tests__/share-ui.test.mjs",
+      "span": "L647-L647",
+      "signature": "click = (dataset)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "98aebdfa00418818839519131cefa868cd7bed03852068879b1d43fcab26dd97",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/share-ui.test.mjs#createDisabled",
+      "name": "createDisabled",
+      "kind": "function",
+      "path": "__tests__/share-ui.test.mjs",
+      "span": "L83-L83",
+      "signature": "createDisabled = (html)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "01b5457fa3f1e7f38de03b3466743fc29557eae58f3a24a52de92551c35145c8",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/share-ui.test.mjs#deferred",
+      "name": "deferred",
+      "kind": "function",
+      "path": "__tests__/share-ui.test.mjs",
+      "span": "L33-L37",
+      "signature": "function deferred()",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "e606cc62ad5a9dfff8242aba1050376b29a40b0a44eeec0e31f920d8e7075312",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/share-ui.test.mjs#esc",
+      "name": "esc",
+      "kind": "function",
+      "path": "__tests__/share-ui.test.mjs",
+      "span": "L20-L21",
+      "signature": "esc = (s)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "10b6c3e78f8640fdd3dbb70ec7d2b3baf4fd6c415912a3bd637bb9fc1c4f1e52",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/share-ui.test.mjs#flush",
+      "name": "flush",
+      "kind": "function",
+      "path": "__tests__/share-ui.test.mjs",
+      "span": "L39-L39",
+      "signature": "flush = async (n = 10)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "92fa32646a108533d3187358f5a413e8f1338789830322fbda886ae8301c1a2e",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/share-ui.test.mjs#harness",
+      "name": "harness",
+      "kind": "function",
+      "path": "__tests__/share-ui.test.mjs",
+      "span": "L48-L81",
+      "signature": "function harness({ lists = [ok([])], admin = false, confirm = true, create, writeText, calendar = false, extra = {}, } = {})",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "650558b29484b28f29d92873682a6beff4d66e71cee1366e64e52471902dffdf",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/share-ui.test.mjs#harness.hide",
+      "name": "hide",
+      "kind": "method",
+      "path": "__tests__/share-ui.test.mjs",
+      "span": "L61-L61",
+      "signature": "hide()",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "928d7bc3bc9ceaa8152c6ef76e5122ec60c688bbf48213e6634ee15a3af4db21",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/share-ui.test.mjs#harness.render",
+      "name": "render",
+      "kind": "method",
+      "path": "__tests__/share-ui.test.mjs",
+      "span": "L61-L61",
+      "signature": "render(h)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "fb80bcbef93469efa8ed72fd334bdc4bd9e6c82f4db37f4cdfd65796618885f5",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/share-ui.test.mjs#harness.show",
+      "name": "show",
+      "kind": "method",
+      "path": "__tests__/share-ui.test.mjs",
+      "span": "L61-L61",
+      "signature": "show()",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "ecca9e24eab283d4b60c06c007d06b84ca6199b64c87c9224ee180572523cabe",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/share-ui.test.mjs#link",
+      "name": "link",
+      "kind": "function",
+      "path": "__tests__/share-ui.test.mjs",
+      "span": "L26-L31",
+      "signature": "function link(over = {})",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "203f246269ceccec370d56b5f01f88105f69ea3d99e64f3d2b1975b13cf92a96",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/share-ui.test.mjs#ok",
+      "name": "ok",
+      "kind": "function",
+      "path": "__tests__/share-ui.test.mjs",
+      "span": "L41-L41",
+      "signature": "ok = (links)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "8d9dfee5435441509b16065fc414941ee396e41ccaabf10bd1fc9ce8eeb2ac0f",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/share-ui.test.mjs#refused",
+      "name": "refused",
+      "kind": "function",
+      "path": "__tests__/share-ui.test.mjs",
+      "span": "L42-L42",
+      "signature": "refused = ()",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "673cc4cb795110968594e16c118bd24b1a7b3d3dbcff0e77289bb735bf81b906",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/share-ui.test.mjs#selectedExpiry",
+      "name": "selectedExpiry",
+      "kind": "function",
+      "path": "__tests__/share-ui.test.mjs",
+      "span": "L85-L85",
+      "signature": "selectedExpiry = (html)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "51bb31bd091216b9af139f0735658e60ec5176ed0a961427289ffe40f4708d5f",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/share-ui.test.mjs#typePassword",
+      "name": "typePassword",
+      "kind": "function",
+      "path": "__tests__/share-ui.test.mjs",
+      "span": "L84-L84",
+      "signature": "typePassword = (ui, value)",
+      "exported": false,
+      "origin": "ast",
+      "body_hash": "efa3304e037f50bd3b43e335c4a2582974f5f2decd77fa782c4181563756be5f",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "__tests__/shareable.test.mjs",
+      "name": "shareable.test.mjs",
+      "kind": "file",
+      "path": "__tests__/shareable.test.mjs",
+      "span": "L1-L147",
+      "signature": null,
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "227f9716d210fae7915dec74b4709ad730731f306d5d1f870ec4dc1e4c0a6c17",
+      "chars": 7640,
       "summary_state": "pending",
       "summary": null,
       "crux": null
@@ -547,12 +956,12 @@
       "name": "logic.js",
       "kind": "file",
       "path": "src/logic.js",
-      "span": "L1-L307",
+      "span": "L1-L511",
       "signature": null,
       "exported": true,
       "origin": "ast",
-      "body_hash": "cc526c93840c14865314f7366ac6652c5adbbd832c2e6768999782d1cbb9f50b",
-      "chars": 13225,
+      "body_hash": "267f991e934193da5c9424ce50574524c732bf316f94dcb7da074cda615a14bd",
+      "chars": 22476,
       "summary_state": "pending",
       "summary": null,
       "crux": null
@@ -562,7 +971,7 @@
       "name": "canEdit",
       "kind": "function",
       "path": "src/logic.js",
-      "span": "L11-L14",
+      "span": "L13-L16",
       "signature": "function canEdit(row, me)",
       "exported": true,
       "origin": "ast",
@@ -576,7 +985,7 @@
       "name": "canRequestCutout",
       "kind": "function",
       "path": "src/logic.js",
-      "span": "L158-L161",
+      "span": "L172-L175",
       "signature": "function canRequestCutout(photo, now = Date.now())",
       "exported": true,
       "origin": "ast",
@@ -586,11 +995,25 @@
       "crux": null
     },
     {
+      "id": "src/logic.js#carriedOver",
+      "name": "carriedOver",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L315-L318",
+      "signature": "function carriedOver(held, read)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "896bacb94f8d805aa97b25b738455dd7a0f8d35d378327be70203602231b195e",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
       "id": "src/logic.js#cleanDate",
       "name": "cleanDate",
       "kind": "function",
       "path": "src/logic.js",
-      "span": "L282-L290",
+      "span": "L486-L494",
       "signature": "function cleanDate(value)",
       "exported": true,
       "origin": "ast",
@@ -604,7 +1027,7 @@
       "name": "collectionCover",
       "kind": "function",
       "path": "src/logic.js",
-      "span": "L111-L115",
+      "span": "L113-L117",
       "signature": "function collectionCover(items, photos, collectionId)",
       "exported": true,
       "origin": "ast",
@@ -618,7 +1041,7 @@
       "name": "countByLabel",
       "kind": "function",
       "path": "src/logic.js",
-      "span": "L89-L95",
+      "span": "L91-L97",
       "signature": "function countByLabel(items, column)",
       "exported": true,
       "origin": "ast",
@@ -632,7 +1055,7 @@
       "name": "coverPhoto",
       "kind": "function",
       "path": "src/logic.js",
-      "span": "L106-L108",
+      "span": "L108-L110",
       "signature": "function coverPhoto(photos, itemId)",
       "exported": true,
       "origin": "ast",
@@ -642,15 +1065,43 @@
       "crux": null
     },
     {
+      "id": "src/logic.js#coverWrites",
+      "name": "coverWrites",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L425-L430",
+      "signature": "function coverWrites(items, photos, max = DB_BATCH_MAX)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "960df7763eaadd509799739fe15d434144bd56fe45a3b58f589496cc805a2f44",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
       "id": "src/logic.js#cutoutFailure",
       "name": "cutoutFailure",
       "kind": "function",
       "path": "src/logic.js",
-      "span": "L187-L201",
+      "span": "L202-L225",
       "signature": "function cutoutFailure(status, detail = null)",
       "exported": true,
       "origin": "ast",
-      "body_hash": "89c9bbbc86f6a341b80b54d16db368adb6d0180d494f470411b033164b01b99f",
+      "body_hash": "e500cb480b81450555cad0666088e55e83c626fe3a1646327724934dac2ba483",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#cutoutIsUnnamed",
+      "name": "cutoutIsUnnamed",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L249-L253",
+      "signature": "function cutoutIsUnnamed(rowThere, named, madeId)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "44254ef64729fd525bcf02ad3d34ba7f4fc9325d5c168ea17ae6235e0a7a89e2",
       "summary_state": "pending",
       "summary": null,
       "crux": null
@@ -660,11 +1111,11 @@
       "name": "cutoutLabel",
       "kind": "function",
       "path": "src/logic.js",
-      "span": "L204-L211",
+      "span": "L228-L236",
       "signature": "function cutoutLabel(state)",
       "exported": true,
       "origin": "ast",
-      "body_hash": "1fd2caa46497d5a3bf7f095759e44fe1f5801ef0ada6e5535776f4a4e4180a08",
+      "body_hash": "f4318ba35e0d081dee1b49fb9d2a754d3b959743b1073cfd62c07e8a30e049b1",
       "summary_state": "pending",
       "summary": null,
       "crux": null
@@ -674,7 +1125,7 @@
       "name": "cutoutState",
       "kind": "function",
       "path": "src/logic.js",
-      "span": "L142-L150",
+      "span": "L157-L165",
       "signature": "function cutoutState(photo, now = Date.now())",
       "exported": true,
       "origin": "ast",
@@ -684,15 +1135,29 @@
       "crux": null
     },
     {
+      "id": "src/logic.js#cutoutSupported",
+      "name": "cutoutSupported",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L152-L154",
+      "signature": "function cutoutSupported(mimeType)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "c5baff8564ae1c97d1b9571b1129e88ab9fbeeabdec89feb532476e1f8cc8b56",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
       "id": "src/logic.js#displayFileId",
       "name": "displayFileId",
       "kind": "function",
       "path": "src/logic.js",
-      "span": "L170-L173",
+      "span": "L185-L188",
       "signature": "function displayFileId(photo, { small = false } = {})",
       "exported": true,
       "origin": "ast",
-      "body_hash": "be1e13c925ca69bd51e6ac2653f2b9567662db4a5a4ac2408d3dd6f19b8d8045",
+      "body_hash": "ca039e9bc60b0557d68a5b174e0313d0adb51ea4d12b7eb44fcc7d67bd0e7670",
       "summary_state": "pending",
       "summary": null,
       "crux": null
@@ -702,7 +1167,7 @@
       "name": "filterItems",
       "kind": "function",
       "path": "src/logic.js",
-      "span": "L77-L86",
+      "span": "L79-L88",
       "signature": "function filterItems(items, { collectionId = null, tagIds = [], locationIds = [] } = {})",
       "exported": true,
       "origin": "ast",
@@ -716,7 +1181,7 @@
       "name": "findByName",
       "kind": "function",
       "path": "src/logic.js",
-      "span": "L47-L50",
+      "span": "L49-L52",
       "signature": "function findByName(rows, name)",
       "exported": true,
       "origin": "ast",
@@ -726,25 +1191,11 @@
       "crux": null
     },
     {
-      "id": "src/logic.js#fitWithin",
-      "name": "fitWithin",
-      "kind": "function",
-      "path": "src/logic.js",
-      "span": "L216-L221",
-      "signature": "function fitWithin(width, height, max)",
-      "exported": true,
-      "origin": "ast",
-      "body_hash": "fc03a5a2f648801d2dbf79587cd07f7f0aa4b5a543ebc014836e2329b8a3b597",
-      "summary_state": "pending",
-      "summary": null,
-      "crux": null
-    },
-    {
       "id": "src/logic.js#formatDate",
       "name": "formatDate",
       "kind": "function",
       "path": "src/logic.js",
-      "span": "L294-L300",
+      "span": "L498-L504",
       "signature": "function formatDate(value, locale = undefined)",
       "exported": true,
       "origin": "ast",
@@ -754,11 +1205,39 @@
       "crux": null
     },
     {
+      "id": "src/logic.js#heicKeptRefusal",
+      "name": "heicKeptRefusal",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L378-L380",
+      "signature": "function heicKeptRefusal(name, uploaded)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "fcd8c910ab50c5cf7b6f3f4c84a45e0d15fa1bec241ae796b40871ba36f6f623",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#heicRefusal",
+      "name": "heicRefusal",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L366-L370",
+      "signature": "function heicRefusal(name, status)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "c479ebfe21242bbf4b5b1c2d1562dfa02ee9667a458bad95e0f8f98851c02858",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
       "id": "src/logic.js#holdIsFresh",
       "name": "holdIsFresh",
       "kind": "function",
       "path": "src/logic.js",
-      "span": "L134-L137",
+      "span": "L136-L139",
       "signature": "function holdIsFresh(stamp, now = Date.now())",
       "exported": true,
       "origin": "ast",
@@ -772,7 +1251,7 @@
       "name": "holdKey",
       "kind": "function",
       "path": "src/logic.js",
-      "span": "L245-L247",
+      "span": "L449-L451",
       "signature": "function holdKey(photo)",
       "exported": true,
       "origin": "ast",
@@ -782,11 +1261,53 @@
       "crux": null
     },
     {
+      "id": "src/logic.js#imageRetryDelay",
+      "name": "imageRetryDelay",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L343-L346",
+      "signature": "function imageRetryDelay(tries, random = Math.random)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "e3f8126690c0292f4e3662c261acc3b9189a4bf8677e35837c35710e2e4accf6",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#intoHeld",
+      "name": "intoHeld",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L300-L306",
+      "signature": "function intoHeld(held, read)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "89f91e19683e035563a31c7ed3366a31ec1ab62d6d832e5908347ac565ce2b01",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#isHeic",
+      "name": "isHeic",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L355-L358",
+      "signature": "function isHeic(file)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "061e39839696c0ff638624829fd56defb982f2f73fce5cc534edabd5e6c8cebc",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
       "id": "src/logic.js#liveIds",
       "name": "liveIds",
       "kind": "function",
       "path": "src/logic.js",
-      "span": "L36-L39",
+      "span": "L38-L41",
       "signature": "function liveIds(ids, rows)",
       "exported": true,
       "origin": "ast",
@@ -796,11 +1317,25 @@
       "crux": null
     },
     {
+      "id": "src/logic.js#missingCutoutThumbs",
+      "name": "missingCutoutThumbs",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L269-L276",
+      "signature": "function missingCutoutThumbs(photos, me, tried = new Set(), max = THUMB_BACKFILL_MAX, random = Math.random)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "4c76d57fff8c05290758cc7bcd1917582229e7046e53ad9a748c6713f8b50b1c",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
       "id": "src/logic.js#nameKey",
       "name": "nameKey",
       "kind": "function",
       "path": "src/logic.js",
-      "span": "L42-L44",
+      "span": "L44-L46",
       "signature": "function nameKey(name)",
       "exported": true,
       "origin": "ast",
@@ -814,7 +1349,7 @@
       "name": "needsCheck",
       "kind": "function",
       "path": "src/logic.js",
-      "span": "L261-L264",
+      "span": "L465-L468",
       "signature": "function needsCheck(photo, heldHere, checked, now = Date.now())",
       "exported": true,
       "origin": "ast",
@@ -828,7 +1363,7 @@
       "name": "parseIds",
       "kind": "function",
       "path": "src/logic.js",
-      "span": "L19-L28",
+      "span": "L21-L30",
       "signature": "function parseIds(value)",
       "exported": true,
       "origin": "ast",
@@ -842,11 +1377,11 @@
       "name": "pendingElsewhere",
       "kind": "function",
       "path": "src/logic.js",
-      "span": "L273-L277",
-      "signature": "function pendingElsewhere(photos, heldHere, checked = new Set(), now = Date.now(), max = 25)",
+      "span": "L477-L481",
+      "signature": "function pendingElsewhere(photos, heldHere, checked = new Set(), now = Date.now(), max = DB_BATCH_MAX)",
       "exported": true,
       "origin": "ast",
-      "body_hash": "49a53b9876d4e2df6393cf4c7120f5dcf2434e465491ad006d3707d7de66d42e",
+      "body_hash": "b03048bfe431dca425d678f1f49c3cd3a14b38542bab9b32c48f610f5fd887e5",
       "summary_state": "pending",
       "summary": null,
       "crux": null
@@ -856,7 +1391,7 @@
       "name": "photosOf",
       "kind": "function",
       "path": "src/logic.js",
-      "span": "L100-L104",
+      "span": "L102-L106",
       "signature": "function photosOf(photos, itemId)",
       "exported": true,
       "origin": "ast",
@@ -870,7 +1405,7 @@
       "name": "plural",
       "kind": "function",
       "path": "src/logic.js",
-      "span": "L304-L306",
+      "span": "L508-L510",
       "signature": "function plural(count, one, many = `${one}s`)",
       "exported": true,
       "origin": "ast",
@@ -884,7 +1419,7 @@
       "name": "searchableFields",
       "kind": "function",
       "path": "src/logic.js",
-      "span": "L63-L70",
+      "span": "L65-L72",
       "signature": "function searchableFields(item, names = new Map())",
       "exported": true,
       "origin": "ast",
@@ -898,7 +1433,7 @@
       "name": "showsCutout",
       "kind": "function",
       "path": "src/logic.js",
-      "span": "L164-L166",
+      "span": "L178-L180",
       "signature": "function showsCutout(photo)",
       "exported": true,
       "origin": "ast",
@@ -908,11 +1443,39 @@
       "crux": null
     },
     {
+      "id": "src/logic.js#staleCovers",
+      "name": "staleCovers",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L404-L418",
+      "signature": "function staleCovers(items, photos)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "e88c63d473f8796408724ef423703f265aeb99667e68462b588b282c62641e4c",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/logic.js#storedAsHeic",
+      "name": "storedAsHeic",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L385-L387",
+      "signature": "function storedAsHeic(uploaded, picked)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "da18ed5ffe37c72c477c7f7ff8add1267f48c38b75f04a61e2a0f98cb2227891",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
       "id": "src/logic.js#tagsOf",
       "name": "tagsOf",
       "kind": "function",
       "path": "src/logic.js",
-      "span": "L52-L54",
+      "span": "L54-L56",
       "signature": "function tagsOf(tags, collectionId)",
       "exported": true,
       "origin": "ast",
@@ -922,25 +1485,11 @@
       "crux": null
     },
     {
-      "id": "src/logic.js#thumbName",
-      "name": "thumbName",
-      "kind": "function",
-      "path": "src/logic.js",
-      "span": "L223-L226",
-      "signature": "function thumbName(filename)",
-      "exported": true,
-      "origin": "ast",
-      "body_hash": "38562aa452e4e8a69f5ce7f37aa81ff6ca33a0aa55075a93907ac0fedf1e4fc5",
-      "summary_state": "pending",
-      "summary": null,
-      "crux": null
-    },
-    {
       "id": "src/logic.js#toggleId",
       "name": "toggleId",
       "kind": "function",
       "path": "src/logic.js",
-      "span": "L30-L32",
+      "span": "L32-L34",
       "signature": "function toggleId(ids, id)",
       "exported": true,
       "origin": "ast",
@@ -954,7 +1503,7 @@
       "name": "unresolved",
       "kind": "function",
       "path": "src/logic.js",
-      "span": "L250-L252",
+      "span": "L454-L456",
       "signature": "function unresolved(photo)",
       "exported": false,
       "origin": "ast",
@@ -964,11 +1513,25 @@
       "crux": null
     },
     {
+      "id": "src/logic.js#withNoThumb",
+      "name": "withNoThumb",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L287-L289",
+      "signature": "function withNoThumb(remembered, id, max = NO_THUMB_MAX)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "666f23993af1f638344251023784f842d00888df4cf39722d2830e8fbf2e9da8",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
       "id": "src/logic.js#withoutDeleted",
       "name": "withoutDeleted",
       "kind": "function",
       "path": "src/logic.js",
-      "span": "L238-L242",
+      "span": "L442-L446",
       "signature": "function withoutDeleted(rows, gone)",
       "exported": true,
       "origin": "ast",
@@ -978,16 +1541,30 @@
       "crux": null
     },
     {
+      "id": "src/logic.js#wroteNothing",
+      "name": "wroteNothing",
+      "kind": "function",
+      "path": "src/logic.js",
+      "span": "L328-L330",
+      "signature": "function wroteNothing(result)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "dc9ab680f614b2b30c41462a1a07f0e12bdebf431fcc561880f3ce6fc9659989",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
       "id": "src/reads.js",
       "name": "reads.js",
       "kind": "file",
       "path": "src/reads.js",
-      "span": "L1-L69",
+      "span": "L1-L73",
       "signature": null,
       "exported": true,
       "origin": "ast",
-      "body_hash": "e9df8e689dc31ad8d96f01a5e6b0265f995e01bba364e3218fd06240f3aca10e",
-      "chars": 3895,
+      "body_hash": "7f97687c44e705713820e430c57f256b84e89180c836a06c4e008fb54d4599fa",
+      "chars": 4263,
       "summary_state": "pending",
       "summary": null,
       "crux": null
@@ -997,7 +1574,7 @@
       "name": "firstRenderBatch",
       "kind": "function",
       "path": "src/reads.js",
-      "span": "L40-L42",
+      "span": "L44-L46",
       "signature": "function firstRenderBatch()",
       "exported": true,
       "origin": "ast",
@@ -1011,7 +1588,7 @@
       "name": "namedResults",
       "kind": "function",
       "path": "src/reads.js",
-      "span": "L45-L49",
+      "span": "L49-L53",
       "signature": "function namedResults(results)",
       "exported": true,
       "origin": "ast",
@@ -1025,7 +1602,7 @@
       "name": "nextPageBatch",
       "kind": "function",
       "path": "src/reads.js",
-      "span": "L57-L61",
+      "span": "L61-L65",
       "signature": "function nextPageBatch(lastPages, pageSize)",
       "exported": true,
       "origin": "ast",
@@ -1039,11 +1616,376 @@
       "name": "nextPageParams",
       "kind": "function",
       "path": "src/reads.js",
-      "span": "L64-L68",
+      "span": "L68-L72",
       "signature": "function nextPageParams(rows, pageSize)",
       "exported": true,
       "origin": "ast",
       "body_hash": "32daca904d19cf423fe7e0cb9688f919a72ba94f68d954a266a6f21958f91d83",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/share.js",
+      "name": "share.js",
+      "kind": "file",
+      "path": "src/share.js",
+      "span": "L1-L553",
+      "signature": null,
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "b0952b9053be8c3fc119a8f5cf52199c03ecccba876263d43f147cb123a69c83",
+      "chars": 26751,
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/share.js#createOverlayView",
+      "name": "createOverlayView",
+      "kind": "function",
+      "path": "src/share.js",
+      "span": "L498-L552",
+      "signature": "function createOverlayView(doc)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "dce0f2c34f1d7fe9403c54c7da6421d2006305a44e9b3b83639e62959d7abd65",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/share.js#createOverlayView.bind",
+      "name": "bind",
+      "kind": "method",
+      "path": "src/share.js",
+      "span": "L503-L503",
+      "signature": "bind(controller)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "09f6e33424425326d1574a7dac6b498c424f13ac5a5389dd12b5720e826552b2",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/share.js#createOverlayView.hide",
+      "name": "hide",
+      "kind": "method",
+      "path": "src/share.js",
+      "span": "L546-L550",
+      "signature": "hide()",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "b1c2552a42da180672a306d3c84ae7f624ef2ca89ad836bf0740a69224730883",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/share.js#createOverlayView.onKey",
+      "name": "onKey",
+      "kind": "function",
+      "path": "src/share.js",
+      "span": "L501-L501",
+      "signature": "function onKey(e)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "c3435ae526bb81aa93f51fe8a1a03c8417efe3905faaa0b1466d1a51bad9f639",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/share.js#createOverlayView.render",
+      "name": "render",
+      "kind": "method",
+      "path": "src/share.js",
+      "span": "L529-L545",
+      "signature": "render(html)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "1c52eea2e57a5425d4db0fec55bac2bed3931b1a903ff8bf0b506b6fdb34403a",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/share.js#createOverlayView.show",
+      "name": "show",
+      "kind": "method",
+      "path": "src/share.js",
+      "span": "L504-L524",
+      "signature": "show()",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "405fecf970a477a9361469de2af56a6fc1d1f1fbcb9fd356c6408780e81a9b5a",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/share.js#createShareUi",
+      "name": "createShareUi",
+      "kind": "function",
+      "path": "src/share.js",
+      "span": "L59-L456",
+      "signature": "function createShareUi(deps)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "1650662bde1b8e70d736c30e5511fe7afa222994a3b89324a29b32981a44eb08",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/share.js#createShareUi.calendarUrlOf",
+      "name": "calendarUrlOf",
+      "kind": "function",
+      "path": "src/share.js",
+      "span": "L97-L99",
+      "signature": "function calendarUrlOf(link)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "9f56fe03addf1809e49b11a68e23d484f37ac52110707cdffe16db3c5b52eb30",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/share.js#createShareUi.choices",
+      "name": "choices",
+      "kind": "function",
+      "path": "src/share.js",
+      "span": "L222-L228",
+      "signature": "function choices()",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "fee0f0d95c6cd28f70589e4c41e2f248fbead60c9f0204b7cb9ed47c29c0d8d8",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/share.js#createShareUi.close",
+      "name": "close",
+      "kind": "function",
+      "path": "src/share.js",
+      "span": "L276-L281",
+      "signature": "function close()",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "58edb3b40039e3d7f6accf9e57158cf230b52b5f9fb021a7e8c1c711c836b9a6",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/share.js#createShareUi.copy",
+      "name": "copy",
+      "kind": "function",
+      "path": "src/share.js",
+      "span": "L383-L403",
+      "signature": "async function copy(linkId, kind = \"page\")",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "a76428ac9e9c2a20d8012fb0b7b603a6761a67ae1a96154d3f5a0b6e0f93af97",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/share.js#createShareUi.create",
+      "name": "create",
+      "kind": "function",
+      "path": "src/share.js",
+      "span": "L283-L381",
+      "signature": "async function create()",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "6e23d3cccf0f7c3d65124c6d062202b7287ce0ec5ab9f0f86c62104b4123416f",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/share.js#createShareUi.dropItemChoiceIfSelected",
+      "name": "dropItemChoiceIfSelected",
+      "kind": "function",
+      "path": "src/share.js",
+      "span": "L233-L238",
+      "signature": "function dropItemChoiceIfSelected()",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "7b0bd667643643358d9847ace9cc02316c0843470979d2fdca1e0cd3ba4a478f",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/share.js#createShareUi.handleChange",
+      "name": "handleChange",
+      "kind": "function",
+      "path": "src/share.js",
+      "span": "L445-L453",
+      "signature": "function handleChange(e)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "96d1b2fc5638979c0f3e943962786ab86e4619c839d09ba80748adfb092a977a",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/share.js#createShareUi.handleClick",
+      "name": "handleClick",
+      "kind": "function",
+      "path": "src/share.js",
+      "span": "L431-L440",
+      "signature": "function handleClick(e)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "ba95172d91221295b052f0c8d7b4292b91405461efcd8580eb5ec149e424b8d7",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/share.js#createShareUi.html",
+      "name": "html",
+      "kind": "function",
+      "path": "src/share.js",
+      "span": "L132-L206",
+      "signature": "function html()",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "39e41ed2c994c642918795943f295970d6e0156f710f08d3c47483f1978c8dff",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/share.js#createShareUi.itemExpiryChoice",
+      "name": "itemExpiryChoice",
+      "kind": "function",
+      "path": "src/share.js",
+      "span": "L242-L253",
+      "signature": "function itemExpiryChoice(item)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "5af74ba3f2fa93c2bffe8be98b6293868be43b2b0cb5e5ee8e1484cae05ba37d",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/share.js#createShareUi.mark",
+      "name": "mark",
+      "kind": "function",
+      "path": "src/share.js",
+      "span": "L61-L61",
+      "signature": "mark = (name)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "1e7c0000d18e3ed203443db6bccb97593deaaa4e0226fff1d6ff25840779044d",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/share.js#createShareUi.open",
+      "name": "open",
+      "kind": "function",
+      "path": "src/share.js",
+      "span": "L255-L274",
+      "signature": "async function open(item)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "bd0cf5c75e87e17750d0418e067abdc37dce8f20a75d63867ac54b15bd42f87b",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/share.js#createShareUi.pin",
+      "name": "pin",
+      "kind": "function",
+      "path": "src/share.js",
+      "span": "L101-L104",
+      "signature": "function pin()",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "98b6be86a5a15cbf87e533272b51d6ba9f8a055319a30ea869bd32317722dbd8",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/share.js#createShareUi.refresh",
+      "name": "refresh",
+      "kind": "function",
+      "path": "src/share.js",
+      "span": "L106-L126",
+      "signature": "async function refresh()",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "2d6677e061dc5f909e09bb06eb6a2283c4023c890f330a7f8405d6909c34e962",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/share.js#createShareUi.render",
+      "name": "render",
+      "kind": "function",
+      "path": "src/share.js",
+      "span": "L128-L130",
+      "signature": "function render()",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "d0dff2510a8ce8535688612a2becd2e715b1af7ba8e4ab91209c79d692b117c9",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/share.js#createShareUi.revoke",
+      "name": "revoke",
+      "kind": "function",
+      "path": "src/share.js",
+      "span": "L405-L427",
+      "signature": "async function revoke(linkId)",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "028a2eb2d73cf5951452466b6d810e3b359fa795dc86a68c006e2adb39d2153d",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/share.js#createShareUi.usableItemChoice",
+      "name": "usableItemChoice",
+      "kind": "function",
+      "path": "src/share.js",
+      "span": "L216-L219",
+      "signature": "function usableItemChoice()",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "1a8a594ba8258240baaa42e230efc72a65f72a97efa47c2f6faeb162a5356335",
+      "summary_state": "pending",
+      "summary": null,
+      "crux": null
+    },
+    {
+      "id": "src/share.js#createShareUi.writableBlocked",
+      "name": "writableBlocked",
+      "kind": "function",
+      "path": "src/share.js",
+      "span": "L210-L212",
+      "signature": "function writableBlocked()",
+      "exported": true,
+      "origin": "ast",
+      "body_hash": "e25da8fbeb1a3cd831db7a8605c7e8cf12487a39d946ba82b0b2e1d9cdb541ad",
       "summary_state": "pending",
       "summary": null,
       "crux": null
@@ -1168,6 +2110,18 @@
     },
     {
       "source": "__tests__/logic.test.mjs",
+      "target": "__tests__/logic.test.mjs#item",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "__tests__/logic.test.mjs#photo",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
       "target": "__tests__/logic.test.mjs#taken",
       "relation": "calls",
       "confidence": "extracted"
@@ -1181,6 +2135,12 @@
     {
       "source": "__tests__/logic.test.mjs",
       "target": "src/logic.js#canRequestCutout",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#carriedOver",
       "relation": "calls",
       "confidence": "inferred"
     },
@@ -1216,6 +2176,12 @@
     },
     {
       "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#cutoutIsUnnamed",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
       "target": "src/logic.js#cutoutLabel",
       "relation": "calls",
       "confidence": "inferred"
@@ -1223,6 +2189,12 @@
     {
       "source": "__tests__/logic.test.mjs",
       "target": "src/logic.js#cutoutState",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#cutoutSupported",
       "relation": "calls",
       "confidence": "inferred"
     },
@@ -1246,13 +2218,19 @@
     },
     {
       "source": "__tests__/logic.test.mjs",
-      "target": "src/logic.js#fitWithin",
+      "target": "src/logic.js#formatDate",
       "relation": "calls",
       "confidence": "inferred"
     },
     {
       "source": "__tests__/logic.test.mjs",
-      "target": "src/logic.js#formatDate",
+      "target": "src/logic.js#heicKeptRefusal",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#heicRefusal",
       "relation": "calls",
       "confidence": "inferred"
     },
@@ -1270,7 +2248,31 @@
     },
     {
       "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#imageRetryDelay",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#intoHeld",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#isHeic",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
       "target": "src/logic.js#liveIds",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#missingCutoutThumbs",
       "relation": "calls",
       "confidence": "inferred"
     },
@@ -1324,13 +2326,19 @@
     },
     {
       "source": "__tests__/logic.test.mjs",
-      "target": "src/logic.js#tagsOf",
+      "target": "src/logic.js#staleCovers",
       "relation": "calls",
       "confidence": "inferred"
     },
     {
       "source": "__tests__/logic.test.mjs",
-      "target": "src/logic.js#thumbName",
+      "target": "src/logic.js#storedAsHeic",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#tagsOf",
       "relation": "calls",
       "confidence": "inferred"
     },
@@ -1342,7 +2350,19 @@
     },
     {
       "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#withNoThumb",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
       "target": "src/logic.js#withoutDeleted",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#wroteNothing",
       "relation": "calls",
       "confidence": "inferred"
     },
@@ -1372,6 +2392,24 @@
     },
     {
       "source": "__tests__/logic.test.mjs",
+      "target": "__tests__/logic.test.mjs#item",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "__tests__/logic.test.mjs#photo",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "__tests__/logic.test.mjs#photo~2",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
       "target": "__tests__/logic.test.mjs#taken",
       "relation": "contains",
       "confidence": "extracted"
@@ -1396,13 +2434,13 @@
     },
     {
       "source": "__tests__/logic.test.mjs",
-      "target": "src/logic.js#canRequestCutout",
+      "target": "src/logic.js#carriedOver",
       "relation": "references",
       "confidence": "extracted"
     },
     {
       "source": "__tests__/logic.test.mjs",
-      "target": "src/logic.js#collectionCover",
+      "target": "src/logic.js#cleanDate",
       "relation": "references",
       "confidence": "extracted"
     },
@@ -1426,19 +2464,7 @@
     },
     {
       "source": "__tests__/logic.test.mjs",
-      "target": "src/logic.js#cutoutLabel",
-      "relation": "references",
-      "confidence": "extracted"
-    },
-    {
-      "source": "__tests__/logic.test.mjs",
-      "target": "src/logic.js#cutoutState",
-      "relation": "references",
-      "confidence": "extracted"
-    },
-    {
-      "source": "__tests__/logic.test.mjs",
-      "target": "src/logic.js#displayFileId",
+      "target": "src/logic.js#cutoutIsUnnamed",
       "relation": "references",
       "confidence": "extracted"
     },
@@ -1456,13 +2482,43 @@
     },
     {
       "source": "__tests__/logic.test.mjs",
-      "target": "src/logic.js#fitWithin",
+      "target": "src/logic.js#formatDate",
       "relation": "references",
       "confidence": "extracted"
     },
     {
       "source": "__tests__/logic.test.mjs",
-      "target": "src/logic.js#holdIsFresh",
+      "target": "src/logic.js#heicKeptRefusal",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#heicRefusal",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#holdKey",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#imageRetryDelay",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#intoHeld",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#isHeic",
       "relation": "references",
       "confidence": "extracted"
     },
@@ -1480,7 +2536,19 @@
     },
     {
       "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#needsCheck",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
       "target": "src/logic.js#parseIds",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#pendingElsewhere",
       "relation": "references",
       "confidence": "extracted"
     },
@@ -1492,13 +2560,25 @@
     },
     {
       "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#plural",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
       "target": "src/logic.js#searchableFields",
       "relation": "references",
       "confidence": "extracted"
     },
     {
       "source": "__tests__/logic.test.mjs",
-      "target": "src/logic.js#showsCutout",
+      "target": "src/logic.js#staleCovers",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#storedAsHeic",
       "relation": "references",
       "confidence": "extracted"
     },
@@ -1510,13 +2590,25 @@
     },
     {
       "source": "__tests__/logic.test.mjs",
-      "target": "src/logic.js#thumbName",
+      "target": "src/logic.js#toggleId",
       "relation": "references",
       "confidence": "extracted"
     },
     {
       "source": "__tests__/logic.test.mjs",
-      "target": "src/logic.js#toggleId",
+      "target": "src/logic.js#withNoThumb",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#withoutDeleted",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/logic.test.mjs",
+      "target": "src/logic.js#wroteNothing",
       "relation": "references",
       "confidence": "extracted"
     },
@@ -1542,6 +2634,12 @@
       "source": "__tests__/manifest.test.mjs",
       "target": "vitest",
       "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/preload.test.mjs",
+      "target": "__tests__/preload.test.mjs#bytes",
+      "relation": "calls",
       "confidence": "extracted"
     },
     {
@@ -1591,6 +2689,12 @@
       "target": "src/reads.js#nextPageParams",
       "relation": "calls",
       "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/preload.test.mjs",
+      "target": "__tests__/preload.test.mjs#bytes",
+      "relation": "contains",
+      "confidence": "extracted"
     },
     {
       "source": "__tests__/preload.test.mjs",
@@ -1716,6 +2820,360 @@
       "source": "__tests__/schema.mjs#columnsOf",
       "target": "__tests__/schema.mjs#appTableColumns",
       "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-overlay-ui.test.mjs",
+      "target": "__tests__/share-overlay-ui.test.mjs#deferred",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-overlay-ui.test.mjs",
+      "target": "__tests__/share-overlay-ui.test.mjs#field",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-overlay-ui.test.mjs",
+      "target": "__tests__/share-overlay-ui.test.mjs#flush",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-overlay-ui.test.mjs",
+      "target": "__tests__/share-overlay-ui.test.mjs#mount",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-overlay-ui.test.mjs",
+      "target": "__tests__/share-overlay-ui.test.mjs#type",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-overlay-ui.test.mjs",
+      "target": "__tests__/share-overlay-ui.test.mjs#deferred",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-overlay-ui.test.mjs",
+      "target": "__tests__/share-overlay-ui.test.mjs#esc",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-overlay-ui.test.mjs",
+      "target": "__tests__/share-overlay-ui.test.mjs#field",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-overlay-ui.test.mjs",
+      "target": "__tests__/share-overlay-ui.test.mjs#flush",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-overlay-ui.test.mjs",
+      "target": "__tests__/share-overlay-ui.test.mjs#mount",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-overlay-ui.test.mjs",
+      "target": "__tests__/share-overlay-ui.test.mjs#type",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-overlay-ui.test.mjs",
+      "target": "src/share.js",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-overlay-ui.test.mjs",
+      "target": "vitest",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-overlay-ui.test.mjs#mount",
+      "target": "src/share.js#createOverlayView",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/share-overlay-ui.test.mjs#mount",
+      "target": "src/share.js#createShareUi",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/share-overlay-ui.test.mjs#mount",
+      "target": "src/share.js#createOverlayView",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-overlay-ui.test.mjs#mount",
+      "target": "src/share.js#createShareUi",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-overlay-ui.test.mjs#type",
+      "target": "__tests__/share-overlay-ui.test.mjs#field",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs",
+      "target": "__tests__/share-ui.test.mjs#click",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs",
+      "target": "__tests__/share-ui.test.mjs#createDisabled",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs",
+      "target": "__tests__/share-ui.test.mjs#deferred",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs",
+      "target": "__tests__/share-ui.test.mjs#flush",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs",
+      "target": "__tests__/share-ui.test.mjs#harness",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs",
+      "target": "__tests__/share-ui.test.mjs#link",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs",
+      "target": "__tests__/share-ui.test.mjs#ok",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs",
+      "target": "__tests__/share-ui.test.mjs#refused",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs",
+      "target": "__tests__/share-ui.test.mjs#selectedExpiry",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs",
+      "target": "__tests__/share-ui.test.mjs#typePassword",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs",
+      "target": "__tests__/share-ui.test.mjs#activeShareLinks",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs",
+      "target": "__tests__/share-ui.test.mjs#calendarUrl",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs",
+      "target": "__tests__/share-ui.test.mjs#click",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs",
+      "target": "__tests__/share-ui.test.mjs#createDisabled",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs",
+      "target": "__tests__/share-ui.test.mjs#deferred",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs",
+      "target": "__tests__/share-ui.test.mjs#esc",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs",
+      "target": "__tests__/share-ui.test.mjs#flush",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs",
+      "target": "__tests__/share-ui.test.mjs#harness",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs",
+      "target": "__tests__/share-ui.test.mjs#link",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs",
+      "target": "__tests__/share-ui.test.mjs#ok",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs",
+      "target": "__tests__/share-ui.test.mjs#refused",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs",
+      "target": "__tests__/share-ui.test.mjs#selectedExpiry",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs",
+      "target": "__tests__/share-ui.test.mjs#typePassword",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs",
+      "target": "src/share.js",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs",
+      "target": "vitest",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs#harness",
+      "target": "__tests__/share-ui.test.mjs#ok",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs#harness",
+      "target": "src/share.js#createShareUi",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs#harness",
+      "target": "__tests__/share-ui.test.mjs#harness.hide",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs#harness",
+      "target": "__tests__/share-ui.test.mjs#harness.render",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs#harness",
+      "target": "__tests__/share-ui.test.mjs#harness.show",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/share-ui.test.mjs#harness",
+      "target": "src/share.js#createShareUi",
+      "relation": "references",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/shareable.test.mjs",
+      "target": "__tests__/schema.mjs#appTableColumns",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/shareable.test.mjs",
+      "target": "src/logic.js#coverWrites",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/shareable.test.mjs",
+      "target": "src/logic.js#staleCovers",
+      "relation": "calls",
+      "confidence": "inferred"
+    },
+    {
+      "source": "__tests__/shareable.test.mjs",
+      "target": "__tests__/schema.mjs",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/shareable.test.mjs",
+      "target": "fs",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/shareable.test.mjs",
+      "target": "path",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/shareable.test.mjs",
+      "target": "src/logic.js",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/shareable.test.mjs",
+      "target": "src/reads.js",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/shareable.test.mjs",
+      "target": "url",
+      "relation": "imports",
+      "confidence": "extracted"
+    },
+    {
+      "source": "__tests__/shareable.test.mjs",
+      "target": "vitest",
+      "relation": "imports",
       "confidence": "extracted"
     },
     {
@@ -1936,6 +3394,12 @@
     },
     {
       "source": "src/logic.js",
+      "target": "src/logic.js#carriedOver",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
       "target": "src/logic.js#cleanDate",
       "relation": "contains",
       "confidence": "extracted"
@@ -1960,7 +3424,19 @@
     },
     {
       "source": "src/logic.js",
+      "target": "src/logic.js#coverWrites",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
       "target": "src/logic.js#cutoutFailure",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#cutoutIsUnnamed",
       "relation": "contains",
       "confidence": "extracted"
     },
@@ -1973,6 +3449,12 @@
     {
       "source": "src/logic.js",
       "target": "src/logic.js#cutoutState",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#cutoutSupported",
       "relation": "contains",
       "confidence": "extracted"
     },
@@ -1996,13 +3478,19 @@
     },
     {
       "source": "src/logic.js",
-      "target": "src/logic.js#fitWithin",
+      "target": "src/logic.js#formatDate",
       "relation": "contains",
       "confidence": "extracted"
     },
     {
       "source": "src/logic.js",
-      "target": "src/logic.js#formatDate",
+      "target": "src/logic.js#heicKeptRefusal",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#heicRefusal",
       "relation": "contains",
       "confidence": "extracted"
     },
@@ -2020,7 +3508,31 @@
     },
     {
       "source": "src/logic.js",
+      "target": "src/logic.js#imageRetryDelay",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#intoHeld",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#isHeic",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
       "target": "src/logic.js#liveIds",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#missingCutoutThumbs",
       "relation": "contains",
       "confidence": "extracted"
     },
@@ -2074,13 +3586,19 @@
     },
     {
       "source": "src/logic.js",
-      "target": "src/logic.js#tagsOf",
+      "target": "src/logic.js#staleCovers",
       "relation": "contains",
       "confidence": "extracted"
     },
     {
       "source": "src/logic.js",
-      "target": "src/logic.js#thumbName",
+      "target": "src/logic.js#storedAsHeic",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#tagsOf",
       "relation": "contains",
       "confidence": "extracted"
     },
@@ -2098,7 +3616,19 @@
     },
     {
       "source": "src/logic.js",
+      "target": "src/logic.js#withNoThumb",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
       "target": "src/logic.js#withoutDeleted",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js",
+      "target": "src/logic.js#wroteNothing",
       "relation": "contains",
       "confidence": "extracted"
     },
@@ -2139,6 +3669,12 @@
       "confidence": "extracted"
     },
     {
+      "source": "src/logic.js#coverWrites",
+      "target": "src/logic.js#staleCovers",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
       "source": "src/logic.js#displayFileId",
       "target": "src/logic.js#showsCutout",
       "relation": "calls",
@@ -2159,6 +3695,12 @@
     {
       "source": "src/logic.js#formatDate",
       "target": "src/logic.js#cleanDate",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js#heicKeptRefusal",
+      "target": "src/logic.js#heicRefusal",
       "relation": "calls",
       "confidence": "extracted"
     },
@@ -2211,6 +3753,30 @@
       "confidence": "extracted"
     },
     {
+      "source": "src/logic.js#staleCovers",
+      "target": "src/logic.js#displayFileId",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js#staleCovers",
+      "target": "src/logic.js#parseIds",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js#staleCovers",
+      "target": "src/logic.js#photosOf",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/logic.js#storedAsHeic",
+      "target": "src/logic.js#isHeic",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
       "source": "src/reads.js",
       "target": "src/reads.js#firstRenderBatch",
       "relation": "contains",
@@ -2237,6 +3803,330 @@
     {
       "source": "src/reads.js#nextPageBatch",
       "target": "src/reads.js#nextPageParams",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js",
+      "target": "src/share.js#createOverlayView",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js",
+      "target": "src/share.js#createShareUi",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createOverlayView",
+      "target": "src/share.js#createOverlayView.bind",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createOverlayView",
+      "target": "src/share.js#createOverlayView.hide",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createOverlayView",
+      "target": "src/share.js#createOverlayView.onKey",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createOverlayView",
+      "target": "src/share.js#createOverlayView.render",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createOverlayView",
+      "target": "src/share.js#createOverlayView.show",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi",
+      "target": "src/share.js#createShareUi.calendarUrlOf",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi",
+      "target": "src/share.js#createShareUi.choices",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi",
+      "target": "src/share.js#createShareUi.close",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi",
+      "target": "src/share.js#createShareUi.copy",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi",
+      "target": "src/share.js#createShareUi.create",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi",
+      "target": "src/share.js#createShareUi.dropItemChoiceIfSelected",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi",
+      "target": "src/share.js#createShareUi.handleChange",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi",
+      "target": "src/share.js#createShareUi.handleClick",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi",
+      "target": "src/share.js#createShareUi.html",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi",
+      "target": "src/share.js#createShareUi.itemExpiryChoice",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi",
+      "target": "src/share.js#createShareUi.mark",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi",
+      "target": "src/share.js#createShareUi.open",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi",
+      "target": "src/share.js#createShareUi.pin",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi",
+      "target": "src/share.js#createShareUi.refresh",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi",
+      "target": "src/share.js#createShareUi.render",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi",
+      "target": "src/share.js#createShareUi.revoke",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi",
+      "target": "src/share.js#createShareUi.usableItemChoice",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi",
+      "target": "src/share.js#createShareUi.writableBlocked",
+      "relation": "contains",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.choices",
+      "target": "src/share.js#createShareUi.usableItemChoice",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.copy",
+      "target": "src/share.js#createShareUi.calendarUrlOf",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.copy",
+      "target": "src/share.js#createShareUi.pin",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.copy",
+      "target": "src/share.js#createShareUi.render",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.create",
+      "target": "src/share.js#createShareUi.dropItemChoiceIfSelected",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.create",
+      "target": "src/share.js#createShareUi.itemExpiryChoice",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.create",
+      "target": "src/share.js#createShareUi.pin",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.create",
+      "target": "src/share.js#createShareUi.refresh",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.create",
+      "target": "src/share.js#createShareUi.render",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.create",
+      "target": "src/share.js#createShareUi.writableBlocked",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.dropItemChoiceIfSelected",
+      "target": "src/share.js#createShareUi.usableItemChoice",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.handleClick",
+      "target": "src/share.js#createShareUi.close",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.handleClick",
+      "target": "src/share.js#createShareUi.copy",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.handleClick",
+      "target": "src/share.js#createShareUi.create",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.handleClick",
+      "target": "src/share.js#createShareUi.revoke",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.html",
+      "target": "src/share.js#createShareUi.calendarUrlOf",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.html",
+      "target": "src/share.js#createShareUi.choices",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.html",
+      "target": "src/share.js#createShareUi.mark",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.html",
+      "target": "src/share.js#createShareUi.writableBlocked",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.open",
+      "target": "src/share.js#createShareUi.itemExpiryChoice",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.open",
+      "target": "src/share.js#createShareUi.pin",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.open",
+      "target": "src/share.js#createShareUi.refresh",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.open",
+      "target": "src/share.js#createShareUi.render",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.refresh",
+      "target": "src/share.js#createShareUi.dropItemChoiceIfSelected",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.refresh",
+      "target": "src/share.js#createShareUi.pin",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.render",
+      "target": "src/share.js#createShareUi.html",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.revoke",
+      "target": "src/share.js#createShareUi.pin",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.revoke",
+      "target": "src/share.js#createShareUi.refresh",
+      "relation": "calls",
+      "confidence": "extracted"
+    },
+    {
+      "source": "src/share.js#createShareUi.revoke",
+      "target": "src/share.js#createShareUi.render",
       "relation": "calls",
       "confidence": "extracted"
     },
