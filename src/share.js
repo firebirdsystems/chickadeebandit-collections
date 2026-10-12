@@ -22,6 +22,15 @@
  *     invites a member to mint a second one.
  */
 
+/** What a failed mint or revoke says. The share helper throws with the hub's
+ *  own text, which under an outage is not wording for a member, so it is shown
+ *  only when the error is marked as written for the reader (`forUser`) or is
+ *  the plan refusal this panel already acts on. Anything else gets the
+ *  caller's fixed line, and the real error goes to the console. */
+function failText(err, line) {
+  return (err?.forUser || err?.missingCapability) && err.message ? err.message : line;
+}
+
 /**
  * @param deps.share          createShareHelper(...) from the hub SDK
  * @param deps.itemType       the manifest.shareable key this panel mints
@@ -366,7 +375,8 @@ export function createShareUi(deps) {
       notice = copied ? "Link created and copied." : "Link created. Select it above to copy.";
     } catch (err) {
       if (!still()) return;
-      error = err?.message || "Couldn’t create the link.";
+      console.error("share: create failed", err);
+      error = failText(err, "Couldn’t create the link — try again.");
       // The plan lapsed since the list read: show the panel as it is now.
       if (err?.missingCapability) {
         entitled = false;
@@ -421,7 +431,8 @@ export function createShareUi(deps) {
     } catch (err) {
       if (!still()) return;
       notice = "";
-      error = err?.message || "Couldn’t revoke the link.";
+      console.error("share: revoke failed", err);
+      error = failText(err, "Couldn’t revoke the link — try again.");
     }
     render();
   }

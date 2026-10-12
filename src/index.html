@@ -314,8 +314,22 @@ function labelNames() {
   return new Map([...tags, ...locations].map((row) => [row.id, row.name]));
 }
 
-function fail(e) {
-  error = e?.message ?? String(e);
+/** An error worded for the person reading, which is shown as it is. */
+const userError = (message) => Object.assign(new Error(message), { forUser: true });
+
+/** A photo the hub would not take, as against one it could not be asked
+ *  about: too large, a type it does not store, no storage left, too many at
+ *  once. Its wording for those is shown as it is. */
+const uploadRefused = (e) => e?.status === 507 || (e?.status >= 400 && e?.status < 500);
+
+/**
+ * Say that something was not saved. Only wording written for the reader is
+ * shown (`forUser`: this app's own, or a photo the hub refused); anything else
+ * is `line`, and the error itself goes to the console.
+ */
+function fail(e, line = "Couldn’t save — try again.") {
+  if (!e?.forUser) console.error("[collections]", e);
+  error = e?.forUser ? e.message : line;
   errorIsLoad = false;
   render();
   // The rows on show are not the rows there are.
@@ -329,7 +343,7 @@ function fail(e) {
  * out of date, so `fail` says so and reads the rows again.
  */
 function changedElsewhere() {
-  return Object.assign(new Error("That was changed or removed somewhere else, so nothing was done here. Showing what is there now."), { elsewhere: true });
+  return Object.assign(userError("That was changed or removed somewhere else, so nothing was done here. Showing what is there now."), { elsewhere: true });
 }
 
 /** The hub's answer to an UPDATE or DELETE, thrown as `changedElsewhere` when it changed no row. */
@@ -340,11 +354,13 @@ function landed(result) {
 
 /** Say that reading the household's rows failed. Unlike any other error, this
  *  one is taken down again when a later try reads them. */
-function loadFailed(e) {
+const ROWS_UNREAD = "Couldn’t load your collections.";
+const MEMBERS_UNREAD = "Couldn’t load the household’s members.";
+function loadFailed(e, message = ROWS_UNREAD) {
   // An error about something else (an edit that was not saved) is left on
   // show: replaced by this one, it would be taken down with it.
   if (error && !errorIsLoad) return;
-  const message = e?.message ?? String(e);
+  console.error("[collections]", e);
   if (loadErrorsTold.has(message)) return;
   loadErrorsTold.add(message);
   error = message;
@@ -569,7 +585,7 @@ async function readAll() {
   // the rows or anything worked out from them, which do not depend on the
   // names: it is said once, and tried again each time this is.
   if (!membersLoaded) {
-    await loadMembers().then(render, (e) => { membersFailure = e?.message ?? String(e); loadFailed(e); });
+    await loadMembers().then(render, (e) => { membersFailure = MEMBERS_UNREAD; loadFailed(e, MEMBERS_UNREAD); });
   }
   if (!firstLoaded) { await loadData(); render(); }
   await loadRest();
@@ -585,10 +601,11 @@ async function refresh() {
   const tried = await Promise.allSettled([loadMembers(), loadData()]);
   const failed = tried.find((result) => result.status === "rejected");
   if (failed) {
-    error = failed.reason?.message ?? String(failed.reason);
+    console.error("[collections]", failed.reason);
+    error = failed === tried[0] ? MEMBERS_UNREAD : ROWS_UNREAD;
     errorIsLoad = true;
     loadErrorsTold.add(error);
-    if (tried[0].status === "rejected") membersFailure = tried[0].reason?.message ?? String(tried[0].reason);
+    if (tried[0].status === "rejected") membersFailure = MEMBERS_UNREAD;
   }
   if (DB_URL && !me) notice = "You are not here as a member of this household, so nothing can be added or changed.";
   render();
@@ -627,7 +644,7 @@ async function saveCollection(form) {
     }
     if (sheet === from) sheet = null;
     render();
-  } catch (e) { fail(e); } finally { submitting = false; }
+  } catch (e) { fail(e, "Couldn’t save the collection — try again."); } finally { submitting = false; }
 }
 
 async function deleteCollection(id) {
@@ -652,7 +669,7 @@ async function deleteCollection(id) {
     sheet = null;
     openView({ name: "home" });
     render();
-  } catch (e) { fail(e); }
+  } catch (e) { fail(e, "Couldn’t delete the collection — try again."); }
 }
 
 // --- Tags and locations ------------------------------------------------------
@@ -689,7 +706,7 @@ async function deleteLabel(kind, id) {
     filterLocations = filterLocations.filter((other) => other !== id);
     if (view.name === "location" && view.id === id) openView({ name: "home" });
     render();
-  } catch (e) { fail(e); }
+  } catch (e) { fail(e, kind === "tag" ? "Couldn’t delete the tag — try again." : "Couldn’t delete the place — try again."); }
 }
 
 // --- Items -------------------------------------------------------------------
@@ -708,7 +725,7 @@ async function createItem(form) {
     items = [row, ...items];
     if (sheet === from) sheet = { kind: "item", id: row.id };
     render();
-  } catch (e) { fail(e); } finally { submitting = false; }
+  } catch (e) { fail(e, "Couldn’t add the item — try again."); } finally { submitting = false; }
 }
 
 // One statement per column an item can have changed, spelled out so that
@@ -765,9 +782,10 @@ function saveItemField(itemId, column, value) {
       // Changed elsewhere: the sheet is about to be drawn again from the rows.
       if (e.elsewhere) throw e;
       // The sheet has moved on, and the box with it.
-      if (sheet?.kind !== "item" || sheet.id !== itemId) throw new Error(`An edit to "${item.name}" could not be saved (${e.message}).`);
+      console.error("[collections]", e);
+      if (sheet?.kind !== "item" || sheet.id !== itemId) throw userError(`An edit to "${item.name}" could not be saved.`);
       unsaved.add(key);
-      throw new Error(`That edit is not saved yet (${e.message}). It is tried again when you leave the box or close this.`);
+      throw userError("That edit is not saved yet. It is tried again when you leave the box or close this.");
     } finally {
       settled();
     }
@@ -869,7 +887,7 @@ async function deleteItem(id) {
     photos = photos.filter((row) => row.item_id !== id);
     sheet = null;
     render();
-  } catch (e) { fail(e); }
+  } catch (e) { fail(e, "Couldn’t delete the item — try again."); }
 }
 
 // --- The picture a shared page shows -----------------------------------------
@@ -996,7 +1014,7 @@ async function deleteFile(id) {
 }
 
 /** Why a HEIC photo was not added. */
-const notConverted = (file) => new Error(`"${file.name}" is a HEIC photo, which could not be turned into a JPEG here. Add it from Safari, or save it as a JPEG first.`);
+const notConverted = (file) => userError(`"${file.name}" is a HEIC photo, which could not be turned into a JPEG here. Add it from Safari, or save it as a JPEG first.`);
 
 /**
  * Upload a picked photo. A HEIC photo comes back stored as a JPEG: the hub's
@@ -1016,14 +1034,16 @@ async function uploadPhoto(picked) {
   const sending = heic ? await heicAsJpeg(picked) : picked;
   const uploaded = await uploadPatiently(sending).catch((e) => {
     if (!heic) throw e;
-    if (sending !== picked) throw new Error(heicRefusal(picked.name, e.status) ?? e.message);
+    const worded = sending !== picked ? heicRefusal(picked.name, e.status) : null;
+    if (worded) throw userError(worded);
+    if (sending !== picked) throw e;
     // A HEIC file the browser gave no type is refused as an unknown type.
     throw e.status === 415 ? notConverted(picked) : e;
   });
   if (!storedAsHeic(uploaded, sending)) return uploaded;
   await deleteFile(uploaded.id);
   const refusal = heicKeptRefusal(picked.name, uploaded);
-  throw refusal ? new Error(refusal) : notConverted(picked);
+  throw refusal ? userError(refusal) : notConverted(picked);
 }
 
 /**
@@ -1098,16 +1118,19 @@ async function addPhotos(itemId, fileList) {
       // large) does not stop the ones after it.
       if (!(await addOnePhoto(item, file))) break;
     } catch (e) {
-      refused.push(e.message);
+      // What this app says of a photo, and what the hub says of one it will
+      // not take, are shown as worded. Anything else is not.
+      if (!e?.forUser) console.error("[collections]", e);
+      refused.push(e?.forUser || uploadRefused(e) ? e.message : "");
     }
     adding.done++;
     render();
   }
   if (refused.length) {
     errorIsLoad = false;
-    error = refused.length === 1 && picked.length === 1
-      ? refused[0]
-      : `${plural(refused.length, "photo")} could not be added: ${refused[refused.length - 1]}`;
+    const why = refused[refused.length - 1];
+    if (refused.length === 1 && picked.length === 1) error = why || "Couldn’t add the photo — try again.";
+    else error = why ? `${plural(refused.length, "photo")} could not be added: ${why}` : `Couldn’t add ${plural(refused.length, "photo")} — try again.`;
   }
   adding = null;
   void syncCovers();
@@ -1125,7 +1148,7 @@ async function deletePhoto(id) {
     mine.delete(id);
     void syncCovers();
     render();
-  } catch (e) { fail(e); }
+  } catch (e) { fail(e, "Couldn’t delete the photo — try again."); }
 }
 
 /** Stop showing a photo that turned out to have been deleted somewhere else. */
@@ -1150,7 +1173,7 @@ async function setUseCutout(id, value) {
     photo.use_cutout = value;
     void syncCovers();
     render();
-  } catch (e) { fail(e); }
+  } catch (e) { fail(e, "Couldn’t switch the picture — try again."); }
 }
 
 // --- Cutouts -----------------------------------------------------------------
@@ -1211,7 +1234,7 @@ async function requestCutout(photoId) {
       else forgetPhoto(photoId);
       return render();
     }
-  } catch (e) { return fail(e); }
+  } catch (e) { return fail(e, "Couldn’t start the cutout — try again."); }
   Object.assign(photo, { cutout_status: "pending", cutout_requested_at: at });
   mine.set(photoId, at);
   cutoutsStopped = false;

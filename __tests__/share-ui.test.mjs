@@ -158,8 +158,18 @@ describe("share panel", () => {
     const h = harness({ create: vi.fn(async () => { throw new Error("Too many active links"); }) });
     await h.ui.open({ id: "item-1", title: "Wifi" });
     await h.ui.create();
-    expect(h.view.html).toContain("Too many active links");
+    // The hub's text is not shown: a failed mint reads in the panel's words.
+    expect(h.view.html).toContain("Couldn’t create the link — try again.");
+    expect(h.view.html).not.toContain("Too many active links");
     expect(createDisabled(h.view.html)).toBe(false);
+  });
+
+  it("shows a refusal worded for the reader as it is", async () => {
+    const worded = Object.assign(new Error("This note already has ten links."), { forUser: true });
+    const h = harness({ create: vi.fn(async () => { throw worded; }) });
+    await h.ui.open({ id: "item-1", title: "Wifi" });
+    await h.ui.create();
+    expect(h.view.html).toContain("This note already has ten links.");
   });
 
   it("says so when the clipboard write fails after a mint", async () => {
