@@ -73,6 +73,8 @@
     .empty, .loading { color: var(--muted); text-align: center; padding: 28px 16px; }
     .empty p { margin: 12px 0 0; }
     .error, .notice { padding: 9px 12px; border-radius: 8px; margin-bottom: 10px; font-size: .86rem; display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; }
+    .load-error { margin: 0 0 12px; padding: 10px 14px; border-radius: 10px; background: var(--hub-tint-danger, #fee2e2); color: var(--hub-tint-danger-fg, #b91c1c); font-size: 0.9rem; display: flex; gap: 10px; align-items: center; justify-content: space-between; }
+    .load-error-retry { background: none; border: 1px solid currentColor; border-radius: 8px; padding: 5px 10px; font: inherit; font-weight: 600; color: inherit; cursor: pointer; flex-shrink: 0; }
     .error { background: var(--red-soft); color: var(--red); }
     .notice { background: var(--plinth); }
     .dismiss { background: none; border: 0; color: inherit; cursor: pointer; font: inherit; font-weight: 800; padding: 0 2px; }
@@ -236,6 +238,8 @@ let membersFailure = "";
 // Failed reads already said. A try comes round every half minute, and one
 // that fails the way an earlier one did is not put back up once dismissed.
 const loadErrorsTold = new Set();
+// The first page could not be read, and has not been since: the banner is up.
+let firstLoadFailed = false;
 // An item's name, notes or date typed into the open sheet and not saved,
 // as `${itemId}|${column}`. Tried again when the box is left or the sheet closed.
 const unsaved = new Set();
@@ -359,8 +363,11 @@ async function loadMembers() {
   } else {
     const res = await answered(fetch(`${CONTEXT}?keys=family.members`));
     // A refusal is not an empty household: thrown, it is tried again.
-    if (!res.ok) throw new Error("The household's members could not be read.");
-    members = ((await res.json())["family.members"]) ?? [];
+    const data = res.ok ? await res.json().catch(() => null) : null;
+    if (!data || typeof data !== "object") throw new Error("The household's members could not be read.");
+    // A 200 can still name a key the hub failed to read: that is a refusal too.
+    if (Array.isArray(data.$errors) && data.$errors.includes("family.members")) throw new Error("The household's members could not be read.");
+    members = data["family.members"] ?? [];
   }
   memberMap = new Map(members.map((m) => [m.id, m]));
   // Demo mode has no hub to say who is looking: the first sample member is.
@@ -542,8 +549,9 @@ function loadData() {
   if (firstLoad) return firstLoad;
   const reading = (async () => {
     if (!DB_URL) { loadDemo(); firstLoaded = true; return; }
-    await readFirstPage();
+    try { await readFirstPage(); } catch (e) { firstLoadFailed = true; throw e; }
     firstLoaded = true;
+    firstLoadFailed = false;
   })();
   firstLoad = reading;
   const clear = () => { if (firstLoad === reading) firstLoad = null; };
@@ -1403,7 +1411,8 @@ function itemGrid(list, emptyText) {
 
 function banners() {
   return `
-    ${error ? `<div class="error"><span>${esc(error)}</span><button class="dismiss" type="button" data-dismiss="error" aria-label="Dismiss">×</button></div>` : ""}
+    ${firstLoadFailed || membersFailure ? `<div class="load-error" data-testid="load-error" role="alert"><span>${firstLoadFailed ? "Couldn’t load your collections." : "Couldn’t load the household’s members."}</span> <button type="button" class="load-error-retry" data-testid="load-retry">Try again</button></div>` : ""}
+    ${error && !(firstLoadFailed && errorIsLoad) && error !== membersFailure ? `<div class="error"><span>${esc(error)}</span><button class="dismiss" type="button" data-dismiss="error" aria-label="Dismiss">×</button></div>` : ""}
     ${notice ? `<div class="notice"><span>${esc(notice)}</span><button class="dismiss" type="button" data-dismiss="notice" aria-label="Dismiss">×</button></div>` : ""}`;
 }
 
@@ -1414,7 +1423,7 @@ function searchRow(placeholder) {
 function homeList() {
   if (searchQ) return itemGrid(items, "");
   // Not "no collections yet": they have not been read, and may be many.
-  if (!firstLoaded) return `<div class="card empty"><p>${error ? "Your collections could not be loaded. Trying again shortly." : "Loading…"}</p></div>`;
+  if (!firstLoaded) return firstLoadFailed ? "" : `<div class="card empty"><p>Loading…</p></div>`;
   if (!collections.length) {
     return `<div class="card empty">${chickadee("nest")}<p>No collections yet. Start one for anything you keep more than a few of.</p></div>`;
   }
@@ -1764,6 +1773,8 @@ document.addEventListener("click", (event) => {
   if (!el) return;
   const d = el.dataset;
   if ("dismiss" in d) { if (d.dismiss === "error") { error = ""; errorIsLoad = false; } else notice = ""; return render(); }
+  // Everything not read yet is read again, in place: the same try the page makes on its own.
+  if (d.testid === "load-retry") return void syncCovers();
   if ("close" in d) return closeSheet();
   if ("home" in d) { openView({ name: "home" }); return render(); }
   if ("newCollection" in d) { sheet = { kind: "collection" }; return render(); }
