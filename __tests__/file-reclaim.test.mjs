@@ -2,7 +2,7 @@
  * Local mirror of the hub's scalar-file-column ratchet.
  *
  * Every column holding a hub file id must be named by
- * `manifest.delete_file_columns`, so the hub reads the id off the doomed row
+ * `manifest.file_columns.<table>.columns`, so the hub reads the id off the doomed row
  * and queues the R2 reclaim inside the DELETE's own transaction. The pattern
  * this replaces was a trailing `files.delete(id).catch(() => {})` in the
  * client, fired after the row was already gone: when it was interrupted the
@@ -12,7 +12,7 @@
  *
  * `delete_cascades` does NOT satisfy this. That key fires when the PARENT is
  * deleted; a direct DELETE of the row that owns the file consults
- * `delete_file_columns` and nothing else.
+ * `file_columns` and nothing else.
  *
  * The hub rejects the bundle at publish time. This test is the same check where
  * it is cheap to fix.
@@ -35,7 +35,8 @@ function schemaFileColumns() {
   return found;
 }
 
-/** Tables/columns whose deletes reclaim durably: delete_file_columns, plus
+/** Tables/columns whose deletes reclaim durably: file_columns (one entry covers both the delete
+ *  and update lanes), plus
  *  versioned_records (that lane reclaims through the countersigned purge). */
 function declaredColumns() {
   const declared = new Map();
@@ -45,7 +46,7 @@ function declaredColumns() {
     declared.set(table, set);
     for (const column of [columns].flat().filter(Boolean)) set.add(column);
   };
-  for (const [table, columns] of Object.entries(manifest.delete_file_columns ?? {})) add(table, columns);
+  for (const [table, entry] of Object.entries(manifest.file_columns ?? {})) add(table, entry.columns);
   for (const cfg of Object.values(manifest.versioned_records ?? {})) {
     add(cfg.table, cfg.file_column);
     add(cfg.version_table, cfg.file_column);
@@ -64,9 +65,9 @@ describe("hub file reclaim", () => {
 
   it("names only real tables and columns", () => {
     const tables = appTableColumns();
-    for (const [table, columns] of Object.entries(manifest.delete_file_columns ?? {})) {
+    for (const [table, { columns = [] }] of Object.entries(manifest.file_columns ?? {})) {
       const names = tables.get(`${prefix}${table}`);
-      expect(names, `delete_file_columns.${table} has no CREATE TABLE`).toBeDefined();
+      expect(names, `file_columns.${table} has no CREATE TABLE`).toBeDefined();
       // The engine resolves the doomed rows by id before deleting them.
       expect(names.has("id"), `${table} needs an id column`).toBe(true);
       for (const column of columns) {
