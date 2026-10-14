@@ -101,21 +101,8 @@
       ]
     }
   },
-  "delete_file_columns": {
-    "photos": [
-      "file_id",
-      "thumb_file_id",
-      "cutout_file_id",
-      "cutout_thumb_file_id"
-    ]
-  },
-  "update_file_columns": {
-    "photos": [
-      "file_id",
-      "thumb_file_id",
-      "cutout_file_id",
-      "cutout_thumb_file_id"
-    ]
+  "file_columns": {
+    "photos": { "columns": ["file_id", "thumb_file_id", "cutout_file_id", "cutout_thumb_file_id"] }
   },
   "delete_cascades": {
     "collections": [
@@ -228,7 +215,6 @@
     }
   },
   "resource_limits": {
-    "max_db_bytes": 52428800,
     "max_file_bytes": 20971520,
     "max_files_bytes": 2147483648
   },
