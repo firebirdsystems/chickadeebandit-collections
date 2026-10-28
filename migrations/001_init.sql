@@ -10,7 +10,7 @@
 -- Migrations are additive only: add 002_*.sql for later changes.
 
 CREATE TABLE IF NOT EXISTS app_collections__collections (
-  id          TEXT PRIMARY KEY,
+  id          TEXT NOT NULL PRIMARY KEY,
   name        TEXT NOT NULL,
   description TEXT NOT NULL DEFAULT '',
   -- 1: a new photo in this collection has its background removed.
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS app_collections__collections (
 
 -- A tag belongs to one collection: "Steiff" means nothing among the power tools.
 CREATE TABLE IF NOT EXISTS app_collections__tags (
-  id            TEXT PRIMARY KEY,
+  id            TEXT NOT NULL PRIMARY KEY,
   collection_id TEXT NOT NULL,
   name          TEXT NOT NULL,
   visibility    TEXT NOT NULL DEFAULT 'everyone' CHECK (visibility = 'everyone'),
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS app_collections__tags (
 
 -- A location is shared by every collection: the garage holds tools and bears.
 CREATE TABLE IF NOT EXISTS app_collections__locations (
-  id         TEXT PRIMARY KEY,
+  id         TEXT NOT NULL PRIMARY KEY,
   name       TEXT NOT NULL,
   visibility TEXT NOT NULL DEFAULT 'everyone' CHECK (visibility = 'everyone'),
   created_by TEXT NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS app_collections__locations (
 );
 
 CREATE TABLE IF NOT EXISTS app_collections__items (
-  id            TEXT PRIMARY KEY,
+  id            TEXT NOT NULL PRIMARY KEY,
   collection_id TEXT NOT NULL,
   name          TEXT NOT NULL,
   note          TEXT NOT NULL DEFAULT '',
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS app_collections__items (
 --   failed   the hub could not make it; may be asked for again
 --   quota    the household's cutouts for the month are used up
 CREATE TABLE IF NOT EXISTS app_collections__photos (
-  id                  TEXT PRIMARY KEY,
+  id                  TEXT NOT NULL PRIMARY KEY,
   collection_id       TEXT NOT NULL,
   item_id             TEXT NOT NULL,
   file_id             TEXT NOT NULL,
